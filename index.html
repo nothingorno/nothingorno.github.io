@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Site Under Maintenance</title>
 
-  <!-- Google Fonts: Inter & Material Symbols Outlined -->
+  <!-- Google Fonts: Inter, JetBrains Mono & Material Symbols Outlined -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #1a1a1a; /* Solid dark grey background */
+      background-color: #1a1a1a;
       color: #ffffff;
       padding: 20px;
     }
@@ -65,7 +65,7 @@
       line-height: 1.5;
     }
 
-    /* Fake Error Box */
+    /* Error Box */
     .error-box {
       background-color: #141414;
       border: 1px solid #2a2a2a;
@@ -96,19 +96,28 @@
       font-weight: 500;
     }
 
+    /* Rounded Square Copy Button */
     .copy-btn {
       background-color: #2e2e2e;
       border: 1px solid #444444;
       color: #e0e0e0;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 0.7rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      transition: background-color 0.2s ease;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .copy-btn .material-symbols-outlined {
+      font-size: 18px;
     }
 
     .copy-btn:hover {
       background-color: #3d3d3d;
+      border-color: #555555;
       color: #ffffff;
     }
   </style>
@@ -124,11 +133,13 @@
     <h1>This site is currently closed due to maintenance</h1>
     <p class="subtitle">We are performing scheduled updates to improve performance. Please check back shortly.</p>
 
-    <!-- Realistic Copyable Error Box -->
+    <!-- Error Box -->
     <div class="error-box">
       <div class="error-header">
-        <span>Error flagged by creator:</span>
-        <button class="copy-btn" onclick="copyError()">Copy Code</button>
+        <span>Error code:</span>
+        <button class="copy-btn" id="copyBtn" onclick="copyError()" title="Copy error code">
+          <span class="material-symbols-outlined" id="copyIcon">content_copy</span>
+        </button>
       </div>
       <span class="error-code" id="errorCode">0x02583</span>
     </div>
@@ -138,9 +149,12 @@
     function copyError() {
       const errorText = document.getElementById("errorCode").innerText;
       navigator.clipboard.writeText(errorText);
-      const btn = document.querySelector(".copy-btn");
-      btn.innerText = "Copied!";
-      setTimeout(() => btn.innerText = "Copy Code", 2000);
+      const icon = document.getElementById("copyIcon");
+      
+      icon.innerText = "check";
+      setTimeout(() => {
+        icon.innerText = "content_copy";
+      }, 2000);
     }
   </script>
 
