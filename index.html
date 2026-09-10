@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <!-- Basic Title & Description -->
   <title>nothingorno</title>
   <meta name="description" content="help">
@@ -10,10 +13,126 @@
   <meta property="og:description" content="im soo silly bro XD" />
   <meta property="og:url" content="https://nothingorno.github.io/" />
   <meta property="og:type" content="website" />
-  <meta property="theme-color" content="#5865F2" /> <!-- Changes the side bar color in Discord! -->
+  <meta property="theme-color" content="#5865F2" />
+
+  <!-- CSS Styling -->
+  <style>
+    /* Global Reset & Dark Mode Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation Bar */
+    .navbar {
+      background-color: #1e1e1e;
+      border-bottom: 1px solid #333;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar .username {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .navbar .nav-links a {
+      color: #a0a0a0;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .navbar .nav-links a:hover {
+      color: #5865F2;
+    }
+
+    /* Main Content Layout */
+    .content {
+      max-width: 800px;
+      width: 90%;
+      margin: 40px auto;
+      flex: 1;
+    }
+
+    .card {
+      background-color: #1e1e1e;
+      border: 1px solid #2d2d2d;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    h1, h2 {
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    p {
+      line-height: 1.6;
+      color: #b0b0b0;
+      margin-bottom: 16px;
+    }
+
+    /* Tag / Badge Styling */
+    .badge {
+      display: inline-block;
+      background-color: #5865F2;
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  </style>
 </head>
-<body style="font-family: sans-serif; text-align: center; padding-top: 50px;">
-  <h1>Hello, World!</h1>
-  <p>im such a noob bro XD</p>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="navbar">
+    <div class="username">nothingorno</div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Projects</a>
+    </div>
+  </nav>
+
+  <!-- Main Section -->
+  <main class="content">
+    
+    <section class="card">
+      <span class="badge">Update</span>
+      <h1 style="margin-top: 10px;">Welcome to the Main Site</h1>
+      <p>im such a noob bro XD (now running in dark mode!)</p>
+    </section>
+
+    <section class="card">
+      <h2>Roblox Game Fan Site (Preview)</h2>
+      <p>This section is reserved for upcoming guides, stats, and updates once game permissions are sorted out.</p>
+    </section>
+
+  </main>
+
 </body>
 </html>
