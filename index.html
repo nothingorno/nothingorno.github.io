@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Site Under Maintenance</title>
+  <title>Italian Railways | Fan Hub & Showcase</title>
 
+  <!-- Google Fonts & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
   <style>
@@ -20,134 +21,670 @@
     body {
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
+      color: #ffffff;
+      background: radial-gradient(circle at 50% 10%, #500a12 0%, #1a080a 50%, #121212 100%);
+      background-attachment: fixed;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      background-color: #1a1a1a;
-      color: #ffffff;
       padding: 20px;
+      top: 0px !important;
     }
 
-    .card {
-      background-color: #242424;
-      border: 1px solid #333333;
-      border-radius: 12px;
-      padding: 40px;
-      max-width: 520px;
+    #google_translate_element,
+    .goog-te-banner-frame,
+    .skiptranslate {
+      display: none !important;
+    }
+
+    .silver-text {
+      background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 30%, #94a3b8 70%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .silver-icon {
+      background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 30%, #94a3b8 70%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .navbar {
       width: 100%;
-      text-align: center;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    }
-
-    .status-icon {
-      font-size: 72px;
-      color: #ff4d4d;
-      margin-bottom: 16px;
-      user-select: none;
-    }
-
-    h1 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #ffffff;
-      letter-spacing: -0.3px;
-    }
-
-    p.subtitle {
-      font-size: 0.9rem;
-      color: #a0a0a0;
-      margin-bottom: 24px;
-      line-height: 1.5;
-    }
-
-    .error-box {
-      background-color: #141414;
-      border: 1px solid #2a2a2a;
-      border-radius: 8px;
-      padding: 14px 16px;
-      text-align: left;
-      margin-top: 10px;
-      word-break: break-all;
-    }
-
-    .error-header {
+      max-width: 950px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 14px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.75rem;
-      color: #777777;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
-    .error-code {
-      font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
-      font-size: 0.95rem;
-      color: #ff6b6b;
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .brand-prefix, .brand-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lang-selector {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #cbd5e1;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 950px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .hero-info h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .hero-info p {
+      color: #a1a1aa;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      margin-top: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 16px;
+    }
+
+    .launch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.88rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: linear-gradient(135deg, #a4133c, #800f2f);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(164, 19, 60, 0.4);
+    }
+
+    /* Map Styling */
+    .map-wrapper {
+      margin-top: 16px;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      overflow-x: auto;
+    }
+
+    .network-map {
+      width: 100%;
+      height: auto;
+      min-width: 450px;
+      display: block;
+    }
+
+    .map-line {
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .station-node circle {
+      fill: #e76f51;
+      stroke: #ffffff;
+      stroke-width: 2.5;
+    }
+
+    .station-node.dismantled circle {
+      fill: #27272a;
+      stroke: #71717a;
+      stroke-width: 2;
+    }
+
+    .station-node.dismantled text {
+      fill: #a1a1aa;
+      font-style: italic;
+    }
+
+    .station-node text {
+      fill: #ffffff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
       font-weight: 500;
     }
 
-    .copy-btn {
-      background-color: #2e2e2e;
-      border: 1px solid #444444;
-      color: #e0e0e0;
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      display: inline-flex;
+    .dir-text {
+      fill: #94a3b8;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+      color: #f4f4f5;
+      display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
+    }
+
+    .section-desc {
+      font-size: 0.88rem;
+      color: #a1a1aa;
+      line-height: 1.5;
+    }
+
+    .info-list {
+      list-style: none;
+      margin-top: 10px;
+    }
+
+    .info-list li {
+      padding: 10px 14px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      color: #e4e4e7;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .info-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .cat-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin: 14px 0 6px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Creator Spotlight Styling */
+    .creator-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .creator-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .creator-name {
+      font-weight: 700;
+      color: #38bdf8;
+      font-size: 0.95rem;
+    }
+
+    /* Fleet Filter Tabs */
+    .tab-bar {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #a1a1aa;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.2s ease, border-color 0.2s ease;
+      transition: all 0.2s ease;
     }
 
-    .copy-btn .material-symbols-outlined {
-      font-size: 18px;
-    }
-
-    .copy-btn:hover {
-      background-color: #3d3d3d;
-      border-color: #555555;
+    .tab-btn.active, .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
       color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Footer Styling */
+    .site-footer {
+      width: 100%;
+      max-width: 950px;
+      margin-top: 12px;
+      margin-bottom: 24px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: #94a3b8;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 12px;
+    }
+
+    .footer-brand {
+      font-weight: 700;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-disclaimer {
+      line-height: 1.5;
+      color: #71717a;
     }
   </style>
 </head>
 <body>
 
-  <main class="card">
-    <span class="material-symbols-outlined status-icon">
-      block
-    </span>
+  <div id="google_translate_element"></div>
 
-    <h1>This site is currently closed due to maintenance</h1>
-    <p class="subtitle">We are performing scheduled updates to improve performance. Please check back shortly.</p>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="#" class="brand-logo">
+      <span class="brand-prefix silver-text notranslate">IR</span>
+      <span class="brand-title silver-text">Italian Railways</span>
+    </a>
+    
+    <div class="nav-right">
+      <select class="lang-selector notranslate" id="languageSelect" onchange="translatePage(this.value)">
+        <option value="en">English</option>
+        <option value="it">Italiano</option>
+      </select>
 
-    <div class="error-box">
-      <div class="error-header">
-        <span>Error code flagged by owner:</span>
-        <button class="copy-btn" id="copyBtn" onclick="copyError()" title="Copy error code">
-          <span class="material-symbols-outlined" id="copyIcon">content_copy</span>
-        </button>
+      <div class="nav-links">
+        <a href="#summary">Summary</a>
+        <a href="#creators">Creators</a>
+        <a href="#signals">Signals & Rules</a>
+        <a href="#map">Map</a>
+        <a href="#fleet">Fleet</a>
       </div>
-      <span class="error-code" id="errorCode">0x02583</span>
     </div>
+  </nav>
+
+  <main class="container">
+    
+    <!-- Hero / Showcase Header -->
+    <section class="glass-card" id="trailer">
+      <div class="hero-info">
+        <h1 class="silver-text">Italian Railways Fan Hub</h1>
+        <p>Community showcase portal for the Italian railway simulator developed by <strong>Parthenope Studios</strong> on Roblox. Experience realistic signaling, authentic Italian rolling stock, and detailed station master operations.</p>
+        
+        <!-- Video Trailer Container -->
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/Lgttb7e3sS0" title="Italian Railways Trailer Showcase" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <div class="hero-actions">
+          <a href="roblox://placeID=138215576520684" class="launch-btn">
+            <span class="material-symbols-outlined silver-icon notranslate">train</span> Launch Game on Roblox
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Daily Creator Showcase Section -->
+    <section class="glass-card" id="creators">
+      <h2>
+        <span class="material-symbols-outlined silver-icon notranslate">videocam</span>
+        <span class="silver-text">Daily Creator Spotlight</span>
+      </h2>
+      <p class="section-desc">Highlighting featured content creators covering Italian Railways Roblox gameplay, updates, and station master sessions:</p>
+
+      <div class="creator-card">
+        <div class="creator-header">
+          <span class="creator-name">Featured Creator: il_nicollx</span>
+          <span class="info-badge silver-text">Daily Spotlight</span>
+        </div>
+        <p style="font-size: 0.85rem; color: #a1a1aa;">Explore station dispatcher gameplay, station master roleplay, and scenic transits across the Faentina network.</p>
+        
+        <div class="video-container" style="margin-top: 8px;">
+          <iframe src="https://www.youtube.com/embed/FRvGG2o4vWs" title="Italian Railways Content Creator Gameplay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detailed Game Summary Section -->
+    <section class="glass-card" id="summary">
+      <h2>
+        <span class="material-symbols-outlined silver-icon notranslate">info</span>
+        <span class="silver-text">Detailed Game Overview & Mechanics</span>
+      </h2>
+      <p class="section-desc">
+        <strong>Italian Railways</strong> is a simulation game created by <em>Parthenope Studios</em>, built around the scenic <strong>Ferrovia Faentina</strong> line running between Faenza and Florence. The simulator emphasizes prototypical accuracy, station control box mechanics, and cooperative multiplayer railway operations.
+      </p>
+      
+      <div style="margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+        <div style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);">
+          <strong style="color: #38bdf8; display: flex; align-items: center; gap: 6px;">
+            <span class="material-symbols-outlined notranslate">flag</span> Station Masters (Capostazione)
+          </strong>
+          <p style="font-size: 0.8rem; color: #a1a1aa; margin-top: 6px; line-height: 1.4;">
+            Operate signal interlocking desks, adjust manual track switches, clear track blocks, and dispatch arriving trains using official signaling batons (Paletta).
+          </p>
+        </div>
+
+        <div style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);">
+          <strong style="color: #4ade80; display: flex; align-items: center; gap: 6px;">
+            <span class="material-symbols-outlined notranslate">confirmation_number</span> Passengers & Railfans
+          </strong>
+          <p style="font-size: 0.8rem; color: #a1a1aa; margin-top: 6px; line-height: 1.4;">
+            Explore detailed station buildings, purchase and validate train tickets, board regional express trains, and take scenic photos along trackside view points.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Expanded Signals & Operational Rules Guide -->
+    <section class="glass-card" id="signals">
+      <h2>
+        <span class="material-symbols-outlined silver-icon notranslate">traffic</span>
+        <span class="silver-text">Italian Railway Signals & Regulations</span>
+      </h2>
+      <p class="section-desc">Official RFI (Rete Ferroviaria Italiana) signal color meanings and operating procedures used in-game:</p>
+      
+      <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; border-left: 4px solid #ef4444; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <strong style="color: #f87171;">Rosso (Red - Stop)</strong>
+            <p style="font-size: 0.8rem; color: #a1a1aa; margin-top: 2px;">Absolute stop signal. Train must come to a full stop before reaching the post.</p>
+          </div>
+          <span class="info-badge" style="border-color: #ef4444; color: #f87171;">0 km/h</span>
+        </div>
+
+        <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; border-left: 4px solid #f59e0b; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <strong style="color: #fbbf24;">Giallo (Yellow - Caution)</strong>
+            <p style="font-size: 0.8rem; color: #a1a1aa; margin-top: 2px;">Advance warning. Prepare to stop at the next signal post.</p>
+          </div>
+          <span class="info-badge" style="border-color: #f59e0b; color: #fbbf24;">30 - 60 km/h</span>
+        </div>
+
+        <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; border-left: 4px solid #22c55e; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <strong style="color: #4ade80;">Verde (Green - Clear)</strong>
+            <p style="font-size: 0.8rem; color: #a1a1aa; margin-top: 2px;">Clear track ahead. Proceed at normal maximum line speed.</p>
+          </div>
+          <span class="info-badge" style="border-color: #22c55e; color: #4ade80;">Line Speed</span>
+        </div>
+
+        <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; border-left: 4px solid #38bdf8; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <strong style="color: #38bdf8;">Giallo Lampeggiante (Flashing Yellow)</strong>
+            <p style="font-size: 0.8rem; color: #a1a1aa; margin-top: 2px;">Upcoming track turnout switch set to divergent path.</p>
+          </div>
+          <span class="info-badge" style="border-color: #38bdf8; color: #38bdf8;">Turnout Speed</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Linea Faentina Network Map -->
+    <section class="glass-card" id="map">
+      <h2>
+        <span class="material-symbols-outlined silver-icon notranslate">alt_route</span> 
+        <span class="silver-text">Linea Faentina Map</span>
+      </h2>
+      <p class="section-desc">Sequential route diagram across the Apennine pass (North to South):</p>
+      
+      <div class="map-wrapper">
+        <svg viewBox="0 0 500 750" class="network-map">
+          <text x="210" y="30" text-anchor="middle" class="dir-text">▲ Faenza</text>
+          <path d="M 210 45 L 210 705" class="map-line" />
+
+          <g class="station-node"><circle cx="210" cy="65" r="7" /><text x="230" y="69">Stazione di S. Cassiano</text></g>
+          <g class="station-node"><circle cx="210" cy="115" r="7" /><text x="230" y="119">Stazione di San Martino in Gattara</text></g>
+          <g class="station-node dismantled"><circle cx="210" cy="165" r="6" /><text x="230" y="169">Stazione di Popolano di Marradi (Dismessa)</text></g>
+          <g class="station-node"><circle cx="210" cy="215" r="7" /><text x="230" y="219">Stazione di Marradi</text></g>
+          <g class="station-node"><circle cx="210" cy="265" r="7" /><text x="230" y="269">Stazione di Biforco</text></g>
+          <g class="station-node"><circle cx="210" cy="315" r="7" /><text x="230" y="319">Stazione di Crespino sul Lamone</text></g>
+          <g class="station-node"><circle cx="210" cy="365" r="7" /><text x="230" y="369">Stazione di Ronta</text></g>
+          <g class="station-node"><circle cx="210" cy="415" r="7" /><text x="230" y="419">Stazione di Borgo S. Lorenzo</text></g>
+          <g class="station-node"><circle cx="210" cy="465" r="7" /><text x="230" y="469">Stazione di S. Piero a Sieve</text></g>
+          <g class="station-node"><circle cx="210" cy="515" r="7" /><text x="230" y="519">Stazione di Campomigliaio</text></g>
+          <g class="station-node"><circle cx="210" cy="565" r="7" /><text x="230" y="569">Stazione di Vaglia</text></g>
+          <g class="station-node dismantled"><circle cx="210" cy="615" r="6" /><text x="230" y="619">Stazione di Fontebuona (Dismessa)</text></g>
+          <g class="station-node"><circle cx="210" cy="665" r="7" /><text x="230" y="669">Stazione di Fiesole-Caldine</text></g>
+
+          <text x="210" y="725" text-anchor="middle" class="dir-text">▼ Firenze</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Interactive Categorized Fleet List -->
+    <section class="glass-card" id="fleet">
+      <h2>
+        <span class="material-symbols-outlined silver-icon notranslate">directions_railway</span> 
+        <span class="silver-text">Complete Fleet Directory</span>
+      </h2>
+      <p class="section-desc">Browse all operational locomotives, railcars, and rolling stock modeled in the game:</p>
+
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="filterFleet('all')">All Fleet</button>
+        <button class="tab-btn" onclick="filterFleet('electric')">Electric Locomotives</button>
+        <button class="tab-btn" onclick="filterFleet('diesel')">Diesel Railcars</button>
+        <button class="tab-btn" onclick="filterFleet('emu')">EMU Sets</button>
+        <button class="tab-btn" onclick="filterFleet('coaches')">Coaches & Cars</button>
+      </div>
+      
+      <div id="fleetContainer" style="margin-top: 14px;">
+        <div class="fleet-group" data-cat="electric">
+          <div class="cat-title"><span class="material-symbols-outlined notranslate">bolt</span> Electric Locomotives & Push-Pull</div>
+          <ul class="info-list">
+            <li><span>FS Class E.464</span> <span class="info-badge silver-text">Regional / Push-Pull</span></li>
+            <li><span>FS Class E.444R "Tartaruga"</span> <span class="info-badge silver-text">Express / Intercity</span></li>
+            <li><span>FS Class E.656 "Caimano"</span> <span class="info-badge silver-text">Classic Heavy Rail</span></li>
+          </ul>
+        </div>
+
+        <div class="fleet-group" data-cat="diesel">
+          <div class="cat-title"><span class="material-symbols-outlined notranslate">local_gas_station</span> Diesel Railcars & DMUs</div>
+          <ul class="info-list">
+            <li><span>ALn 668 Series</span> <span class="info-badge silver-text">Non-electrified Branch Line</span></li>
+            <li><span>ATR 220 "Swing" DMU</span> <span class="info-badge silver-text">Modern Regional Diesel</span></li>
+          </ul>
+        </div>
+
+        <div class="fleet-group" data-cat="emu">
+          <div class="cat-title"><span class="material-symbols-outlined notranslate">train</span> Electric Multiple Units (EMUs)</div>
+          <ul class="info-list">
+            <li><span>ETR 425 / 525 "Jazz"</span> <span class="info-badge silver-text">Coradia Meridian EMU</span></li>
+            <li><span>ETR 104 / 521 "Pop" & "Rock"</span> <span class="info-badge silver-text">Next-Gen Regional</span></li>
+          </ul>
+        </div>
+
+        <div class="fleet-group" data-cat="coaches">
+          <div class="cat-title"><span class="material-symbols-outlined notranslate">directions_subway</span> Passenger Coaches & Maintenance</div>
+          <ul class="info-list">
+            <li><span>Carrozze MDVC / MDVE</span> <span class="info-badge silver-text">Medium Distance Cars</span></li>
+            <li><span>Carrozze UIC-Z1</span> <span class="info-badge silver-text">Intercity Coaches</span></li>
+            <li><span>Track Inspection Vehicles</span> <span class="info-badge silver-text">Maintenance Fleet</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <script>
-    function copyError() {
-      const errorText = document.getElementById("errorCode").innerText;
-      navigator.clipboard.writeText(errorText);
-      const icon = document.getElementById("copyIcon");
-      
-      icon.innerText = "check";
-      setTimeout(() => {
-        icon.innerText = "content_copy";
-      }, 2000);
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="material-symbols-outlined silver-icon notranslate">train</span>
+        <span>Italian Railways Fan Hub</span>
+      </div>
+      <div>
+        <span>Created & Maintained by a Fan</span>
+      </div>
+    </div>
+    <p class="footer-disclaimer">
+      This site is an unofficial, independent fan project dedicated to community guides and media for the Italian Railways Roblox simulation game. This website is not affiliated with, endorsed, or sponsored by Parthenope Studios, Roblox Corporation, Trenitalia, or Ferrovie dello Stato Italiane S.p.A.
+    </p>
+  </footer>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+
+    function translatePage(langCode) {
+      document.cookie = "googtrans=/en/" + langCode + "; path=/;";
+      document.cookie = "googtrans=/en/" + langCode + "; domain=" + window.location.hostname + "; path=/;";
+
+      let count = 0;
+      const interval = setInterval(() => {
+        const googleCombo = document.querySelector('.goog-te-combo');
+        if (googleCombo) {
+          googleCombo.value = langCode;
+          googleCombo.dispatchEvent(new Event('change'));
+          googleCombo.dispatchEvent(new Event('input'));
+          clearInterval(interval);
+        }
+        count++;
+        if (count > 20) clearInterval(interval);
+      }, 100);
+    }
+
+    function filterFleet(category) {
+      const groups = document.querySelectorAll('.fleet-group');
+      const buttons = document.querySelectorAll('.tab-btn');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      groups.forEach(group => {
+        if (category === 'all' || group.getAttribute('data-cat') === category) {
+          group.style.display = 'block';
+        } else {
+          group.style.display = 'none';
+        }
+      });
     }
   </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>
