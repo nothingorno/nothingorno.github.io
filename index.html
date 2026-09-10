@@ -105,6 +105,55 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+
+    /* Games Grid Layout */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .game-card {
+      background-color: #252525;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .game-card h3 {
+      color: #ffffff;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .game-card p {
+      font-size: 0.85rem;
+      color: #a0a0a0;
+      margin-bottom: 16px;
+    }
+
+    /* Play Button Styling */
+    .play-btn {
+      display: inline-block;
+      text-align: center;
+      background-color: #00a2ff;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .play-btn:hover {
+      background-color: #0088d1;
+      transform: translateY(-2px);
+    }
   </style>
 </head>
 <body>
@@ -114,22 +163,34 @@
     <div class="username">nothingorno</div>
     <div class="nav-links">
       <a href="#">Home</a>
-      <a href="#">Projects</a>
+      <a href="#">Games</a>
     </div>
   </nav>
 
   <!-- Main Section -->
   <main class="content">
     
+    <!-- Personal Profile Card -->
     <section class="card">
-      <span class="badge">Update</span>
-      <h1 style="margin-top: 10px;">Welcome to the Main Site</h1>
-      <p>im such a noob bro XD (now running in dark mode!)</p>
+      <span class="badge">Profile</span>
+      <h2 style="margin-top: 10px;">Who is nothingorno?</h2>
+      <p>Welcome! I'm nothingorno—just a gamer building a cool site, learning web dev, and sharing my favorite Roblox experiences. Check out my featured games below!</p>
     </section>
 
+    <!-- Roblox Games Section -->
     <section class="card">
-      <h2>Roblox Game Fan Site (Preview)</h2>
-      <p>This section is reserved for upcoming guides, stats, and updates once game permissions are sorted out.</p>
+      <h2>Featured Games</h2>
+      <p>A collection of my top Roblox picks, guides, and quick-launch buttons.</p>
+      
+      <!-- Games Grid Layout -->
+      <div class="games-grid">
+        <!-- Game Card Placeholder -->
+        <div class="game-card">
+          <h3>Game Title</h3>
+          <p>Short game description goes here...</p>
+          <a href="#" class="play-btn">Play Game</a>
+        </div>
+      </div>
     </section>
 
   </main>
