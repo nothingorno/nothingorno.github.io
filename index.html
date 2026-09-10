@@ -3,21 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Basic Title & Description -->
-  <title>nothingorno</title>
-  <meta name="description" content="help">
+  <title>Site Under Maintenance</title>
 
-  <!-- Open Graph Meta Tags (For Discord, Facebook, etc.) -->
-  <meta property="og:title" content="im nothingorno and i dont know how to present myself" />
-  <meta property="og:description" content="im soo silly bro XD" />
-  <meta property="og:url" content="https://nothingorno.github.io/" />
-  <meta property="og:type" content="website" />
-  <meta property="theme-color" content="#5865F2" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
-  <!-- CSS Styling -->
   <style>
-    /* Global Reset & Dark Mode Base */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -25,175 +18,136 @@
     }
 
     body {
-      background-color: #121212;
-      color: #e0e0e0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Inter', sans-serif;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-    }
-
-    /* Top Navigation Bar */
-    .navbar {
-      background-color: #1e1e1e;
-      border-bottom: 1px solid #333;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .navbar .username {
-      font-weight: 700;
-      font-size: 1.2rem;
+      background-color: #1a1a1a;
       color: #ffffff;
-      letter-spacing: 0.5px;
-    }
-
-    .navbar .nav-links a {
-      color: #a0a0a0;
-      text-decoration: none;
-      margin-left: 20px;
-      font-size: 0.95rem;
-      transition: color 0.2s ease;
-    }
-
-    .navbar .nav-links a:hover {
-      color: #5865F2;
-    }
-
-    /* Main Content Layout */
-    .content {
-      max-width: 800px;
-      width: 90%;
-      margin: 40px auto;
-      flex: 1;
+      padding: 20px;
     }
 
     .card {
-      background-color: #1e1e1e;
-      border: 1px solid #2d2d2d;
-      border-radius: 8px;
-      padding: 24px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      background-color: #242424;
+      border: 1px solid #333333;
+      border-radius: 12px;
+      padding: 40px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
 
-    h1, h2 {
-      color: #ffffff;
-      margin-bottom: 12px;
-    }
-
-    p {
-      line-height: 1.6;
-      color: #b0b0b0;
+    .status-icon {
+      font-size: 72px;
+      color: #ff4d4d;
       margin-bottom: 16px;
+      user-select: none;
     }
 
-    /* Tag / Badge Styling */
-    .badge {
-      display: inline-block;
-      background-color: #5865F2;
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 10px;
       color: #ffffff;
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    p.subtitle {
+      font-size: 0.9rem;
+      color: #a0a0a0;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .error-box {
+      background-color: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 14px 16px;
+      text-align: left;
+      margin-top: 10px;
+      word-break: break-all;
+    }
+
+    .error-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      color: #777777;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
-    /* Games Grid Layout */
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
+    .error-code {
+      font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+      font-size: 0.95rem;
+      color: #ff6b6b;
+      font-weight: 500;
     }
 
-    .game-card {
-      background-color: #252525;
-      border: 1px solid #333;
+    .copy-btn {
+      background-color: #2e2e2e;
+      border: 1px solid #444444;
+      color: #e0e0e0;
+      width: 32px;
+      height: 32px;
       border-radius: 6px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
     }
 
-    .game-card h3 {
+    .copy-btn .material-symbols-outlined {
+      font-size: 18px;
+    }
+
+    .copy-btn:hover {
+      background-color: #3d3d3d;
+      border-color: #555555;
       color: #ffffff;
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-    }
-
-    .game-card p {
-      font-size: 0.85rem;
-      color: #a0a0a0;
-      margin-bottom: 16px;
-    }
-
-    /* Play Button Styling */
-    .play-btn {
-      display: inline-block;
-      text-align: center;
-      background-color: #00a2ff;
-      color: #ffffff;
-      padding: 8px 16px;
-      border-radius: 4px;
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: background-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .play-btn:hover {
-      background-color: #0088d1;
-      transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Navigation Bar -->
-  <nav class="navbar">
-    <div class="username">nothingorno</div>
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Games</a>
-    </div>
-  </nav>
+  <main class="card">
+    <span class="material-symbols-outlined status-icon">
+      block
+    </span>
 
-  <!-- Main Section -->
-  <main class="content">
-    
-    <!-- Personal Profile Card -->
-    <section class="card">
-      <span class="badge">Profile</span>
-      <h2 style="margin-top: 10px;">Who is nothingorno?</h2>
-      <p>Welcome! I'm nothingorno—just a gamer building a cool site, learning web dev, and sharing my favorite Roblox experiences. Check out my featured games below!</p>
-    </section>
+    <h1>This site is currently closed due to maintenance</h1>
+    <p class="subtitle">We are performing scheduled updates to improve performance. Please check back shortly.</p>
 
-    <!-- Roblox Games Section -->
-    <section class="card">
-      <h2>Featured Games</h2>
-      <p>A collection of my top Roblox picks, guides, and quick-launch buttons.</p>
-      
-      <!-- Games Grid Layout -->
-      <div class="games-grid">
-        <!-- Game Card Placeholder -->
-        <div class="game-card">
-          <h3>Game Title</h3>
-          <p>Short game description goes here...</p>
-          <a href="#" class="play-btn">Play Game</a>
-        </div>
+    <div class="error-box">
+      <div class="error-header">
+        <span>Error code flagged by owner:</span>
+        <button class="copy-btn" id="copyBtn" onclick="copyError()" title="Copy error code">
+          <span class="material-symbols-outlined" id="copyIcon">content_copy</span>
+        </button>
       </div>
-    </section>
-
+      <span class="error-code" id="errorCode">0x02583</span>
+    </div>
   </main>
+
+  <script>
+    function copyError() {
+      const errorText = document.getElementById("errorCode").innerText;
+      navigator.clipboard.writeText(errorText);
+      const icon = document.getElementById("copyIcon");
+      
+      icon.innerText = "check";
+      setTimeout(() => {
+        icon.innerText = "content_copy";
+      }, 2000);
+    }
+  </script>
 
 </body>
 </html>
