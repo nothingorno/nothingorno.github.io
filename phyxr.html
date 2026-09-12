@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhyXR Engine | NothingOrNo</title>
+
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      color: #ffffff;
+      background: radial-gradient(circle at 50% 10%, #1a1e29 0%, #0f1117 50%, #08090c 100%);
+      background-attachment: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .silver-text {
+      background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 30%, #94a3b8 70%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .navbar {
+      width: 100%;
+      max-width: 950px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    .back-btn {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s ease;
+    }
+
+    .back-btn:hover {
+      color: #ffffff;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 950px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 28px;
+    }
+
+    .engine-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .engine-header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    .site-footer {
+      width: 100%;
+      max-width: 950px;
+      margin-top: 12px;
+      margin-bottom: 24px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <nav class="navbar">
+    <a href="index.html" class="brand-logo">
+      <span class="material-symbols-outlined silver-icon">code</span>
+      <span class="brand-title silver-text">NothingOrNo</span>
+    </a>
+    
+    <a href="index.html" class="back-btn">
+      <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
+      Back to Products
+    </a>
+  </nav>
+
+  <main class="container">
+    <section class="glass-card">
+      <div class="engine-header">
+        <span class="material-symbols-outlined" style="font-size: 36px; color: #60a5fa;">tune</span>
+        <h1 class="silver-text">PhyXR Engine</h1>
+      </div>
+      <p style="color: #94a3b8; line-height: 1.6;">
+        Welcome to the documentation and overview page for <strong>PhyXR</strong>. Add details about your physics asset, installation guides, code snippets, or video previews here!
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div>Made by <strong>NothingOrNo</strong></div>
+  </footer>
+
+</body>
+</html>
