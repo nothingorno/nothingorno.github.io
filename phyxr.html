@@ -247,7 +247,7 @@
     NothingOrNo • Roblox Studio Products
   </footer>
 
-  <script>
+<script>
     // Paste your Lua / Luau code inside rawCode
     const rawCode = `-- PhyXR Physics Engine Initialization
 local PhyXR = require(game.ReplicatedStorage:WaitForChild("PhyXR"))
@@ -268,24 +268,44 @@ end
 
 return vehicle`;
 
-    // Luau Syntax Highlighter
+    // Safe Luau Syntax Highlighter
     function highlightLua(code) {
-      let escaped = code
+      const tokens = [];
+
+      // Tokenize strings, comments, numbers, keywords, and builtins
+      let highlighted = code
+        // 1. Escape HTML entities first
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+        .replace(/>/g, "&gt;")
 
-      return escaped
-        // Single line comments
-        .replace(/(--.*)/g, '<span class="lua-comment">$1</span>')
-        // Strings
-        .replace(/("[^"]*"|'[^']*')/g, '<span class="lua-string">$1</span>')
-        // Keywords
+        // 2. Extract Comments
+        .replace(/(--[^\n]*)/g, match => {
+          tokens.push(`<span class="lua-comment">${match}</span>`);
+          return `___TOKEN_${tokens.length - 1}___`;
+        })
+
+        // 3. Extract Strings
+        .replace(/("[^"]*"|'[^']*')/g, match => {
+          tokens.push(`<span class="lua-string">${match}</span>`);
+          return `___TOKEN_${tokens.length - 1}___`;
+        })
+
+        // 4. Highlight Keywords
         .replace(/\b(local|function|return|end|if|then|else|elseif|for|while|do|repeat|until|in|require|self)\b/g, '<span class="lua-keyword">$1</span>')
-        // Built-ins & Services
+
+        // 5. Highlight Built-ins & Globals
         .replace(/\b(game|Workspace|ReplicatedStorage|print|warn|error|WaitForChild|GetService)\b/g, '<span class="lua-builtin">$1</span>')
-        // Numbers
+
+        // 6. Highlight Numbers
         .replace(/\b(\d+)\b/g, '<span class="lua-number">$1</span>');
+
+      // Re-insert comments and strings cleanly
+      tokens.forEach((token, index) => {
+        highlighted = highlighted.replace(`___TOKEN_${index}___`, token);
+      });
+
+      return highlighted;
     }
 
     // Render code
