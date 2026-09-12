@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Site Under Maintenance</title>
+  <title>NothingOrNo | Roblox Studio Products</title>
 
-  <!-- Google Fonts: Inter, JetBrains Mono & Material Symbols Outlined -->
+  <!-- Google Fonts & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
   <style>
-    /* Global Reset & Solid Dark Grey Background */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -22,141 +21,287 @@
     body {
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #1a1a1a;
       color: #ffffff;
+      background: radial-gradient(circle at 50% 10%, #1a1e29 0%, #0f1117 50%, #08090c 100%);
+      background-attachment: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 20px;
     }
 
-    /* Simple Dark Card */
-    .card {
-      background-color: #242424;
-      border: 1px solid #333333;
-      border-radius: 12px;
-      padding: 40px;
-      max-width: 520px;
+    .silver-text {
+      background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 30%, #94a3b8 70%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    /* Topbar Styling */
+    .navbar {
       width: 100%;
-      text-align: center;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    }
-
-    /* Google Fonts No Entry Icon */
-    .status-icon {
-      font-size: 72px;
-      color: #ff4d4d;
-      margin-bottom: 16px;
-      user-select: none;
-    }
-
-    h1 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #ffffff;
-      letter-spacing: -0.3px;
-    }
-
-    p.subtitle {
-      font-size: 0.9rem;
-      color: #a0a0a0;
-      margin-bottom: 24px;
-      line-height: 1.5;
-    }
-
-    /* Error Box */
-    .error-box {
-      background-color: #141414;
-      border: 1px solid #2a2a2a;
-      border-radius: 8px;
-      padding: 14px 16px;
-      text-align: left;
-      margin-top: 10px;
-      word-break: break-all;
-    }
-
-    .error-header {
+      max-width: 950px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 14px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.75rem;
-      color: #777777;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      margin-bottom: 28px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
-    /* Monospace Code Style */
-    .error-code {
-      font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
-      font-size: 0.95rem;
-      color: #ff6b6b;
-      font-weight: 500;
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
     }
 
-    /* Rounded Square Copy Button */
-    .copy-btn {
-      background-color: #2e2e2e;
-      border: 1px solid #444444;
-      color: #e0e0e0;
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
+    .brand-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    /* Physics Keyframe Animations for PhyXR Button */
+    @keyframes physicsBounce {
+      0% { transform: translateY(0) scale(1); }
+      30% { transform: translateY(-8px) scale(1.05) rotate(-2deg); }
+      50% { transform: translateY(2px) scale(0.96) rotate(1deg); }
+      70% { transform: translateY(-3px) scale(1.02) rotate(-1deg); }
+      100% { transform: translateY(0) scale(1) rotate(0deg); }
+    }
+
+    .phyxr-btn {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      color: #ffffff !important;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 0.85rem !important;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
       cursor: pointer;
-      transition: background-color 0.2s ease, border-color 0.2s ease;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .copy-btn .material-symbols-outlined {
-      font-size: 18px;
+    .phyxr-btn:hover {
+      animation: physicsBounce 0.6s ease-in-out;
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+      background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
     }
 
-    .copy-btn:hover {
-      background-color: #3d3d3d;
-      border-color: #555555;
-      color: #ffffff;
+    .container {
+      width: 100%;
+      max-width: 950px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .hero-info h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .hero-info p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Products Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .product-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .product-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .product-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .product-desc {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    .product-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      width: fit-content;
+    }
+
+    /* Site Footer */
+    .site-footer {
+      width: 100%;
+      max-width: 950px;
+      margin-top: 12px;
+      margin-bottom: 24px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: #64748b;
     }
   </style>
 </head>
 <body>
 
-  <main class="card">
-    <!-- Google Material Icon for No Entry / Blocked -->
-    <span class="material-symbols-outlined status-icon">
-      block
-    </span>
-
-    <h1>This site is currently closed due to maintenance</h1>
-    <p class="subtitle">We are performing scheduled updates to improve performance. Please check back shortly.</p>
-
-    <!-- Error Box -->
-    <div class="error-box">
-      <div class="error-header">
-        <span>Error code:</span>
-        <button class="copy-btn" id="copyBtn" onclick="copyError()" title="Copy error code">
-          <span class="material-symbols-outlined" id="copyIcon">content_copy</span>
-        </button>
-      </div>
-      <span class="error-code" id="errorCode">0x02583</span>
+  <!-- Topbar -->
+  <nav class="navbar">
+    <a href="#" class="brand-logo">
+      <span class="material-symbols-outlined silver-icon">code</span>
+      <span class="brand-title silver-text">NothingOrNo</span>
+    </a>
+    
+    <div class="nav-links">
+      <a href="#products">Products</a>
+      <!-- Animated PhyXR Button Linking to Subpage -->
+      <a href="phyxr.html" class="phyxr-btn">
+        <span class="material-symbols-outlined" style="font-size: 18px;">tune</span>
+        PhyXR
+      </a>
     </div>
+  </nav>
+
+  <main class="container">
+    
+    <!-- Hero Header -->
+    <section class="glass-card">
+      <div class="hero-info">
+        <h1 class="silver-text">Roblox Studio Assets & Systems</h1>
+        <p>Custom scripts, UI frameworks, physics engines, and development tools created for Roblox Studio creators and developers.</p>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="glass-card" id="products">
+      <h2>Products & Frameworks</h2>
+      
+      <div class="products-grid">
+        
+        <!-- PhyXR Showcase Card -->
+        <div class="product-card" style="border-color: rgba(59, 130, 246, 0.4);">
+          <div>
+            <span class="product-tag" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-color: rgba(59, 130, 246, 0.3);">Featured Engine</span>
+            <div class="product-title" style="margin-top: 8px;">
+              <span class="material-symbols-outlined" style="color: #60a5fa;">tune</span>
+              PhyXR
+            </div>
+            <p class="product-desc" style="margin-top: 6px;">Advanced physics simulation engine designed for responsive interactive models and realistic constraints in Roblox Studio.</p>
+          </div>
+          <a href="phyxr.html" class="phyxr-btn" style="text-align: center; justify-content: center; margin-top: 8px;">Explore PhyXR →</a>
+        </div>
+
+        <!-- Placeholder Product Card 1 -->
+        <div class="product-card">
+          <div>
+            <span class="product-tag">UI System</span>
+            <div class="product-title" style="margin-top: 8px;">
+              <span class="material-symbols-outlined">widgets</span>
+              Custom UI Framework
+            </div>
+            <p class="product-desc" style="margin-top: 6px;">Modular glassmorphism UI components and HUD elements ready for implementation.</p>
+          </div>
+        </div>
+
+        <!-- Placeholder Product Card 2 -->
+        <div class="product-card">
+          <div>
+            <span class="product-tag">Script Utility</span>
+            <div class="product-title" style="margin-top: 8px;">
+              <span class="material-symbols-outlined">terminal</span>
+              Dev Tool Suite
+            </div>
+            <p class="product-desc" style="margin-top: 6px;">Collection of Luau helper scripts and debugging utilities to accelerate development.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
-  <script>
-    function copyError() {
-      const errorText = document.getElementById("errorCode").innerText;
-      navigator.clipboard.writeText(errorText);
-      const icon = document.getElementById("copyIcon");
-      
-      icon.innerText = "check";
-      setTimeout(() => {
-        icon.innerText = "content_copy";
-      }, 2000);
-    }
-  </script>
+  <footer class="site-footer">
+    <div>Made by <strong>NothingOrNo</strong></div>
+    <div>Fan-made & Independent Roblox Studio Asset Showcase. Not officially affiliated with Roblox Corporation.</div>
+  </footer>
 
 </body>
 </html>
