@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PhyXR Engine | NothingOrNo</title>
 
-  <!-- Google Fonts & Material Symbols -->
+  <!-- Montserrat, JetBrains Mono & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
   <style>
@@ -19,104 +19,181 @@
     }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       min-height: 100vh;
-      color: #ffffff;
-      background: radial-gradient(circle at 50% 10%, #1a1e29 0%, #0f1117 50%, #08090c 100%);
-      background-attachment: fixed;
+      color: #e3e2e6;
+      background-color: #0d0d0e;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
+      padding: 24px 16px;
     }
 
-    .silver-text {
-      background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 30%, #94a3b8 70%, #cbd5e1 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-block;
-    }
-
+    /* Pill-Shaped Topbar */
     .navbar {
       width: 100%;
-      max-width: 950px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 16px;
-      padding: 14px 24px;
+      max-width: 900px;
+      background-color: #161618;
+      border-radius: 9999px;
+      padding: 12px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 28px;
-    }
-
-    .brand-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
+      margin-bottom: 24px;
     }
 
     .brand-title {
-      font-family: 'JetBrains Mono', monospace;
       font-weight: 800;
-      font-size: 1.2rem;
-    }
-
-    .back-btn {
-      color: #cbd5e1;
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: color 0.2s ease;
-    }
-
-    .back-btn:hover {
+      font-size: 1.15rem;
       color: #ffffff;
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background-color: #1f1f23;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: #2a2a30;
     }
 
     .container {
       width: 100%;
-      max-width: 950px;
+      max-width: 900px;
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
 
-    .glass-card {
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    .surface-card {
+      background-color: #161618;
       border-radius: 20px;
-      padding: 28px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .engine-header {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 12px;
     }
 
-    .engine-header h1 {
-      font-size: 2rem;
-      font-weight: 800;
+    .engine-icon {
+      font-size: 36px;
+      color: #0055ff;
     }
+
+    .engine-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    /* Description Text Box */
+    .description_text {
+      background-color: #1f1f23;
+      border-radius: 14px;
+      padding: 20px;
+      color: #a0a0aa;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .description_text h3 {
+      color: #ffffff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    /* Lua Code Textbox Header & Container */
+    .code_textbox_wrapper {
+      background-color: #141416;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #222226;
+    }
+
+    .code_header {
+      background-color: #1a1a1d;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #222226;
+    }
+
+    .code_label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #80808a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #24242a;
+      color: #ffffff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-copy:hover {
+      background-color: #0055ff;
+    }
+
+    /* Lua Syntax Highlighting */
+    .code_textbox {
+      padding: 18px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      color: #e3e2e6;
+      white-space: pre;
+    }
+
+    .lua-keyword { color: #f43f5e; font-weight: 600; }  /* red/pink keywords */
+    .lua-builtin { color: #38bdf8; }                   /* blue built-ins */
+    .lua-string  { color: #4ade80; }                   /* green strings */
+    .lua-comment { color: #64748b; font-style: italic; } /* gray comments */
+    .lua-number  { color: #fbbf24; }                   /* yellow numbers */
+    .lua-func    { color: #a855f7; }                   /* purple functions */
 
     .site-footer {
       width: 100%;
-      max-width: 950px;
-      margin-top: 12px;
-      margin-bottom: 24px;
+      max-width: 900px;
+      margin-top: 24px;
       text-align: center;
-      font-size: 0.82rem;
-      color: #64748b;
+      font-size: 0.8rem;
+      color: #60606a;
+      font-weight: 500;
     }
   </style>
 </head>
@@ -124,32 +201,110 @@
 
   <!-- Topbar -->
   <nav class="navbar">
-    <a href="index.html" class="brand-logo">
-      <span class="material-symbols-outlined silver-icon">code</span>
-      <span class="brand-title silver-text">NothingOrNo</span>
-    </a>
-    
-    <a href="index.html" class="back-btn">
+    <a href="index.html" class="brand-title">NothingOrNo</a>
+    <a href="index.html" class="btn-secondary">
       <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
-      Back to Products
+      Back
     </a>
   </nav>
 
   <main class="container">
-    <section class="glass-card">
+    <section class="surface-card">
+      
       <div class="engine-header">
-        <span class="material-symbols-outlined" style="font-size: 36px; color: #60a5fa;">tune</span>
-        <h1 class="silver-text">PhyXR Engine</h1>
+        <span class="material-symbols-outlined engine-icon">tune</span>
+        <h1 class="engine-title">PhyXR Engine</h1>
       </div>
-      <p style="color: #94a3b8; line-height: 1.6;">
-        Welcome to the documentation and overview page for <strong>PhyXR</strong>. Add details about your physics asset, installation guides, code snippets, or video previews here!
-      </p>
+
+      <!-- Description Text Container -->
+      <div class="description_text">
+        <h3>Overview</h3>
+        <p>
+          PhyXR is an optimized physical simulation framework built specifically for Luau in Roblox Studio. It handles custom physical constraints, responsive raycast-based vehicle suspension, and interactive physical bodies with zero performance overhead.
+        </p>
+      </div>
+
+      <!-- Code Textbox Container -->
+      <div class="code_textbox_wrapper">
+        <div class="code_header">
+          <span class="code_label">
+            <span class="material-symbols-outlined" style="font-size: 16px;">code</span>
+            PhyXR_Setup.luau
+          </span>
+          <button class="btn-copy" onclick="copyCode(this)">
+            <span class="material-symbols-outlined" style="font-size: 16px;">content_copy</span>
+            <span class="copy-text">Copy</span>
+          </button>
+        </div>
+
+        <div class="code_textbox" id="luaCode"></div>
+      </div>
+
     </section>
   </main>
 
   <footer class="site-footer">
-    <div>Made by <strong>NothingOrNo</strong></div>
+    NothingOrNo • Roblox Studio Products
   </footer>
+
+  <script>
+    // Paste your Lua / Luau code inside rawCode
+    const rawCode = `-- PhyXR Physics Engine Initialization
+local PhyXR = require(game.ReplicatedStorage:WaitForChild("PhyXR"))
+
+-- Create a new physical body
+local vehicle = PhyXR.new({
+    Mass = 1200,
+    Stiffness = 4500,
+    Damping = 300,
+    EnableRaycast = true
+})
+
+-- Initialize suspension loops
+function vehicle:Start()
+    print("PhyXR Engine successfully initialized!")
+    self:BindToRenderStep()
+end
+
+return vehicle`;
+
+    // Luau Syntax Highlighter
+    function highlightLua(code) {
+      let escaped = code
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+
+      return escaped
+        // Single line comments
+        .replace(/(--.*)/g, '<span class="lua-comment">$1</span>')
+        // Strings
+        .replace(/("[^"]*"|'[^']*')/g, '<span class="lua-string">$1</span>')
+        // Keywords
+        .replace(/\b(local|function|return|end|if|then|else|elseif|for|while|do|repeat|until|in|require|self)\b/g, '<span class="lua-keyword">$1</span>')
+        // Built-ins & Services
+        .replace(/\b(game|Workspace|ReplicatedStorage|print|warn|error|WaitForChild|GetService)\b/g, '<span class="lua-builtin">$1</span>')
+        // Numbers
+        .replace(/\b(\d+)\b/g, '<span class="lua-number">$1</span>');
+    }
+
+    // Render code
+    document.getElementById("luaCode").innerHTML = highlightLua(rawCode);
+
+    // Copy to clipboard function
+    function copyCode(btn) {
+      navigator.clipboard.writeText(rawCode).then(() => {
+        const textSpan = btn.querySelector('.copy-text');
+        textSpan.textContent = 'Copied!';
+        btn.style.backgroundColor = '#0055ff';
+
+        setTimeout(() => {
+          textSpan.textContent = 'Copy';
+          btn.style.backgroundColor = '';
+        }, 2000);
+      });
+    }
+  </script>
 
 </body>
 </html>
