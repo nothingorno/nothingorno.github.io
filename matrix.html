@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MatriX Pipeline | NothingOrNo</title>
+
+  <!-- Montserrat, JetBrains Mono & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      color: #e3e2e6;
+      background-color: #0b0b0d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+    }
+
+    /* Pill-Shaped Topbar */
+    .navbar {
+      width: 100%;
+      max-width: 950px;
+      background-color: #141416;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 9999px;
+      padding: 14px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #ffffff;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background-color: #1f1f23;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: #2a2a30;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 950px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .surface-card {
+      background-color: #141416;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .engine-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .engine-icon {
+      font-size: 38px;
+      color: #38bdf8;
+    }
+
+    .engine-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+
+    /* Description Text Box */
+    .description_text {
+      background-color: #1a1a1e;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 14px;
+      padding: 22px;
+      color: #90909a;
+      font-size: 0.93rem;
+      line-height: 1.65;
+      font-weight: 500;
+    }
+
+    .description_text h3 {
+      color: #ffffff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    /* Lua Code Textbox Header & Container */
+    .code_textbox_wrapper {
+      background-color: #101012;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .code_header {
+      background-color: #16161a;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .code_label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #90909a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #24242a;
+      color: #ffffff;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-copy:hover {
+      background-color: #38bdf8;
+      color: #0b0b0d;
+    }
+
+    /* Lua Syntax Highlighting */
+    .code_textbox {
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      color: #e3e2e6;
+      white-space: pre;
+      max-height: 450px;
+    }
+
+    .lua-keyword { color: #f43f5e; font-weight: 600; }  
+    .lua-builtin { color: #38bdf8; }                   
+    .lua-string  { color: #4ade80; }                   
+    .lua-comment { color: #64748b; font-style: italic; } 
+    .lua-number  { color: #fbbf24; }                   
+    .lua-func    { color: #a855f7; }                   
+
+    .site-footer {
+      width: 100%;
+      max-width: 950px;
+      margin-top: 28px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: #60606a;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <nav class="navbar">
+    <a href="index.html" class="brand-title">NothingOrNo</a>
+    <div class="nav-links">
+      <a href="kinematix.html" class="btn-secondary" style="background-color: #141416; border-color: rgba(0, 85, 255, 0.3); color: #ffffff;">KinematiX</a>
+      <a href="index.html" class="btn-secondary">
+        <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
+        Home
+      </a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="surface-card">
+      
+      <div class="engine-header">
+        <span class="material-symbols-outlined engine-icon">data_object</span>
+        <h1 class="engine-title">MatriX Pipeline</h1>
+      </div>
+
+      <!-- Description Text Container -->
+      <div class="description_text">
+        <h3>Overview & Sanitization Pipeline</h3>
+        <p>
+          MatriX is a robust data and value handling utility designed to cycle, wash, and sanitize state variables before distributing them securely to client and server scripts. It ensures type integrity, filters out malformed payloads, and maintains clean state caches across runtime ticks.
+        </p>
+      </div>
+
+      <!-- Code Textbox Container -->
+      <div class="code_textbox_wrapper">
+        <div class="code_header">
+          <span class="code_label">
+            <span class="material-symbols-outlined" style="font-size: 16px;">code</span>
+            MatriX.luau
+          </span>
+          <button class="btn-copy" onclick="copyCode(this)">
+            <span class="material-symbols-outlined" style="font-size: 16px;">content_copy</span>
+            <span class="copy-text">Copy</span>
+          </button>
+        </div>
+
+        <div class="code_textbox" id="luaCode"></div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    NothingOrNo • Roblox Studio Products
+  </footer>
+
+  <script>
+    const rawCode = `local HttpService = game:GetService("HttpService")
+local RunService = game:GetService("RunService")
+
+local MatriX = {}
+MatriX.__index = MatriX
+
+type DataPayload = {
+	Timestamp: number,
+	StateVersion: number,
+	RawValues: { [string]: any },
+	Sanitized: boolean,
+}
+
+function MatriX.new(initialData: { [string]: any }?)
+	local self = setmetatable({}, MatriX)
+	self._cache = {}
+	self._cycleCount = 0
+	self._subscribers = {}
+	
+	if initialData then
+		self:WashAndInject(initialData)
+	end
+	
+	return self
+end
+
+function MatriX:SanitizeValue(val: any): any
+	local valType = typeof(val)
+	if valType == "string" then
+		-- Strip invisible control characters & trim
+		return val:gsub("[%z\1-\31\127]", "")
+	elseif valType == "number" then
+		if val ~= val then return 0 end -- NaN check
+		return math.clamp(val, -1e9, 1e9)
+	elseif valType == "boolean" or valType == "Vector3" or valType == "CFrame" or valType == "Color3" then
+		return val
+	elseif valType == "table" then
+		local cleaned = {}
+		for k, v in pairs(val) do
+			cleaned[tostring(k)] = self:SanitizeValue(v)
+		end
+		return cleaned
+	end
+	return nil
+end
+
+function MatriX:WashAndInject(incomingData: { [string]: any })
+	self._cycleCount += 1
+	local washedPayload: DataPayload = {
+		Timestamp = os.time(),
+		StateVersion = self._cycleCount,
+		RawValues = {},
+		Sanitized = true,
+	}
+
+	for key, value in pairs(incomingData) do
+		local cleanKey = tostring(key):gsub("[%z\1-\31\127]", "")
+		washedPayload.RawValues[cleanKey] = self:SanitizeValue(value)
+	end
+
+	self._cache = washedPayload
+	self:Broadcast()
+end
+
+function MatriX:Cycle()
+	-- Perform state cycle and refresh cached linkages
+	if self._cache and self._cache.RawValues then
+		self._cycleCount += 1
+		self._cache.StateVersion = self._cycleCount
+		self._cache.Timestamp = os.time()
+	end
+end
+
+function MatriX:Subscribe(callback: (payload: DataPayload) -> ())
+	table.insert(self._subscribers, callback)
+	-- Immediate callback with current washed state
+	if self._cache.RawValues then
+		task.spawn(callback, self._cache)
+	end
+end
+
+function MatriX:Broadcast()
+	for _, callback in ipairs(self._subscribers) do
+		task.spawn(callback, self._cache)
+	end
+end
+
+function MatriX:GetCleanValue(key: string): any
+	if self._cache.RawValues then
+		return self._cache.RawValues[key]
+	end
+	return nil
+end
+
+return MatriX`;
+
+    function highlightLua(code) {
+      const tokens = [];
+      let highlighted = code
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/(--[^\n]*)/g, match => {
+          tokens.push(`<span class="lua-comment">${match}</span>`);
+          return `___TOKEN_${tokens.length - 1}___`;
+        })
+        .replace(/("[^"]*"|'[^']*')/g, match => {
+          tokens.push(`<span class="lua-string">${match}</span>`);
+          return `___TOKEN_${tokens.length - 1}___`;
+        })
+        .replace(/\b(local|function|return|end|if|then|else|elseif|for|while|do|repeat|until|in|require|self|export|type|setmetatable)\b/g, '<span class="lua-keyword">$1</span>')
+        .replace(/\b(game|HttpService|RunService|print|warn|error|typeof|tostring|pairs|ipairs|table|math|os|task|Vector3|CFrame|Color3)\b/g, '<span class="lua-builtin">$1</span>')
+        .replace(/\b(\d+)\b/g, '<span class="lua-number">$1</span>');
+
+      tokens.forEach((token, index) => {
+        highlighted = highlighted.replace(`___TOKEN_${index}___`, token);
+      });
+      return highlighted;
+    }
+
+    document.getElementById("luaCode").innerHTML = highlightLua(rawCode);
+
+    function copyCode(btn) {
+      navigator.clipboard.writeText(rawCode).then(() => {
+        const textSpan = btn.querySelector('.copy-text');
+        textSpan.textContent = 'Copied!';
+        btn.style.backgroundColor = '#38bdf8';
+        btn.style.color = '#0b0b0d';
+        setTimeout(() => {
+          textSpan.textContent = 'Copy';
+          btn.style.backgroundColor = '';
+          btn.style.color = '';
+        }, 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>
