@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>nothingorno</title>
+  <title>NothingOrNo | Roblox Studio Products</title>
 
   <!-- Montserrat & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,7 @@
       font-family: 'Montserrat', sans-serif;
       min-height: 100vh;
       color: #e3e2e6;
-      background-color: #0d0d0e;
+      background-color: #0b0b0d;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -32,28 +32,42 @@
     /* Pill-Shaped Topbar */
     .navbar {
       width: 100%;
-      max-width: 900px;
-      background-color: #161618;
+      max-width: 950px;
+      background-color: #141416;
+      border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 9999px;
-      padding: 12px 28px;
+      padding: 14px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     .brand-title {
       font-weight: 800;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       color: #ffffff;
       text-decoration: none;
-      letter-spacing: -0.3px;
+      letter-spacing: -0.5px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
+    }
+
+    .nav-link-item {
+      color: #90909a;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: color 0.15s ease;
+    }
+
+    .nav-link-item:hover {
+      color: #ffffff;
     }
 
     .btn-primary {
@@ -66,33 +80,36 @@
       padding: 10px 22px;
       border-radius: 9999px;
       font-weight: 700;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       text-decoration: none;
       border: none;
       cursor: pointer;
-      transition: background-color 0.15s ease;
+      transition: background-color 0.15s ease, transform 0.15s ease;
     }
 
     .btn-primary:hover {
       background-color: #0044cc;
+      transform: translateY(-1px);
     }
 
     .container {
       width: 100%;
-      max-width: 900px;
+      max-width: 950px;
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
 
     .surface-card {
-      background-color: #161618;
+      background-color: #141416;
+      border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 20px;
-      padding: 32px;
+      padding: 36px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
     }
 
     .hero-title {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 800;
       color: #ffffff;
       margin-bottom: 8px;
@@ -101,54 +118,81 @@
 
     .hero-desc {
       color: #90909a;
-      font-size: 0.95rem;
+      font-size: 0.98rem;
       line-height: 1.6;
       font-weight: 500;
     }
 
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-top: 10px;
+    }
+
     .product-box {
-      background-color: #1f1f23;
+      background-color: #1a1a1e;
+      border: 1px solid rgba(255, 255, 255, 0.04);
       border-radius: 16px;
-      padding: 24px;
+      padding: 28px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      justify-content: space-between;
+      gap: 20px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .product-box:hover {
+      border-color: rgba(0, 85, 255, 0.3);
+      transform: translateY(-3px);
     }
 
     .product-header {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .product-icon {
-      font-size: 32px;
+      font-size: 34px;
       color: #0055ff;
     }
 
     .product-title {
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       font-weight: 700;
       color: #ffffff;
     }
 
     .product-desc {
       font-size: 0.9rem;
-      color: #a0a0aa;
+      color: #90909a;
       line-height: 1.6;
     }
 
-    .product-actions {
-      display: flex;
-      margin-top: 8px;
+    /* Blue Text Link for KinematiX/MatriX on Homepage */
+    .product-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #38bdf8;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: color 0.15s ease, gap 0.15s ease;
+    }
+
+    .product-link:hover {
+      color: #60a5fa;
+      gap: 10px;
     }
 
     .site-footer {
       width: 100%;
-      max-width: 900px;
-      margin-top: 24px;
+      max-width: 950px;
+      margin-top: 28px;
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: #60606a;
       font-weight: 500;
     }
@@ -160,7 +204,8 @@
   <nav class="navbar">
     <a href="index.html" class="brand-title">NothingOrNo</a>
     <div class="nav-links">
-      <a href="kinematix.html" class="btn-primary">KinematiX</a>
+      <a href="matrix.html" class="nav-link-item">MatriX</a>
+      <a href="kinematix.html" class="btn-primary">KinematiX Engine</a>
     </div>
   </nav>
 
@@ -169,31 +214,54 @@
     <!-- Hero Header -->
     <section class="surface-card">
       <h1 class="hero-title">Roblox Studio Products</h1>
-      <p class="hero-desc">Custom scripts, assets, and frameworks developed for Roblox Studio.</p>
+      <p class="hero-desc">High-performance custom scripts, physics engines, and data pipeline frameworks built for advanced Roblox developers.</p>
     </section>
 
-    <!-- Product Showcase -->
+    <!-- Product Showcase Grid -->
     <section class="surface-card">
-      <div class="product-box">
-        <div class="product-header">
-          <span class="material-symbols-outlined product-icon">tune</span>
-          <div class="product-title">KinematiX Engine</div>
-        </div>
+      <h2 style="font-size: 1.3rem; font-weight: 700; color: #ffffff; margin-bottom: 20px;">Available Frameworks</h2>
+      
+      <div class="products-grid">
         
-        <p class="product-desc">
-          Advanced physics simulation engine designed for responsive interactive models and constraints in Roblox Studio.
-        </p>
-
-        <div class="product-actions">
-          <a href="kinematix.html" class="btn-primary">View KinematiX Engine →</a>
+        <!-- KinematiX Product Card -->
+        <div class="product-box">
+          <div>
+            <div class="product-header">
+              <span class="material-symbols-outlined product-icon">tune</span>
+              <div class="product-title">KinematiX</div>
+            </div>
+            <p class="product-desc" style="margin-top: 14px;">
+              Advanced physics simulation engine handling structural stress, hydrodynamics, thermal conduction, and rigorous weight calculations.
+            </p>
+          </div>
+          <div>
+            <a href="kinematix.html" class="product-link">View KinematiX Engine →</a>
+          </div>
         </div>
+
+        <!-- MatriX Product Card -->
+        <div class="product-box">
+          <div>
+            <div class="product-header">
+              <span class="material-symbols-outlined product-icon" style="color: #38bdf8;">data_object</span>
+              <div class="product-title">MatriX</div>
+            </div>
+            <p class="product-desc" style="margin-top: 14px;">
+              Data and value management system that securely cycles, washes, sanitizes, and distributes clean runtime values across client and server scripts.
+            </p>
+          </div>
+          <div>
+            <a href="matrix.html" class="product-link" style="color: #38bdf8;">View MatriX Pipeline →</a>
+          </div>
+        </div>
+
       </div>
     </section>
 
   </main>
 
   <footer class="site-footer">
-    NothingOrNo • Roblox Studio Products
+    NothingOrNo • Independent Roblox Studio Asset Showcase
   </footer>
 
 </body>
