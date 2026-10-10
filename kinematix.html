@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>nothingorno - kinematix</title>
+  <title>KinematiX Engine | NothingOrNo</title>
 
   <!-- Montserrat, JetBrains Mono & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,7 @@
       font-family: 'Montserrat', sans-serif;
       min-height: 100vh;
       color: #e3e2e6;
-      background-color: #0d0d0e;
+      background-color: #0b0b0d;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -32,22 +32,30 @@
     /* Pill-Shaped Topbar */
     .navbar {
       width: 100%;
-      max-width: 900px;
-      background-color: #161618;
+      max-width: 950px;
+      background-color: #141416;
+      border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 9999px;
-      padding: 12px 28px;
+      padding: 14px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     .brand-title {
       font-weight: 800;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       color: #ffffff;
       text-decoration: none;
-      letter-spacing: -0.3px;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
     .btn-secondary {
@@ -60,8 +68,9 @@
       padding: 10px 20px;
       border-radius: 9999px;
       font-weight: 600;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.06);
       transition: background-color 0.15s ease;
     }
 
@@ -71,81 +80,85 @@
 
     .container {
       width: 100%;
-      max-width: 900px;
+      max-width: 950px;
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
 
     .surface-card {
-      background-color: #161618;
+      background-color: #141416;
+      border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 20px;
-      padding: 32px;
+      padding: 36px;
       display: flex;
       flex-direction: column;
       gap: 20px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
     }
 
     .engine-header {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .engine-icon {
-      font-size: 36px;
+      font-size: 38px;
       color: #0055ff;
     }
 
     .engine-title {
-      font-size: 1.8rem;
+      font-size: 1.85rem;
       font-weight: 800;
       color: #ffffff;
+      letter-spacing: -0.5px;
     }
 
     /* Description Text Box */
     .description_text {
-      background-color: #1f1f23;
+      background-color: #1a1a1e;
+      border: 1px solid rgba(255, 255, 255, 0.04);
       border-radius: 14px;
-      padding: 20px;
-      color: #a0a0aa;
-      font-size: 0.92rem;
-      line-height: 1.6;
+      padding: 22px;
+      color: #90909a;
+      font-size: 0.93rem;
+      line-height: 1.65;
       font-weight: 500;
     }
 
     .description_text h3 {
       color: #ffffff;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 700;
       margin-bottom: 8px;
     }
 
     /* Lua Code Textbox Header & Container */
     .code_textbox_wrapper {
-      background-color: #141416;
+      background-color: #101012;
       border-radius: 14px;
       overflow: hidden;
-      border: 1px solid #222226;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .code_header {
-      background-color: #1a1a1d;
-      padding: 10px 16px;
+      background-color: #16161a;
+      padding: 12px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #222226;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .code_label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 600;
-      color: #80808a;
+      color: #90909a;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
     .btn-copy {
@@ -155,7 +168,7 @@
       background-color: #24242a;
       color: #ffffff;
       border: none;
-      padding: 6px 14px;
+      padding: 6px 16px;
       border-radius: 9999px;
       font-family: 'Montserrat', sans-serif;
       font-size: 0.78rem;
@@ -170,28 +183,29 @@
 
     /* Lua Syntax Highlighting */
     .code_textbox {
-      padding: 18px 20px;
+      padding: 20px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       line-height: 1.6;
       overflow-x: auto;
       color: #e3e2e6;
       white-space: pre;
+      max-height: 450px;
     }
 
-    .lua-keyword { color: #f43f5e; font-weight: 600; }  /* red/pink keywords */
-    .lua-builtin { color: #38bdf8; }                   /* blue built-ins */
-    .lua-string  { color: #4ade80; }                   /* green strings */
-    .lua-comment { color: #64748b; font-style: italic; } /* gray comments */
-    .lua-number  { color: #fbbf24; }                   /* yellow numbers */
-    .lua-func    { color: #a855f7; }                   /* purple functions */
+    .lua-keyword { color: #f43f5e; font-weight: 600; }  
+    .lua-builtin { color: #38bdf8; }                   
+    .lua-string  { color: #4ade80; }                   
+    .lua-comment { color: #64748b; font-style: italic; } 
+    .lua-number  { color: #fbbf24; }                   
+    .lua-func    { color: #a855f7; }                   
 
     .site-footer {
       width: 100%;
-      max-width: 900px;
-      margin-top: 24px;
+      max-width: 950px;
+      margin-top: 28px;
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: #60606a;
       font-weight: 500;
     }
@@ -202,10 +216,13 @@
   <!-- Topbar -->
   <nav class="navbar">
     <a href="index.html" class="brand-title">NothingOrNo</a>
-    <a href="index.html" class="btn-secondary">
-      <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
-      Back
-    </a>
+    <div class="nav-links">
+      <a href="matrix.html" class="btn-secondary" style="background-color: #141416; border-color: rgba(56, 189, 248, 0.3); color: #38bdf8;">MatriX</a>
+      <a href="index.html" class="btn-secondary">
+        <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
+        Home
+      </a>
+    </div>
   </nav>
 
   <main class="container">
@@ -218,9 +235,9 @@
 
       <!-- Description Text Container -->
       <div class="description_text">
-        <h3>Overview</h3>
+        <h3>Overview & Capabilities</h3>
         <p>
-          KinematiX is a reworked physics script which reworks Roblox's current physics. It's currently on its 2nd generation so expect bugs and more, and it's all free..no strings attached! It's made by NothingOrNo (InfinitePlayer_56). On the 3rd generation, KinematiX will have less lines of code due to a future manager, MatriX.
+          KinematiX is a comprehensive Luau physics framework for Roblox Studio. It calculates true physical weights, structural stress points, aerodynamic drag, hydrodynamics, and thermal fatigue across models, allowing for high-fidelity destruction and simulation loops.
         </p>
       </div>
 
@@ -229,7 +246,7 @@
         <div class="code_header">
           <span class="code_label">
             <span class="material-symbols-outlined" style="font-size: 16px;">code</span>
-            KinematiX_Setup.luau
+            KinematiX.luau
           </span>
           <button class="btn-copy" onclick="copyCode(this)">
             <span class="material-symbols-outlined" style="font-size: 16px;">content_copy</span>
@@ -247,8 +264,7 @@
     NothingOrNo • Roblox Studio Products
   </footer>
 
-<script>
-    // Paste your Lua / Luau code inside rawCode
+  <script>
     const rawCode = `local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
 
@@ -546,7 +562,7 @@ function PhyXR.createScalePart(cframe: CFrame, parent: Instance?): (Part, Surfac
 	local readLabel = Instance.new("TextLabel")
 	readLabel.Name, readLabel.Size, readLabel.BackgroundTransparency = "Readout", UDim2.new(1, 0, 1, 0), 1
 	readLabel.FontFace, readLabel.TextSize, readLabel.TextColor3 = Font.fromEnum(Enum.Font.Code), 28, Color3.fromRGB(0, 255, 128)
-	readLabel.Text, readLabel.Parent = "SYSTEM READY\nSTEP ON SCALE", surfaceGui
+	readLabel.Text, readLabel.Parent = "SYSTEM READY\\nSTEP ON SCALE", surfaceGui
 
 	task.spawn(function()
 		while scaleBase and scaleBase.Parent do
@@ -558,7 +574,7 @@ function PhyXR.createScalePart(cframe: CFrame, parent: Instance?): (Part, Surfac
 					totalKg += PhyXR.getWeightInKg(model)
 				end
 			end
-			readLabel.Text = totalKg > 0 and string.format("DETECTED MASS:\n%.2f KG\n%.2f RMU", totalKg, totalKg / PhyXR.KG_PER_RMU) or "SYSTEM READY\nSTEP ON SCALE"
+			readLabel.Text = totalKg > 0 and string.format("DETECTED MASS:\\n%.2f KG\\n%.2f RMU", totalKg, totalKg / PhyXR.KG_PER_RMU) or "SYSTEM READY\\nSTEP ON SCALE"
 			task.wait(0.1)
 		end
 	end)
@@ -762,56 +778,37 @@ end
 
 return PhyXR`;
 
-    // Safe Luau Syntax Highlighter
     function highlightLua(code) {
       const tokens = [];
-
-      // Tokenize strings, comments, numbers, keywords, and builtins
       let highlighted = code
-        // 1. Escape HTML entities first
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
-
-        // 2. Extract Comments
         .replace(/(--[^\n]*)/g, match => {
           tokens.push(`<span class="lua-comment">${match}</span>`);
           return `___TOKEN_${tokens.length - 1}___`;
         })
-
-        // 3. Extract Strings
         .replace(/("[^"]*"|'[^']*')/g, match => {
           tokens.push(`<span class="lua-string">${match}</span>`);
           return `___TOKEN_${tokens.length - 1}___`;
         })
-
-        // 4. Highlight Keywords
-        .replace(/\b(local|function|return|end|if|then|else|elseif|for|while|do|repeat|until|in|require|self)\b/g, '<span class="lua-keyword">$1</span>')
-
-        // 5. Highlight Built-ins & Globals
-        .replace(/\b(game|Workspace|ReplicatedStorage|print|warn|error|WaitForChild|GetService)\b/g, '<span class="lua-builtin">$1</span>')
-
-        // 6. Highlight Numbers
+        .replace(/\b(local|function|return|end|if|then|else|elseif|for|while|do|repeat|until|in|require|self|export|type)\b/g, '<span class="lua-keyword">$1</span>')
+        .replace(/\b(game|Workspace|ReplicatedStorage|print|warn|error|WaitForChild|GetService|Enum|Vector3|CFrame|PhysicalProperties|Instance|Task|math|string)\b/g, '<span class="lua-builtin">$1</span>')
         .replace(/\b(\d+)\b/g, '<span class="lua-number">$1</span>');
 
-      // Re-insert comments and strings cleanly
       tokens.forEach((token, index) => {
         highlighted = highlighted.replace(`___TOKEN_${index}___`, token);
       });
-
       return highlighted;
     }
 
-    // Render code
     document.getElementById("luaCode").innerHTML = highlightLua(rawCode);
 
-    // Copy to clipboard function
     function copyCode(btn) {
       navigator.clipboard.writeText(rawCode).then(() => {
         const textSpan = btn.querySelector('.copy-text');
         textSpan.textContent = 'Copied!';
         btn.style.backgroundColor = '#0055ff';
-
         setTimeout(() => {
           textSpan.textContent = 'Copy';
           btn.style.backgroundColor = '';
