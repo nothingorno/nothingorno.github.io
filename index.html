@@ -602,7 +602,7 @@
     <div class="bg-cube">Crew</div>
     <div class="bg-cube">C++</div>
     <div class="bg-cube">.dll</div>
-    <div class="bg-cube">Luau</div>
+    <div class="bg-cube">Nano</div>
     <div class="bg-cube">Engine</div>
     <div class="bg-cube">:3</div>
     <div class="bg-cube">MatriX</div>
@@ -625,6 +625,7 @@
     </div>
 
     <div class="nav-links">
+      <a href="nanomanager.html" class="btn-nav" style="border-color: rgba(255, 255, 255, 0.2); color: #ffffff;">NanoManager</a>
       <a href="matrix.html" class="btn-nav" style="border-color: rgba(0, 255, 102, 0.3); color: #00ff66;">MatriX</a>
       <a href="kinematix.html" class="btn-nav">KinematiX</a>
     </div>
@@ -708,6 +709,22 @@
       
       <div class="products-grid">
         
+        <!-- NanoManager Box -->
+        <div class="product-box">
+          <div>
+            <div class="product-header">
+              <span class="material-symbols-outlined product-icon">terminal</span>
+              <div class="product-title">NanoManager</div>
+            </div>
+            <p class="product-desc" style="margin-top: 14px;">
+              Lightweight C++ task management utilities. Features both the legacy build by froxy and the brand new C++ iteration with upcoming NothingUI integration.
+            </p>
+          </div>
+          <div>
+            <a href="nanomanager.html" class="product-link">Download Executables →</a>
+          </div>
+        </div>
+
         <div class="product-box">
           <div>
             <div class="product-header">
@@ -774,7 +791,7 @@
         </div>
       </div>
     </div>
-  </div
+  </div>
 
   <!-- OP Control Panel Modal -->
   <div class="modal-overlay" id="opModal" onclick="closeModalOnOverlay(event, 'opModal')">
@@ -801,7 +818,7 @@
 
   <script>
     /* =================================================================== */
-    /* MULTIPLE OP USERS CONFIGURATION                                    */
+    /* MULTIPLE OP USERS CONFIGURATION                                     */
     /* You can add as many OP accounts as you need to this array!          */
     /* =================================================================== */
     const OP_ACCOUNTS = [
@@ -898,7 +915,6 @@
       const p = document.getElementById('opPasswordInput').value;
       const errorMsg = document.getElementById('opAuthErrorMsg');
 
-      // Check if user/pass matches any account in OP_ACCOUNTS array
       const matchedUser = OP_ACCOUNTS.find(acc => acc.user === u && acc.pass === p);
 
       if (matchedUser) {
