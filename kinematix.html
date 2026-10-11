@@ -31,6 +31,39 @@
       position: relative;
     }
 
+    /* Technical Grid Overlay */
+    .bg-grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #101014;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ffffff;
+    }
+
     /* Floating Background Gradient Cubes */
     .bg-cubes-container {
       position: fixed;
@@ -47,8 +80,8 @@
       position: absolute;
       width: 80px;
       height: 80px;
-      background: linear-gradient(to bottom, rgba(0, 85, 255, 0.16), rgba(7, 7, 9, 0.95));
-      border: 1px solid rgba(0, 85, 255, 0.28);
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(7, 7, 9, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 18px;
       display: flex;
       justify-content: center;
@@ -70,7 +103,7 @@
     .bg-cube:nth-child(6)  { top: 30%;  right: 14%; animation-delay: -3s; }
     .bg-cube:nth-child(7)  { top: 55%;  right: 6%; animation-delay: -5s; }
     .bg-cube:nth-child(8)  { top: 80%;  right: 12%; animation-delay: -7s; }
-    .bg-cube:nth-child(9)  { top: 15%;  left: 80%; animation-delay: -8s; font-size: 1.1rem; color: rgba(0, 85, 255, 0.45); }
+    .bg-cube:nth-child(9)  { top: 15%;  left: 80%; animation-delay: -8s; font-size: 1.1rem; color: rgba(255, 255, 255, 0.45); }
     .bg-cube:nth-child(10) { top: 68%;  left: 82%; animation-delay: -9s; }
     .bg-cube:nth-child(11) { top: 40%;  left: 6%;  animation-delay: -2.5s; }
     .bg-cube:nth-child(12) { top: 88%;  left: 45%; animation-delay: -4.5s; }
@@ -125,15 +158,16 @@
       font-weight: 600;
       font-size: 0.85rem;
       text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       transition: all 0.2s ease;
       cursor: pointer;
     }
 
     .btn-secondary:hover {
-      background-color: #0055ff;
-      border-color: #0055ff;
-      box-shadow: 0 0 15px rgba(0, 85, 255, 0.4);
+      background-color: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
     }
 
     .container {
@@ -166,7 +200,7 @@
 
     .engine-icon {
       font-size: 38px;
-      color: #0055ff;
+      color: #ffffff;
     }
 
     .engine-title {
@@ -179,7 +213,7 @@
     /* Description Text Box */
     .description_text {
       background-color: rgba(26, 26, 34, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 18px;
       padding: 22px;
       color: #94a3b8;
@@ -226,32 +260,39 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background-color: #24242e;
-      color: #ffffff;
+      background-color: #ffffff;
+      color: #000000;
       border: none;
       padding: 6px 16px;
       border-radius: 9999px;
       font-family: 'Montserrat', sans-serif;
       font-size: 0.78rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      transition: background-color 0.15s ease;
+      transition: all 0.2s ease;
     }
 
     .btn-copy:hover {
-      background-color: #0055ff;
+      background-color: #e2e8f0;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
     }
 
-    /* Lua Syntax Highlighting */
+    /* Syntax Highlight Colors Restored */
     .code_textbox {
       padding: 20px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.85rem;
       line-height: 1.6;
-      overflow-x: auto;
+      overflow: auto;
       color: #e3e2e6;
       white-space: pre;
       max-height: 450px;
+      cursor: grab;
+      user-select: text;
+    }
+
+    .code_textbox:active {
+      cursor: grabbing;
     }
 
     .lua-keyword { color: #f43f5e; font-weight: 600; }  
@@ -276,7 +317,10 @@
 </head>
 <body>
 
-  <!-- Expanded Straight Background Tiles -->
+  <!-- Technical Grid Background Overlay -->
+  <div class="bg-grid-overlay"></div>
+
+  <!-- Expanded Background Tiles -->
   <div class="bg-cubes-container">
     <div class="bg-cube">Nothing</div>
     <div class="bg-cube">OrNo</div>
@@ -296,6 +340,7 @@
   <nav class="navbar">
     <a href="index.html" class="brand-title">NothingOrNo</a>
     <div class="nav-links">
+      <a href="nanomanager.html" class="btn-secondary">NanoManager</a>
       <a href="matrix.html" class="btn-secondary" style="border-color: rgba(0, 255, 102, 0.3); color: #00ff66;">MatriX</a>
       <a href="index.html" class="btn-secondary">
         <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
@@ -333,7 +378,7 @@
           </button>
         </div>
 
-        <div class="code_textbox" id="luaCode"></div>
+        <div class="code_textbox" id="luaCode" draggable="false"></div>
       </div>
 
     </section>
@@ -887,13 +932,41 @@ return PhyXR`;
       navigator.clipboard.writeText(rawCode).then(() => {
         const textSpan = btn.querySelector('.copy-text');
         textSpan.textContent = 'Copied!';
-        btn.style.backgroundColor = '#0055ff';
+        btn.style.backgroundColor = '#ffffff';
+        btn.style.color = '#000000';
         setTimeout(() => {
           textSpan.textContent = 'Copy';
           btn.style.backgroundColor = '';
+          btn.style.color = '';
         }, 2000);
       });
     }
+
+    // Enable click-and-drag panning on the code box
+    const codeBox = document.getElementById("luaCode");
+    let isDown = false;
+    let startX, startY, scrollLeft, scrollTop;
+
+    codeBox.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - codeBox.offsetLeft;
+      startY = e.pageY - codeBox.offsetTop;
+      scrollLeft = codeBox.scrollLeft;
+      scrollTop = codeBox.scrollTop;
+    });
+
+    codeBox.addEventListener('mouseleave', () => { isDown = false; });
+    codeBox.addEventListener('mouseup', () => { isDown = false; });
+    codeBox.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - codeBox.offsetLeft;
+      const y = e.pageY - codeBox.offsetTop;
+      const walkX = (x - startX);
+      const walkY = (y - startY);
+      codeBox.scrollLeft = scrollLeft - walkX;
+      codeBox.scrollTop = scrollTop - walkY;
+    });
   </script>
 
 </body>
