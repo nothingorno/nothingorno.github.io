@@ -94,7 +94,7 @@
       50% { transform: translateY(-20px) scale(1.04); }
     }
 
-    /* Pill-Shaped Topbar */
+    /* Standard Topbar (Classic) */
     .navbar {
       width: 100%;
       max-width: 950px;
@@ -113,10 +113,19 @@
       z-index: 10;
     }
 
+    /* Beta Next-Gen Full-Canvas Rounded Rectangle Topbar */
+    .navbar.beta-topbar {
+      border-radius: 20px;
+      width: 100%;
+      max-width: calc(100vw - 32px);
+      padding: 16px 32px;
+      margin-bottom: 32px;
+    }
+
     .brand-section {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
     }
 
     .brand-title {
@@ -180,14 +189,237 @@
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
     }
 
+    /* Classic Container */
     .container {
       width: 100%;
       max-width: 950px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 24px;
       position: relative;
       z-index: 10;
+    }
+
+    /* Next-Gen Full-Canvas Layout (Left Sidebar + Center Content spanning width) */
+    .beta-main-layout {
+      display: none; 
+      width: 100%;
+      max-width: calc(100vw - 32px);
+      gap: 32px;
+      position: relative;
+      z-index: 10;
+      align-items: flex-start;
+    }
+
+    .beta-sidebar {
+      width: 300px;
+      flex-shrink: 0;
+      background: rgba(18, 18, 24, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+      position: sticky;
+      top: 24px;
+    }
+
+    .beta-center-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Layout Switcher Bar (Grid vs Rectangle) */
+    .layout-switcher-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(18, 18, 24, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 14px 24px;
+    }
+
+    .layout-switcher-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-view {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-view.active {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+    }
+
+    .sidebar-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(26, 26, 34, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px 16px;
+      border-radius: 14px;
+      color: #e2e8f0;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-link:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      transform: translateX(4px);
+    }
+
+    /* Cards Container with Switching Animations */
+    .beta-cards-container {
+      display: grid;
+      gap: 24px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* View Mode: Rectangle (Stack / Horizontal Rows) */
+    .beta-cards-container.view-rectangle {
+      grid-template-columns: 1fr;
+    }
+
+    .beta-cards-container.view-rectangle .split-card {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .beta-cards-container.view-rectangle .split-card-top {
+      width: 220px;
+      border-bottom: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .beta-cards-container.view-rectangle .split-card-bottom {
+      flex: 1;
+      justify-content: center;
+    }
+
+    /* View Mode: Grid (Multi-column) */
+    .beta-cards-container.view-grid {
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    }
+
+    .beta-cards-container.view-grid .split-card {
+      flex-direction: column;
+    }
+
+    .beta-cards-container.view-grid .split-card-top {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Split-Half Cards Style */
+    .split-card {
+      background: rgba(18, 18, 24, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .split-card:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 50px rgba(255, 255, 255, 0.08);
+    }
+
+    .split-card-top {
+      background-color: #000000;
+      padding: 32px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .split-card-icon {
+      font-size: 48px;
+      color: #ffffff;
+    }
+
+    .split-card-bottom {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: rgba(18, 18, 24, 0.95);
+    }
+
+    .split-card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .split-card-desc {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .btn-go {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #ffffff;
+      color: #000000;
+      padding: 12px 24px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      align-self: flex-start;
+      margin-top: 4px;
+    }
+
+    .btn-go:hover {
+      background: #e2e8f0;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.35);
     }
 
     .surface-card {
@@ -335,7 +567,7 @@
       border-top: 1px dashed rgba(255, 255, 255, 0.1);
     }
 
-    /* Product Cards Grid */
+    /* Product Cards Grid (Classic) */
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -545,7 +777,6 @@
       border-color: #ffffff;
     }
 
-    /* Inline Error Message Style */
     .error-msg-text {
       color: #ff4d4d;
       font-size: 0.82rem;
@@ -587,6 +818,24 @@
       position: relative;
       z-index: 10;
     }
+
+    @media (max-width: 768px) {
+      .beta-main-layout {
+        flex-direction: column;
+      }
+      .beta-sidebar {
+        width: 100%;
+        position: static;
+      }
+      .beta-cards-container.view-rectangle .split-card {
+        flex-direction: column;
+      }
+      .beta-cards-container.view-rectangle .split-card-top {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+    }
   </style>
 </head>
 <body>
@@ -610,28 +859,30 @@
     <div class="bg-cube">Roblox</div>
   </div>
 
-  <!-- Topbar -->
-  <nav class="navbar">
+  <!-- Topbar (Dynamic based on Beta mode) -->
+  <nav class="navbar" id="mainNavbar">
     <div class="brand-section">
       <a href="index.html" class="brand-title">NothingOrNo</a>
       <button class="btn-topbar" onclick="openModal('announcementsModal')">
         <span class="material-symbols-outlined" style="font-size: 16px;">campaign</span>
         Announcements
       </button>
+    </div>
+
+    <div class="nav-links">
+      <button class="btn-topbar" onclick="toggleBetaHomescreen()" style="border-color: rgba(0, 255, 102, 0.4); color: #00ff66;" id="betaToggleBtn">
+        <span class="material-symbols-outlined" style="font-size: 16px;">bolt</span>
+        Beta UI: OFF
+      </button>
       <button class="btn-topbar" id="opStatusBtn" onclick="openOpModal()">
         <span class="material-symbols-outlined" style="font-size: 16px;">key</span>
         OP Mode
       </button>
     </div>
-
-    <div class="nav-links">
-      <a href="nanomanager.html" class="btn-nav" style="border-color: rgba(255, 255, 255, 0.2); color: #ffffff;">NanoManager</a>
-      <a href="matrix.html" class="btn-nav" style="border-color: rgba(0, 255, 102, 0.3); color: #00ff66;">MatriX</a>
-      <a href="kinematix.html" class="btn-nav">KinematiX</a>
-    </div>
   </nav>
 
-  <main class="container">
+  <!-- CLASSIC VIEW CONTAINER -->
+  <main class="container" id="classicContainer">
     
     <!-- Hero Header -->
     <section class="surface-card">
@@ -709,7 +960,6 @@
       
       <div class="products-grid">
         
-        <!-- NanoManager Box -->
         <div class="product-box">
           <div>
             <div class="product-header">
@@ -760,6 +1010,103 @@
 
   </main>
 
+
+  <!-- BETA NEXT-GEN FULL-CANVAS LAYOUT CONTAINER -->
+  <div class="beta-main-layout" id="betaContainer">
+    
+    <!-- Left Sidebar: All Projects Quick Access -->
+    <aside class="beta-sidebar">
+      <div class="sidebar-title">
+        <span class="material-symbols-outlined" style="font-size: 20px;">folder_open</span>
+        All Projects
+      </div>
+      <a href="nanomanager.html" class="sidebar-link">
+        <span class="material-symbols-outlined" style="font-size: 18px;">terminal</span> NanoManager
+      </a>
+      <a href="kinematix.html" class="sidebar-link">
+        <span class="material-symbols-outlined" style="font-size: 18px;">tune</span> KinematiX
+      </a>
+      <a href="matrix.html" class="sidebar-link">
+        <span class="material-symbols-outlined" style="font-size: 18px; color: #00ff66;">data_object</span> MatriX
+      </a>
+    </aside>
+
+    <!-- Center Content: Hero, View Switcher & Split-Half Cards -->
+    <div class="beta-center-content">
+      
+      <section class="surface-card">
+        <h1 class="hero-title">Next-Gen Labs $\beta$</h1>
+        <p class="hero-desc">Explore our native utilities and simulation frameworks through our overhauled full-canvas dashboard.</p>
+      </section>
+
+      <!-- Layout Switcher Bar (Grid vs Rectangle view options) -->
+      <div class="layout-switcher-bar">
+        <div style="font-weight: 700; font-size: 0.92rem; color: #ffffff; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="font-size: 18px; color: #00ff66;">dashboard</span>
+          Workspace View Mode
+        </div>
+        <div class="layout-switcher-btns">
+          <button class="btn-view active" id="btnViewGrid" onclick="setWorkspaceView('grid')">
+            <span class="material-symbols-outlined" style="font-size: 16px;">grid_view</span> Grid
+          </button>
+          <button class="btn-view" id="btnViewRectangle" onclick="setWorkspaceView('rectangle')">
+            <span class="material-symbols-outlined" style="font-size: 16px;">view_agenda</span> Rectangle
+          </button>
+        </div>
+      </div>
+
+      <!-- Split-Half Cards Container (Animated Grid/Rectangle Toggle) -->
+      <div class="beta-cards-container view-grid" id="cardsContainer">
+        
+        <!-- NanoManager Split Card -->
+        <div class="split-card">
+          <div class="split-card-top">
+            <span class="material-symbols-outlined split-card-icon">terminal</span>
+          </div>
+          <div class="split-card-bottom">
+            <div class="split-card-title">NanoManager</div>
+            <div class="split-card-desc">Lightweight C++ task management utilities featuring the legacy build and the brand new C++ iteration.</div>
+            <a href="nanomanager.html" class="btn-go">
+              <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span> Go
+            </a>
+          </div>
+        </div>
+
+        <!-- KinematiX Split Card -->
+        <div class="split-card">
+          <div class="split-card-top">
+            <span class="material-symbols-outlined split-card-icon">tune</span>
+          </div>
+          <div class="split-card-bottom">
+            <div class="split-card-title">KinematiX Engine</div>
+            <div class="split-card-desc">Advanced physics simulation engine handling structural stress, hydrodynamics, and thermal conduction.</div>
+            <a href="kinematix.html" class="btn-go">
+              <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span> Go
+            </a>
+          </div>
+        </div>
+
+        <!-- MatriX Split Card -->
+        <div class="split-card">
+          <div class="split-card-top">
+            <span class="material-symbols-outlined split-card-icon" style="color: #00ff66;">data_object</span>
+          </div>
+          <div class="split-card-bottom">
+            <div class="split-card-title">MatriX Pipeline</div>
+            <div class="split-card-desc">Data and value management system that securely cycles, washes, sanitizes, and distributes clean runtime values.</div>
+            <a href="matrix.html" class="btn-go" style="background: #00ff66; color: #000000;">
+              <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span> Go
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
   <!-- Announcements Modal -->
   <div class="modal-overlay" id="announcementsModal" onclick="closeModalOnOverlay(event, 'announcementsModal')">
     <div class="modal-window">
@@ -797,7 +1144,7 @@
   <div class="modal-overlay" id="opModal" onclick="closeModalOnOverlay(event, 'opModal')">
     <div class="modal-window">
       <div class="modal-header">
-        <div class="modal-title">
+        <div class="modal-title" id="opModalHeaderTitle">
           <span class="material-symbols-outlined" style="color: #00ff66;">admin_panel_settings</span>
           OP Control Panel
         </div>
@@ -819,12 +1166,61 @@
   <script>
     /* =================================================================== */
     /* MULTIPLE OP USERS CONFIGURATION                                     */
-    /* You can add as many OP accounts as you need to this array!          */
     /* =================================================================== */
     const OP_ACCOUNTS = [
       { user: "NothingOrNo", pass: "NothingOrNoXDLOLz" },
       { user: "Deniz_8bruhxd", pass: "thefakebossXD" }
     ];
+
+    let isBetaMode = localStorage.getItem('isBetaHomescreen') === 'true';
+    let currentViewMode = localStorage.getItem('workspaceViewMode') || 'grid';
+
+    function toggleBetaHomescreen() {
+      isBetaMode = !isBetaMode;
+      localStorage.setItem('isBetaHomescreen', isBetaMode);
+      applyBetaHomescreenState();
+    }
+
+    function applyBetaHomescreenState() {
+      const navbar = document.getElementById('mainNavbar');
+      const classicContainer = document.getElementById('classicContainer');
+      const betaContainer = document.getElementById('betaContainer');
+      const betaToggleBtn = document.getElementById('betaToggleBtn');
+
+      if (isBetaMode) {
+        navbar.classList.add('beta-topbar');
+        classicContainer.style.display = 'none';
+        betaContainer.style.display = 'flex';
+        betaToggleBtn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px;">bolt</span> Beta UI: ON`;
+        betaToggleBtn.style.background = '#00ff66';
+        betaToggleBtn.style.color = '#000000';
+      } else {
+        navbar.classList.remove('beta-topbar');
+        classicContainer.style.display = 'flex';
+        betaContainer.style.display = 'none';
+        betaToggleBtn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px;">bolt</span> Beta UI: OFF`;
+        betaToggleBtn.style.background = '';
+        betaToggleBtn.style.color = '#00ff66';
+      }
+    }
+
+    function setWorkspaceView(mode) {
+      currentViewMode = mode;
+      localStorage.setItem('workspaceViewMode', mode);
+      const container = document.getElementById('cardsContainer');
+      const btnGrid = document.getElementById('btnViewGrid');
+      const btnRect = document.getElementById('btnViewRectangle');
+
+      if (mode === 'rectangle') {
+        container.className = 'beta-cards-container view-rectangle';
+        btnRect.classList.add('active');
+        btnGrid.classList.remove('active');
+      } else {
+        container.className = 'beta-cards-container view-grid';
+        btnGrid.classList.add('active');
+        btnRect.classList.remove('active');
+      }
+    }
 
     function toggleDetails(targetId, btn) {
       const details = document.getElementById(targetId);
@@ -869,43 +1265,102 @@
 
     function openOpModal() {
       const content = document.getElementById('opModalContent');
-      if (checkOpAuth()) {
-        const storedUser = localStorage.getItem('opUser') || 'Operator';
-        content.innerHTML = `
-          <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,255,102,0.1); border:1px solid rgba(0,255,102,0.3); padding:12px 18px; border-radius:14px;">
-            <span style="color:#00ff66; font-size:0.88rem; font-weight:700; display:flex; align-items:center; gap:8px;">
-              <span class="material-symbols-outlined" style="font-size:18px;">verified</span> Verified OP: ${storedUser}
-            </span>
-            <button onclick="logoutOp()" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 12px; border-radius:999px; font-size:0.78rem; cursor:pointer;">
-              Logout
-            </button>
-          </div>
+      const modalTitle = document.getElementById('opModalHeaderTitle');
 
-          <div style="margin-top:10px;">
-            <h4 style="color:#fff; font-size:0.98rem; font-weight:700; margin-bottom:8px;">Generate Announcement HTML</h4>
-            <input type="text" id="annTitle" class="form-input" placeholder="Announcement Title" style="margin-bottom:8px;" />
-            <textarea id="annDesc" class="form-textarea" placeholder="Announcement Description..." style="height:60px; margin-bottom:8px;"></textarea>
-            <button class="btn-action" onclick="generateAnnouncementCode()" style="width:100%;">
-              <span class="material-symbols-outlined" style="font-size:18px;">code</span>
-              Copy HTML Snippet
-            </button>
-          </div>
-        `;
+      // Next-Gen Overhauled OP Panel UI if Next-Gen UI is ON
+      if (isBetaMode) {
+        modalTitle.innerHTML = `<span class="material-symbols-outlined" style="color: #00ff66;">hub</span> Next-Gen OP Command Hub`;
+        if (checkOpAuth()) {
+          const storedUser = localStorage.getItem('opUser') || 'Operator';
+          content.innerHTML = `
+            <div style="background: linear-gradient(135deg, rgba(0,255,102,0.15) 0%, rgba(18,18,24,0.95) 100%); border: 1px solid rgba(0,255,102,0.4); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 10px 30px rgba(0,255,102,0.1);">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:#00ff66; font-size:0.92rem; font-weight:800; display:flex; align-items:center; gap:8px;">
+                  <span class="material-symbols-outlined" style="font-size:20px;">verified_user</span> AUTHENTICATED COMMANDER
+                </span>
+                <span style="background: rgba(0,255,102,0.2); color: #00ff66; padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700;">${storedUser}</span>
+              </div>
+              <div style="font-size: 0.85rem; color: #94a3b8;">System status is nominal. Full administrative broadcast privileges active.</div>
+              <button onclick="logoutOp()" class="btn-action" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); margin-top: 4px;">
+                <span class="material-symbols-outlined" style="font-size: 16px;">logout</span> Terminate Session
+              </button>
+            </div>
+
+            <div style="background: rgba(26,26,34,0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px;">
+              <h4 style="color:#fff; font-size:1rem; font-weight:800; display:flex; align-items:center; gap:8px;">
+                <span class="material-symbols-outlined" style="color:#00ff66; font-size:20px;">code</span> Broadcast Announcement Snippet
+              </h4>
+              <input type="text" id="annTitle" class="form-input" placeholder="Announcement Title" />
+              <textarea id="annDesc" class="form-textarea" placeholder="Announcement Description..." style="height: 80px;"></textarea>
+              <button class="btn-action" onclick="generateAnnouncementCode()" style="background: #00ff66; color: #000000; width:100%;">
+                <span class="material-symbols-outlined" style="font-size:18px;">content_copy</span> Copy Generated HTML Snippet
+              </button>
+            </div>
+          `;
+        } else {
+          content.innerHTML = `
+            <div style="background: rgba(26,26,34,0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="background: rgba(0,255,102,0.1); border-radius: 12px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: #00ff66;">
+                  <span class="material-symbols-outlined">lock</span>
+                </div>
+                <div>
+                  <div style="font-weight: 800; color: #fff; font-size: 1.05rem;">Restricted Operator Access</div>
+                  <div style="font-size: 0.85rem; color: #94a3b8;">Enter crew credentials to unlock next-gen control protocols.</div>
+                </div>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 4px;">
+                <input type="text" id="opUserInput" class="form-input" placeholder="Operator Username" />
+                <input type="password" id="opPasswordInput" class="form-input" placeholder="Operator Password" />
+                <div id="opAuthErrorMsg" class="error-msg-text">Authentication failed. Invalid username or password.</div>
+              </div>
+              <button class="btn-action" onclick="loginOp()" style="background: #00ff66; color: #000000; width: 100%; margin-top: 4px;">
+                <span class="material-symbols-outlined" style="font-size:18px;">lock_open</span> Authenticate OP Session
+              </button>
+            </div>
+          `;
+        }
       } else {
-        content.innerHTML = `
-          <p style="font-size:0.9rem; color:#94a3b8; line-height:1.6;">
-            Log in with your Operator credentials to access OP mode.
-          </p>
-          <div>
-            <input type="text" id="opUserInput" class="form-input" placeholder="OP Username" style="margin-bottom:8px;" />
-            <input type="password" id="opPasswordInput" class="form-input" placeholder="OP Password" />
-            <div id="opAuthErrorMsg" class="error-msg-text">Incorrect password or username.</div>
-          </div>
-          <button class="btn-action" onclick="loginOp()" style="margin-top:8px;">
-            <span class="material-symbols-outlined" style="font-size:18px;">lock_open</span>
-            Log In as OP
-          </button>
-        `;
+        // Classic OP Panel UI
+        modalTitle.innerHTML = `<span class="material-symbols-outlined" style="color: #00ff66;">admin_panel_settings</span> OP Control Panel`;
+        if (checkOpAuth()) {
+          const storedUser = localStorage.getItem('opUser') || 'Operator';
+          content.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,255,102,0.1); border:1px solid rgba(0,255,102,0.3); padding:12px 18px; border-radius:14px;">
+              <span style="color:#00ff66; font-size:0.88rem; font-weight:700; display:flex; align-items:center; gap:8px;">
+                <span class="material-symbols-outlined" style="font-size:18px;">verified</span> Verified OP: ${storedUser}
+              </span>
+              <button onclick="logoutOp()" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 12px; border-radius:999px; font-size:0.78rem; cursor:pointer;">
+                Logout
+              </button>
+            </div>
+
+            <div style="margin-top:10px;">
+              <h4 style="color:#fff; font-size:0.98rem; font-weight:700; margin-bottom:8px;">Generate Announcement HTML</h4>
+              <input type="text" id="annTitle" class="form-input" placeholder="Announcement Title" style="margin-bottom:8px;" />
+              <textarea id="annDesc" class="form-textarea" placeholder="Announcement Description..." style="height:60px; margin-bottom:8px;"></textarea>
+              <button class="btn-action" onclick="generateAnnouncementCode()" style="width:100%;">
+                <span class="material-symbols-outlined" style="font-size:18px;">code</span>
+                Copy HTML Snippet
+              </button>
+            </div>
+          `;
+        } else {
+          content.innerHTML = `
+            <p style="font-size:0.9rem; color:#94a3b8; line-height:1.6;">
+              Log in with your Operator credentials to access OP mode.
+            </p>
+            <div>
+              <input type="text" id="opUserInput" class="form-input" placeholder="OP Username" style="margin-bottom:8px;" />
+              <input type="password" id="opPasswordInput" class="form-input" placeholder="OP Password" />
+              <div id="opAuthErrorMsg" class="error-msg-text">Incorrect password or username.</div>
+            </div>
+            <button class="btn-action" onclick="loginOp()" style="margin-top:8px;">
+              <span class="material-symbols-outlined" style="font-size:18px;">lock_open</span>
+              Log In as OP
+            </button>
+          `;
+        }
       }
       openModal('opModal');
     }
@@ -948,6 +1403,8 @@
     }
 
     updateOpStatusUI();
+    applyBetaHomescreenState();
+    setWorkspaceView(currentViewMode);
   </script>
 
 </body>
