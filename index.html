@@ -31,7 +31,22 @@
       position: relative;
     }
 
-    /* Floating Background Gradient Cubes */
+    /* Subtle Technical Grid Background Overlay */
+    .bg-grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Floating Background Tiles */
     .bg-cubes-container {
       position: fixed;
       top: 0;
@@ -47,8 +62,8 @@
       position: absolute;
       width: 80px;
       height: 80px;
-      background: linear-gradient(to bottom, rgba(0, 85, 255, 0.16), rgba(7, 7, 9, 0.95));
-      border: 1px solid rgba(0, 85, 255, 0.28);
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(7, 7, 9, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 18px;
       display: flex;
       justify-content: center;
@@ -59,7 +74,6 @@
       animation: floatCube 12s infinite ease-in-out;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
       user-select: none;
-      transform: rotate(0deg) !important;
     }
 
     .bg-cube:nth-child(1)  { top: 5%;   left: 4%;  animation-delay: 0s; }
@@ -70,14 +84,14 @@
     .bg-cube:nth-child(6)  { top: 30%;  right: 14%; animation-delay: -3s; }
     .bg-cube:nth-child(7)  { top: 55%;  right: 6%; animation-delay: -5s; }
     .bg-cube:nth-child(8)  { top: 80%;  right: 12%; animation-delay: -7s; }
-    .bg-cube:nth-child(9)  { top: 15%;  left: 80%; animation-delay: -8s; font-size: 1.1rem; color: rgba(0, 85, 255, 0.45); }
+    .bg-cube:nth-child(9)  { top: 15%;  left: 80%; animation-delay: -8s; font-size: 1.1rem; color: rgba(255, 255, 255, 0.45); }
     .bg-cube:nth-child(10) { top: 68%;  left: 82%; animation-delay: -9s; }
     .bg-cube:nth-child(11) { top: 40%;  left: 6%;  animation-delay: -2.5s; }
     .bg-cube:nth-child(12) { top: 88%;  left: 45%; animation-delay: -4.5s; }
 
     @keyframes floatCube {
-      0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
-      50% { transform: translateY(-20px) rotate(0deg) scale(1.04); }
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.04); }
     }
 
     /* Pill-Shaped Topbar */
@@ -102,7 +116,7 @@
     .brand-section {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .brand-title {
@@ -113,13 +127,13 @@
       letter-spacing: -0.5px;
     }
 
-    .btn-announcements-topbar {
+    .btn-topbar {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(0, 85, 255, 0.15);
-      border: 1px solid rgba(0, 85, 255, 0.35);
-      color: #60a5fa;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #f1f5f9;
       padding: 6px 14px;
       border-radius: 9999px;
       font-family: 'Montserrat', sans-serif;
@@ -129,11 +143,11 @@
       transition: all 0.2s ease;
     }
 
-    .btn-announcements-topbar:hover {
-      background: #0055ff;
-      color: #ffffff;
-      border-color: #0055ff;
-      box-shadow: 0 0 12px rgba(0, 85, 255, 0.4);
+    .btn-topbar:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
     }
 
     .nav-links {
@@ -154,16 +168,16 @@
       font-weight: 600;
       font-size: 0.85rem;
       text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       transition: all 0.2s ease;
       cursor: pointer;
     }
 
     .btn-nav:hover {
-      background-color: #0055ff;
-      color: #ffffff;
-      border-color: #0055ff;
-      box-shadow: 0 0 15px rgba(0, 85, 255, 0.4);
+      background-color: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
     }
 
     .container {
@@ -189,7 +203,7 @@
       font-size: 2.2rem;
       font-weight: 800;
       color: #ffffff;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       letter-spacing: -0.8px;
     }
 
@@ -200,7 +214,7 @@
       font-weight: 500;
     }
 
-    /* Announcement Banner Containers */
+    /* Announcement Cards Container */
     .announcements-list {
       display: flex;
       flex-direction: column;
@@ -210,8 +224,8 @@
 
     .announcement-banner {
       width: 100%;
-      background: linear-gradient(135deg, rgba(0, 85, 255, 0.15) 0%, rgba(20, 20, 26, 0.9) 100%);
-      border: 1px solid rgba(0, 85, 255, 0.35);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(20, 20, 26, 0.9) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 20px;
       padding: 18px 24px;
       display: flex;
@@ -221,13 +235,13 @@
     }
 
     .announcement-banner.matrix-theme {
-      background: linear-gradient(135deg, rgba(0, 255, 102, 0.12) 0%, rgba(20, 20, 26, 0.9) 100%);
+      background: linear-gradient(135deg, rgba(0, 255, 102, 0.1) 0%, rgba(20, 20, 26, 0.9) 100%);
       border-color: rgba(0, 255, 102, 0.35);
     }
 
     .announcement-banner.cpp-theme {
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(20, 20, 26, 0.9) 100%);
-      border-color: rgba(168, 85, 247, 0.35);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(20, 20, 26, 0.9) 100%);
+      border-color: rgba(255, 255, 255, 0.3);
     }
 
     .announcement-header {
@@ -245,25 +259,20 @@
     }
 
     .announcement-icon {
-      background: rgba(0, 85, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 12px;
       width: 38px;
       height: 38px;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #60a5fa;
+      color: #ffffff;
       flex-shrink: 0;
     }
 
     .matrix-theme .announcement-icon {
       background: rgba(0, 255, 102, 0.2);
       color: #00ff66;
-    }
-
-    .cpp-theme .announcement-icon {
-      background: rgba(168, 85, 247, 0.2);
-      color: #c084fc;
     }
 
     .announcement-title {
@@ -275,7 +284,6 @@
       gap: 10px;
     }
 
-    /* White Rounded BETA Rectangle Badge */
     .beta-badge {
       background-color: #ffffff;
       color: #000000;
@@ -292,8 +300,8 @@
 
     .btn-see-all {
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #60a5fa;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
       padding: 6px 14px;
       border-radius: 9999px;
       font-weight: 700;
@@ -305,24 +313,17 @@
     }
 
     .matrix-theme .btn-see-all { color: #00ff66; }
-    .cpp-theme .btn-see-all { color: #c084fc; }
 
     .btn-see-all:hover {
-      background: #0055ff;
-      color: #ffffff;
-      border-color: #0055ff;
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
     }
 
     .matrix-theme .btn-see-all:hover {
       background: #00ff66;
       color: #050507;
       border-color: #00ff66;
-    }
-
-    .cpp-theme .btn-see-all:hover {
-      background: #a855f7;
-      color: #ffffff;
-      border-color: #a855f7;
     }
 
     .announcement-details {
@@ -343,7 +344,7 @@
 
     .product-box {
       background: rgba(26, 26, 34, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 24px;
       padding: 30px;
       display: flex;
@@ -355,12 +356,11 @@
     }
 
     .product-box:hover {
-      border-color: rgba(0, 85, 255, 0.4);
+      border-color: rgba(255, 255, 255, 0.35);
       transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 85, 255, 0.15);
+      box-shadow: 0 12px 40px rgba(255, 255, 255, 0.1);
     }
 
-    /* MatriX Specific Mono Card & Green Gradient Hover */
     .product-box.matrix-card {
       font-family: 'JetBrains Mono', monospace !important;
       border-color: rgba(0, 255, 102, 0.2);
@@ -381,7 +381,7 @@
 
     .product-icon {
       font-size: 36px;
-      color: #0055ff;
+      color: #ffffff;
     }
 
     .product-title {
@@ -400,7 +400,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: #60a5fa;
+      color: #e2e8f0;
       font-weight: 700;
       font-size: 0.92rem;
       text-decoration: none;
@@ -409,7 +409,7 @@
     }
 
     .product-link:hover {
-      color: #93c5fd;
+      color: #ffffff;
       gap: 12px;
     }
 
@@ -435,8 +435,8 @@
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 28px;
       width: 100%;
-      max-width: 600px;
-      max-height: 80vh;
+      max-width: 650px;
+      max-height: 85vh;
       display: flex;
       flex-direction: column;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
@@ -482,8 +482,8 @@
     }
 
     .btn-close-modal:hover {
-      background: rgba(255, 85, 119, 0.2);
-      color: #ff5577;
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
     }
 
     .modal-body {
@@ -491,12 +491,12 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
     }
 
     .announcement-item {
       background: #1a1a24;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 18px;
       padding: 20px;
       display: flex;
@@ -506,7 +506,7 @@
 
     .item-date {
       font-size: 0.75rem;
-      color: #60a5fa;
+      color: #cbd5e1;
       font-weight: 700;
       letter-spacing: 0.5px;
     }
@@ -521,6 +521,59 @@
       font-size: 0.88rem;
       color: #94a3b8;
       line-height: 1.6;
+    }
+
+    /* Form Controls */
+    .form-input, .form-textarea {
+      width: 100%;
+      background: #1a1a24;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 12px 16px;
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .form-textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: #ffffff;
+    }
+
+    /* Inline Error Message Style */
+    .error-msg-text {
+      color: #ff4d4d;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: none;
+      margin-top: 4px;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #ffffff;
+      color: #000000;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 9999px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background: #e2e8f0;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
     }
 
     .site-footer {
@@ -538,7 +591,10 @@
 </head>
 <body>
 
-  <!-- Expanded Straight Background Tiles -->
+  <!-- Subtle Technical Grid Background -->
+  <div class="bg-grid-overlay"></div>
+
+  <!-- Expanded Background Tiles -->
   <div class="bg-cubes-container">
     <div class="bg-cube">Nothing</div>
     <div class="bg-cube">OrNo</div>
@@ -558,15 +614,19 @@
   <nav class="navbar">
     <div class="brand-section">
       <a href="index.html" class="brand-title">NothingOrNo</a>
-      <button class="btn-announcements-topbar" onclick="openAnnouncementsModal()">
+      <button class="btn-topbar" onclick="openModal('announcementsModal')">
         <span class="material-symbols-outlined" style="font-size: 16px;">campaign</span>
         Announcements
+      </button>
+      <button class="btn-topbar" id="opStatusBtn" onclick="openOpModal()">
+        <span class="material-symbols-outlined" style="font-size: 16px;">key</span>
+        OP Mode
       </button>
     </div>
 
     <div class="nav-links">
       <a href="matrix.html" class="btn-nav" style="border-color: rgba(0, 255, 102, 0.3); color: #00ff66;">MatriX</a>
-      <a href="kinematix.html" class="btn-nav" style="background-color: #0055ff; color: #ffffff; border-color: #0055ff;">KinematiX</a>
+      <a href="kinematix.html" class="btn-nav">KinematiX</a>
     </div>
   </nav>
 
@@ -574,17 +634,17 @@
     
     <!-- Hero Header -->
     <section class="surface-card">
-      <h1 class="hero-title">Roblox Studio Products</h1>
+      <h1 class="hero-title">Projects</h1>
       <p class="hero-desc">High-performance custom physics frameworks, data pipelines, and native C++ utilities engineered by the NothingOrNo crew.</p>
     </section>
 
     <!-- Product Showcase Section -->
     <section class="surface-card">
       
-      <!-- Rectangular Announcement Cards List -->
+      <!-- Announcements List Container -->
       <div class="announcements-list">
         
-        <!-- Announcement 1: Crew Transition -->
+        <!-- Announcement 1 -->
         <div class="announcement-banner">
           <div class="announcement-header">
             <div class="announcement-title-box">
@@ -603,7 +663,7 @@
           </div>
         </div>
 
-        <!-- Announcement 2: MatriX -->
+        <!-- Announcement 2 -->
         <div class="announcement-banner matrix-theme">
           <div class="announcement-header">
             <div class="announcement-title-box">
@@ -622,7 +682,7 @@
           </div>
         </div>
 
-        <!-- Announcement 3: NothingUI.dll for C++ [BETA] -->
+        <!-- Announcement 3 -->
         <div class="announcement-banner cpp-theme">
           <div class="announcement-header">
             <div class="announcement-title-box">
@@ -648,7 +708,6 @@
       
       <div class="products-grid">
         
-        <!-- KinematiX Product Card -->
         <div class="product-box">
           <div>
             <div class="product-header">
@@ -664,7 +723,6 @@
           </div>
         </div>
 
-        <!-- MatriX Product Card (Mono Typography & Green Gradient Hover) -->
         <div class="product-box matrix-card">
           <div>
             <div class="product-header">
@@ -685,22 +743,20 @@
 
   </main>
 
-  <!-- Dark Themed Announcements Modal -->
-  <div class="modal-overlay" id="announcementsModal" onclick="closeModalOnOverlay(event)">
+  <!-- Announcements Modal -->
+  <div class="modal-overlay" id="announcementsModal" onclick="closeModalOnOverlay(event, 'announcementsModal')">
     <div class="modal-window">
       <div class="modal-header">
         <div class="modal-title">
-          <span class="material-symbols-outlined" style="color: #60a5fa;">campaign</span>
+          <span class="material-symbols-outlined">campaign</span>
           Announcements
         </div>
-        <button class="btn-close-modal" onclick="closeAnnouncementsModal()">
+        <button class="btn-close-modal" onclick="closeModal('announcementsModal')">
           <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
         </button>
       </div>
 
       <div class="modal-body">
-        
-        <!-- Announcement 1 -->
         <div class="announcement-item">
           <span class="item-date">OCTOBER 2026</span>
           <div class="item-title">NothingUI.dll C++ Beta Program Launch</div>
@@ -709,7 +765,6 @@
           </p>
         </div>
 
-        <!-- Announcement 2 -->
         <div class="announcement-item">
           <span class="item-date">OCTOBER 2026</span>
           <div class="item-title">NothingOrNo Transitions to a Development Crew</div>
@@ -717,25 +772,43 @@
             We are expanding beyond a solo project! NothingOrNo is officially becoming a development crew to accelerate module development.
           </p>
         </div>
+      </div>
+    </div>
+  </div
 
-        <!-- Announcement 3 -->
-        <div class="announcement-item">
-          <span class="item-date">SEPTEMBER 2026</span>
-          <div class="item-title">MatriX Pipeline Release</div>
-          <p class="item-content">
-            Launched the MatriX data sanitization module designed to wash raw client data and cycle state ticks cleanly.
-          </p>
+  <!-- OP Control Panel Modal -->
+  <div class="modal-overlay" id="opModal" onclick="closeModalOnOverlay(event, 'opModal')">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="material-symbols-outlined" style="color: #00ff66;">admin_panel_settings</span>
+          OP Control Panel
         </div>
+        <button class="btn-close-modal" onclick="closeModal('opModal')">
+          <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+        </button>
+      </div>
 
+      <div class="modal-body" id="opModalContent">
+        <!-- Dynamically rendered via JS -->
       </div>
     </div>
   </div>
 
   <footer class="site-footer">
-    NothingOrNo Studio • Independent Roblox Studio Asset Showcase
+    NothingOrNo Studio • Independent Asset Showcase
   </footer>
 
   <script>
+    /* =================================================================== */
+    /* MULTIPLE OP USERS CONFIGURATION                                    */
+    /* You can add as many OP accounts as you need to this array!          */
+    /* =================================================================== */
+    const OP_ACCOUNTS = [
+      { user: "NothingOrNo", pass: "NothingOrNoXDLOLz" },
+      { user: "Deniz_8bruhxd", pass: "thefakebossXD" }
+    ];
+
     function toggleDetails(targetId, btn) {
       const details = document.getElementById(targetId);
       if (details.style.display === 'block') {
@@ -747,19 +820,118 @@
       }
     }
 
-    function openAnnouncementsModal() {
-      document.getElementById('announcementsModal').style.display = 'flex';
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = 'flex';
     }
 
-    function closeAnnouncementsModal() {
-      document.getElementById('announcementsModal').style.display = 'none';
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
     }
 
-    function closeModalOnOverlay(e) {
-      if (e.target.id === 'announcementsModal') {
-        closeAnnouncementsModal();
+    function closeModalOnOverlay(e, modalId) {
+      if (e.target.id === modalId) {
+        closeModal(modalId);
       }
     }
+
+    function checkOpAuth() {
+      return localStorage.getItem('isOpLoggedIn') === 'true';
+    }
+
+    function updateOpStatusUI() {
+      const btn = document.getElementById('opStatusBtn');
+      if (checkOpAuth()) {
+        const storedUser = localStorage.getItem('opUser') || 'Operator';
+        btn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px; color:#00ff66;">verified</span> ${storedUser}`;
+        btn.style.borderColor = 'rgba(0, 255, 102, 0.4)';
+      } else {
+        btn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px;">key</span> OP Mode`;
+        btn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+      }
+    }
+
+    function openOpModal() {
+      const content = document.getElementById('opModalContent');
+      if (checkOpAuth()) {
+        const storedUser = localStorage.getItem('opUser') || 'Operator';
+        content.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,255,102,0.1); border:1px solid rgba(0,255,102,0.3); padding:12px 18px; border-radius:14px;">
+            <span style="color:#00ff66; font-size:0.88rem; font-weight:700; display:flex; align-items:center; gap:8px;">
+              <span class="material-symbols-outlined" style="font-size:18px;">verified</span> Verified OP: ${storedUser}
+            </span>
+            <button onclick="logoutOp()" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 12px; border-radius:999px; font-size:0.78rem; cursor:pointer;">
+              Logout
+            </button>
+          </div>
+
+          <div style="margin-top:10px;">
+            <h4 style="color:#fff; font-size:0.98rem; font-weight:700; margin-bottom:8px;">Generate Announcement HTML</h4>
+            <input type="text" id="annTitle" class="form-input" placeholder="Announcement Title" style="margin-bottom:8px;" />
+            <textarea id="annDesc" class="form-textarea" placeholder="Announcement Description..." style="height:60px; margin-bottom:8px;"></textarea>
+            <button class="btn-action" onclick="generateAnnouncementCode()" style="width:100%;">
+              <span class="material-symbols-outlined" style="font-size:18px;">code</span>
+              Copy HTML Snippet
+            </button>
+          </div>
+        `;
+      } else {
+        content.innerHTML = `
+          <p style="font-size:0.9rem; color:#94a3b8; line-height:1.6;">
+            Log in with your Operator credentials to access OP mode.
+          </p>
+          <div>
+            <input type="text" id="opUserInput" class="form-input" placeholder="OP Username" style="margin-bottom:8px;" />
+            <input type="password" id="opPasswordInput" class="form-input" placeholder="OP Password" />
+            <div id="opAuthErrorMsg" class="error-msg-text">Incorrect password or username.</div>
+          </div>
+          <button class="btn-action" onclick="loginOp()" style="margin-top:8px;">
+            <span class="material-symbols-outlined" style="font-size:18px;">lock_open</span>
+            Log In as OP
+          </button>
+        `;
+      }
+      openModal('opModal');
+    }
+
+    function loginOp() {
+      const u = document.getElementById('opUserInput').value.trim();
+      const p = document.getElementById('opPasswordInput').value;
+      const errorMsg = document.getElementById('opAuthErrorMsg');
+
+      // Check if user/pass matches any account in OP_ACCOUNTS array
+      const matchedUser = OP_ACCOUNTS.find(acc => acc.user === u && acc.pass === p);
+
+      if (matchedUser) {
+        if (errorMsg) errorMsg.style.display = 'none';
+        localStorage.setItem('isOpLoggedIn', 'true');
+        localStorage.setItem('opUser', matchedUser.user);
+        updateOpStatusUI();
+        openOpModal();
+      } else {
+        if (errorMsg) errorMsg.style.display = 'block';
+      }
+    }
+
+    function logoutOp() {
+      localStorage.removeItem('isOpLoggedIn');
+      localStorage.removeItem('opUser');
+      updateOpStatusUI();
+      closeModal('opModal');
+    }
+
+    function generateAnnouncementCode() {
+      const title = document.getElementById('annTitle').value.trim();
+      const desc = document.getElementById('annDesc').value.trim();
+      if (!title || !desc) {
+        return;
+      }
+      const uniqueId = 'details_' + Date.now();
+      const code = `<div class="announcement-banner">\n  <div class="announcement-header">\n    <div class="announcement-title-box">\n      <div class="announcement-icon"><span class="material-symbols-outlined">campaign</span></div>\n      <div class="announcement-title">${title}</div>\n    </div>\n    <button class="btn-see-all" onclick="toggleDetails('${uniqueId}', this)">See all</button>\n  </div>\n  <div class="announcement-details" id="${uniqueId}">${desc}</div>\n</div>`;
+      
+      navigator.clipboard.writeText(code);
+    }
+
+    updateOpStatusUI();
   </script>
 
 </body>
