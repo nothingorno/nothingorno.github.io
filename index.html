@@ -113,7 +113,6 @@
       z-index: 10;
     }
 
-    /* Beta Next-Gen Full-Canvas Rounded Rectangle Topbar */
     .navbar.beta-topbar {
       border-radius: 20px;
       width: 100%;
@@ -165,31 +164,6 @@
       gap: 12px;
     }
 
-    .btn-nav {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      background-color: #1a1a22;
-      color: #e3e2e6;
-      padding: 9px 20px;
-      border-radius: 9999px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-
-    .btn-nav:hover {
-      background-color: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
-    }
-
-    /* Classic Container */
     .container {
       width: 100%;
       max-width: 950px;
@@ -200,7 +174,6 @@
       z-index: 10;
     }
 
-    /* Next-Gen Full-Canvas Layout (Left Sidebar + Center Content spanning width) */
     .beta-main-layout {
       display: none; 
       width: 100%;
@@ -234,7 +207,6 @@
       gap: 24px;
     }
 
-    /* Layout Switcher Bar (Grid vs Rectangle) */
     .layout-switcher-bar {
       display: flex;
       justify-content: space-between;
@@ -307,50 +279,41 @@
       transform: translateX(4px);
     }
 
-    /* Cards Container with Switching Animations */
     .beta-cards-container {
       display: grid;
       gap: 24px;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* View Mode: Rectangle (Stack / Horizontal Rows) */
     .beta-cards-container.view-rectangle {
       grid-template-columns: 1fr;
     }
-
     .beta-cards-container.view-rectangle .split-card {
       flex-direction: row;
       align-items: stretch;
     }
-
     .beta-cards-container.view-rectangle .split-card-top {
       width: 220px;
       border-bottom: none;
       border-right: 1px solid rgba(255, 255, 255, 0.08);
     }
-
     .beta-cards-container.view-rectangle .split-card-bottom {
       flex: 1;
       justify-content: center;
     }
 
-    /* View Mode: Grid (Multi-column) */
     .beta-cards-container.view-grid {
       grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
     }
-
     .beta-cards-container.view-grid .split-card {
       flex-direction: column;
     }
-
     .beta-cards-container.view-grid .split-card-top {
       width: 100%;
       border-right: none;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    /* Split-Half Cards Style */
     .split-card {
       background: rgba(18, 18, 24, 0.9);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -437,6 +400,10 @@
       color: #ffffff;
       margin-bottom: 12px;
       letter-spacing: -0.8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .hero-desc {
@@ -446,7 +413,6 @@
       font-weight: 500;
     }
 
-    /* Announcement Cards Container */
     .announcements-list {
       display: flex;
       flex-direction: column;
@@ -464,16 +430,6 @@
       flex-direction: column;
       gap: 10px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    }
-
-    .announcement-banner.matrix-theme {
-      background: linear-gradient(135deg, rgba(0, 255, 102, 0.1) 0%, rgba(20, 20, 26, 0.9) 100%);
-      border-color: rgba(0, 255, 102, 0.35);
-    }
-
-    .announcement-banner.cpp-theme {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(20, 20, 26, 0.9) 100%);
-      border-color: rgba(255, 255, 255, 0.3);
     }
 
     .announcement-header {
@@ -500,11 +456,6 @@
       align-items: center;
       color: #ffffff;
       flex-shrink: 0;
-    }
-
-    .matrix-theme .announcement-icon {
-      background: rgba(0, 255, 102, 0.2);
-      color: #00ff66;
     }
 
     .announcement-title {
@@ -544,18 +495,10 @@
       flex-shrink: 0;
     }
 
-    .matrix-theme .btn-see-all { color: #00ff66; }
-
     .btn-see-all:hover {
       background: #ffffff;
       color: #000000;
       border-color: #ffffff;
-    }
-
-    .matrix-theme .btn-see-all:hover {
-      background: #00ff66;
-      color: #050507;
-      border-color: #00ff66;
     }
 
     .announcement-details {
@@ -567,7 +510,6 @@
       border-top: 1px dashed rgba(255, 255, 255, 0.1);
     }
 
-    /* Product Cards Grid (Classic) */
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -591,18 +533,6 @@
       border-color: rgba(255, 255, 255, 0.35);
       transform: translateY(-4px);
       box-shadow: 0 12px 40px rgba(255, 255, 255, 0.1);
-    }
-
-    .product-box.matrix-card {
-      font-family: 'JetBrains Mono', monospace !important;
-      border-color: rgba(0, 255, 102, 0.2);
-    }
-
-    .product-box.matrix-card:hover {
-      background: linear-gradient(135deg, rgba(0, 255, 102, 0.12) 0%, rgba(26, 26, 34, 0.95) 100%);
-      border-color: rgba(0, 255, 102, 0.6);
-      box-shadow: 0 12px 40px rgba(0, 255, 102, 0.2);
-      transform: translateY(-4px);
     }
 
     .product-header {
@@ -645,33 +575,32 @@
       gap: 12px;
     }
 
-    /* Modal Popup Styling */
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       z-index: 100;
       display: none;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 24px;
     }
 
     .modal-window {
-      background: #121218;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #0d0d12;
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 28px;
       width: 100%;
-      max-width: 650px;
-      max-height: 85vh;
+      max-width: 840px;
+      height: 88vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.95);
       overflow: hidden;
       animation: modalSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -682,84 +611,55 @@
     }
 
     .modal-header {
-      padding: 20px 24px;
-      background: #181822;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 20px 28px;
+      background: #14141c;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .modal-title {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 800;
       color: #ffffff;
       display: flex;
       align-items: center;
       gap: 10px;
+      letter-spacing: -0.3px;
     }
 
     .btn-close-modal {
-      background: rgba(255, 255, 255, 0.06);
-      border: none;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: #a0a0aa;
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
     }
 
     .btn-close-modal:hover {
-      background: rgba(255, 255, 255, 0.2);
-      color: #ffffff;
+      background: #ffffff;
+      color: #000000;
     }
 
     .modal-body {
-      padding: 24px;
+      padding: 28px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 20px;
     }
 
-    .announcement-item {
-      background: #1a1a24;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 18px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .item-date {
-      font-size: 0.75rem;
-      color: #cbd5e1;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    .item-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #ffffff;
-    }
-
-    .item-content {
-      font-size: 0.88rem;
-      color: #94a3b8;
-      line-height: 1.6;
-    }
-
-    /* Form Controls */
     .form-input, .form-textarea {
       width: 100%;
-      background: #1a1a24;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #14141c;
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 14px;
       padding: 12px 16px;
       color: #ffffff;
@@ -769,12 +669,13 @@
     }
 
     .form-textarea {
-      height: 100px;
+      height: 80px;
       resize: vertical;
     }
 
     .form-input:focus, .form-textarea:focus {
       border-color: #ffffff;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     }
 
     .error-msg-text {
@@ -807,6 +708,107 @@
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
     }
 
+    .op-card-section {
+      background: #12121a;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .op-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 12px;
+    }
+
+    .op-section-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .registry-window {
+      background: #08080c;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      overflow: hidden;
+      font-family: 'JetBrains Mono', monospace;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .registry-header-row {
+      background: #181822;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #94a3b8;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .registry-rows-list {
+      display: flex;
+      flex-direction: column;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+
+    .registry-row {
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      color: #cccccc;
+      user-select: none;
+    }
+
+    .registry-row.selected {
+      background-color: #ffffff !important;
+      color: #000000 !important;
+      font-weight: 800 !important;
+    }
+
+    .registry-row.selected .registry-input {
+      color: #000000 !important;
+      font-weight: 800 !important;
+    }
+
+    .registry-key {
+      font-weight: 600;
+    }
+
+    .registry-value-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .registry-input {
+      background: transparent;
+      border: none;
+      color: inherit;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      text-align: right;
+      outline: none;
+      width: 120px;
+    }
+
     .site-footer {
       width: 100%;
       max-width: 950px;
@@ -827,14 +829,6 @@
         width: 100%;
         position: static;
       }
-      .beta-cards-container.view-rectangle .split-card {
-        flex-direction: column;
-      }
-      .beta-cards-container.view-rectangle .split-card-top {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      }
     }
   </style>
 </head>
@@ -843,7 +837,7 @@
   <!-- Subtle Technical Grid Background -->
   <div class="bg-grid-overlay"></div>
 
-  <!-- Expanded Background Tiles -->
+  <!-- Background Tiles -->
   <div class="bg-cubes-container">
     <div class="bg-cube">Nothing</div>
     <div class="bg-cube">OrNo</div>
@@ -859,7 +853,7 @@
     <div class="bg-cube">Roblox</div>
   </div>
 
-  <!-- Topbar (Dynamic based on Beta mode) -->
+  <!-- Topbar -->
   <nav class="navbar" id="mainNavbar">
     <div class="brand-section">
       <a href="index.html" class="brand-title">NothingOrNo</a>
@@ -870,7 +864,7 @@
     </div>
 
     <div class="nav-links">
-      <button class="btn-topbar" onclick="toggleBetaHomescreen()" style="border-color: rgba(0, 255, 102, 0.4); color: #00ff66;" id="betaToggleBtn">
+      <button class="btn-topbar" onclick="toggleBetaHomescreen()" id="betaToggleBtn">
         <span class="material-symbols-outlined" style="font-size: 16px;">bolt</span>
         Beta UI: OFF
       </button>
@@ -883,166 +877,52 @@
 
   <!-- CLASSIC VIEW CONTAINER -->
   <main class="container" id="classicContainer">
-    
-    <!-- Hero Header -->
     <section class="surface-card">
-      <h1 class="hero-title">Projects</h1>
+      <h1 class="hero-title">NothingOrNo Labs</h1>
       <p class="hero-desc">High-performance custom physics frameworks, data pipelines, and native C++ utilities engineered by the NothingOrNo crew.</p>
     </section>
 
-    <!-- Product Showcase Section -->
     <section class="surface-card">
-      
-      <!-- Announcements List Container -->
-      <div class="announcements-list">
-        
-        <!-- Announcement 1 -->
-        <div class="announcement-banner">
-          <div class="announcement-header">
-            <div class="announcement-title-box">
-              <div class="announcement-icon">
-                <span class="material-symbols-outlined">group</span>
-              </div>
-              <div class="announcement-title">
-                NothingOrNo is going to be a crew, not a single dev anymore.
-              </div>
-            </div>
-            <button class="btn-see-all" onclick="toggleDetails('detailsCrew', this)">See all</button>
-          </div>
-
-          <div class="announcement-details" id="detailsCrew">
-            Expanding into a full development crew means faster, smoother, and much easier feature updates across all our frameworks.
-          </div>
-        </div>
-
-        <!-- Announcement 2 -->
-        <div class="announcement-banner matrix-theme">
-          <div class="announcement-header">
-            <div class="announcement-title-box">
-              <div class="announcement-icon">
-                <span class="material-symbols-outlined">data_object</span>
-              </div>
-              <div class="announcement-title">
-                MatriX: High-speed data washing & state sanitization pipeline released.
-              </div>
-            </div>
-            <button class="btn-see-all" onclick="toggleDetails('detailsMatrix', this)">See all</button>
-          </div>
-
-          <div class="announcement-details" id="detailsMatrix">
-            MatriX filters unhandled NaN values, control characters, and malformed client packets before state ticks process them. Check out the live interactive Windows terminal on the MatriX page!
-          </div>
-        </div>
-
-        <!-- Announcement 3 -->
-        <div class="announcement-banner cpp-theme">
-          <div class="announcement-header">
-            <div class="announcement-title-box">
-              <div class="announcement-icon">
-                <span class="material-symbols-outlined">code_blocks</span>
-              </div>
-              <div class="announcement-title">
-                NothingUI.dll for C++
-                <span class="beta-badge">BETA</span>
-              </div>
-            </div>
-            <button class="btn-see-all" onclick="toggleDetails('detailsCpp', this)">See all</button>
-          </div>
-
-          <div class="announcement-details" id="detailsCpp">
-            We are pioneering native performance extensions with compiled C++ binary support! NothingUI.dll brings native-speed interface rendering and heavy math acceleration to our external developer toolkit.
-          </div>
-        </div>
-
+      <div class="announcements-list" id="classicAnnouncementsList">
+        <!-- Dynamically populated -->
       </div>
 
       <h2 style="font-size: 1.35rem; font-weight: 700; color: #ffffff; margin-bottom: 22px;">Available Frameworks</h2>
       
-      <div class="products-grid">
-        
-        <div class="product-box">
-          <div>
-            <div class="product-header">
-              <span class="material-symbols-outlined product-icon">terminal</span>
-              <div class="product-title">NanoManager</div>
-            </div>
-            <p class="product-desc" style="margin-top: 14px;">
-              Lightweight C++ task management utilities. Features both the legacy build by froxy and the brand new C++ iteration with upcoming NothingUI integration.
-            </p>
-          </div>
-          <div>
-            <a href="nanomanager.html" class="product-link">Download Executables →</a>
-          </div>
-        </div>
-
-        <div class="product-box">
-          <div>
-            <div class="product-header">
-              <span class="material-symbols-outlined product-icon">tune</span>
-              <div class="product-title">KinematiX</div>
-            </div>
-            <p class="product-desc" style="margin-top: 14px;">
-              Advanced physics simulation engine handling structural stress, hydrodynamics, thermal conduction, and rigorous weight calculations.
-            </p>
-          </div>
-          <div>
-            <a href="kinematix.html" class="product-link">View KinematiX Engine →</a>
-          </div>
-        </div>
-
-        <div class="product-box matrix-card">
-          <div>
-            <div class="product-header">
-              <span class="material-symbols-outlined product-icon" style="color: #00ff66;">data_object</span>
-              <div class="product-title" style="color: #00ff66;">MatriX</div>
-            </div>
-            <p class="product-desc" style="margin-top: 14px; color: #a0a0aa;">
-              Data and value management system that securely cycles, washes, sanitizes, and distributes clean runtime values across client and server scripts.
-            </p>
-          </div>
-          <div>
-            <a href="matrix.html" class="product-link" style="color: #00ff66;">View MatriX Pipeline →</a>
-          </div>
-        </div>
-
+      <div class="products-grid" id="classicProductsGrid">
+        <!-- Dynamically populated -->
       </div>
     </section>
-
   </main>
 
 
   <!-- BETA NEXT-GEN FULL-CANVAS LAYOUT CONTAINER -->
   <div class="beta-main-layout" id="betaContainer">
     
-    <!-- Left Sidebar: All Projects Quick Access -->
+    <!-- Left Sidebar -->
     <aside class="beta-sidebar">
       <div class="sidebar-title">
         <span class="material-symbols-outlined" style="font-size: 20px;">folder_open</span>
         All Projects
       </div>
-      <a href="nanomanager.html" class="sidebar-link">
-        <span class="material-symbols-outlined" style="font-size: 18px;">terminal</span> NanoManager
-      </a>
-      <a href="kinematix.html" class="sidebar-link">
-        <span class="material-symbols-outlined" style="font-size: 18px;">tune</span> KinematiX
-      </a>
-      <a href="matrix.html" class="sidebar-link">
-        <span class="material-symbols-outlined" style="font-size: 18px; color: #00ff66;">data_object</span> MatriX
-      </a>
+      <div id="sidebarProductsList" style="display:flex; flex-direction:column; gap:12px;">
+        <!-- Dynamically populated -->
+      </div>
     </aside>
 
-    <!-- Center Content: Hero, View Switcher & Split-Half Cards -->
+    <!-- Center Content -->
     <div class="beta-center-content">
-      
       <section class="surface-card">
-        <h1 class="hero-title">Next-Gen Labs $\beta$</h1>
+        <h1 class="hero-title">
+          NothingOrNo Labs
+          <span class="beta-badge">BETA UI</span>
+        </h1>
         <p class="hero-desc">Explore our native utilities and simulation frameworks through our overhauled full-canvas dashboard.</p>
       </section>
 
-      <!-- Layout Switcher Bar (Grid vs Rectangle view options) -->
       <div class="layout-switcher-bar">
         <div style="font-weight: 700; font-size: 0.92rem; color: #ffffff; display: flex; align-items: center; gap: 8px;">
-          <span class="material-symbols-outlined" style="font-size: 18px; color: #00ff66;">dashboard</span>
+          <span class="material-symbols-outlined" style="font-size: 18px;">dashboard</span>
           Workspace View Mode
         </div>
         <div class="layout-switcher-btns">
@@ -1055,61 +935,16 @@
         </div>
       </div>
 
-      <!-- Split-Half Cards Container (Animated Grid/Rectangle Toggle) -->
       <div class="beta-cards-container view-grid" id="cardsContainer">
-        
-        <!-- NanoManager Split Card -->
-        <div class="split-card">
-          <div class="split-card-top">
-            <span class="material-symbols-outlined split-card-icon">terminal</span>
-          </div>
-          <div class="split-card-bottom">
-            <div class="split-card-title">NanoManager</div>
-            <div class="split-card-desc">Lightweight C++ task management utilities featuring the legacy build and the brand new C++ iteration.</div>
-            <a href="nanomanager.html" class="btn-go">
-              <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span> Go
-            </a>
-          </div>
-        </div>
-
-        <!-- KinematiX Split Card -->
-        <div class="split-card">
-          <div class="split-card-top">
-            <span class="material-symbols-outlined split-card-icon">tune</span>
-          </div>
-          <div class="split-card-bottom">
-            <div class="split-card-title">KinematiX Engine</div>
-            <div class="split-card-desc">Advanced physics simulation engine handling structural stress, hydrodynamics, and thermal conduction.</div>
-            <a href="kinematix.html" class="btn-go">
-              <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span> Go
-            </a>
-          </div>
-        </div>
-
-        <!-- MatriX Split Card -->
-        <div class="split-card">
-          <div class="split-card-top">
-            <span class="material-symbols-outlined split-card-icon" style="color: #00ff66;">data_object</span>
-          </div>
-          <div class="split-card-bottom">
-            <div class="split-card-title">MatriX Pipeline</div>
-            <div class="split-card-desc">Data and value management system that securely cycles, washes, sanitizes, and distributes clean runtime values.</div>
-            <a href="matrix.html" class="btn-go" style="background: #00ff66; color: #000000;">
-              <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span> Go
-            </a>
-          </div>
-        </div>
-
+        <!-- Dynamically populated -->
       </div>
-
     </div>
-
   </div>
 
 
   <!-- Announcements Modal -->
   <div class="modal-overlay" id="announcementsModal" onclick="closeModalOnOverlay(event, 'announcementsModal')">
-    <div class="modal-window">
+    <div class="modal-window" style="max-width: 650px; height: auto;">
       <div class="modal-header">
         <div class="modal-title">
           <span class="material-symbols-outlined">campaign</span>
@@ -1119,34 +954,20 @@
           <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
         </button>
       </div>
-
-      <div class="modal-body">
-        <div class="announcement-item">
-          <span class="item-date">OCTOBER 2026</span>
-          <div class="item-title">NothingUI.dll C++ Beta Program Launch</div>
-          <p class="item-content">
-            Initial beta builds for NothingUI.dll are under active testing! Bringing C++ performance bindings and native rendering acceleration to the NothingOrNo ecosystem.
-          </p>
-        </div>
-
-        <div class="announcement-item">
-          <span class="item-date">OCTOBER 2026</span>
-          <div class="item-title">NothingOrNo Transitions to a Development Crew</div>
-          <p class="item-content">
-            We are expanding beyond a solo project! NothingOrNo is officially becoming a development crew to accelerate module development.
-          </p>
-        </div>
+      <div class="modal-body" id="modalAnnouncementsBody">
+        <!-- Dynamically populated -->
       </div>
     </div>
   </div>
 
+
   <!-- OP Control Panel Modal -->
   <div class="modal-overlay" id="opModal" onclick="closeModalOnOverlay(event, 'opModal')">
-    <div class="modal-window">
+    <div class="modal-window" id="opModalWindow">
       <div class="modal-header">
         <div class="modal-title" id="opModalHeaderTitle">
-          <span class="material-symbols-outlined" style="color: #00ff66;">admin_panel_settings</span>
-          OP Control Panel
+          <span class="material-symbols-outlined">admin_panel_settings</span>
+          OP Command Hub (Bridge Active)
         </div>
         <button class="btn-close-modal" onclick="closeModal('opModal')">
           <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
@@ -1154,7 +975,7 @@
       </div>
 
       <div class="modal-body" id="opModalContent">
-        <!-- Dynamically rendered via JS -->
+        <!-- Rendered via JS -->
       </div>
     </div>
   </div>
@@ -1165,19 +986,166 @@
 
   <script>
     /* =================================================================== */
-    /* MULTIPLE OP USERS CONFIGURATION                                     */
+    /* LOCAL BRIDGE ENDPOINTS (Connected to Node.js Bridge on port 3000)   */
     /* =================================================================== */
-    const OP_ACCOUNTS = [
-      { user: "NothingOrNo", pass: "NothingOrNoXDLOLz" },
-      { user: "Deniz_8bruhxd", pass: "thefakebossXD" }
+    const TIDB_API = {
+      auth: "http://localhost:3000/api/op_accounts",
+      announcements: "http://localhost:3000/api/announcements",
+      products: "http://localhost:3000/api/custom_products",
+      ipBans: "http://localhost:3000/api/ip_bans"
+    };
+
+    let fallbackAnnouncements = [
+      { id: 1, title: "NothingOrNo is going to be a crew, not a single dev anymore.", description: "Expanding into a full development crew means faster, smoother, and much easier feature updates across all our frameworks.", icon_name: "group" },
+      { id: 2, title: "MatriX: High-speed data washing & state sanitization pipeline released.", description: "MatriX filters unhandled NaN values, control characters, and malformed client packets.", icon_name: "data_object" }
     ];
 
-    let isBetaMode = localStorage.getItem('isBetaHomescreen') === 'true';
-    let currentViewMode = localStorage.getItem('workspaceViewMode') || 'grid';
+    let fallbackProducts = [
+      { id: 1, title: "NanoManager", description: "Lightweight C++ task management utilities featuring the legacy build and new C++ iteration.", icon_name: "terminal", link_url: "nanomanager.html" },
+      { id: 2, title: "KinematiX Engine", description: "Advanced physics simulation engine handling structural stress, hydrodynamics, and thermal conduction.", icon_name: "tune", link_url: "kinematix.html" },
+      { id: 3, title: "MatriX Pipeline", description: "Data and value management system that securely cycles, washes, sanitizes, and distributes clean runtime values.", icon_name: "data_object", link_url: "matrix.html" }
+    ];
+
+    let fallbackIpBans = [];
+
+    let systemRegistry = {
+      "beta_ui": localStorage.getItem('isBetaHomescreen') === 'true' ? "1" : "0",
+      "workspace_view_mode": localStorage.getItem('workspaceViewMode') || 'grid'
+    };
+    let selectedRegistryIndex = 0;
+
+    let isBetaMode = systemRegistry["beta_ui"] === "1";
+    let currentViewMode = systemRegistry["workspace_view_mode"];
+
+    async function fetchTiDBData(endpoint, fallback) {
+      try {
+        const res = await fetch(endpoint);
+        if (!res.ok) throw new Error("Network response was not ok");
+        const data = await res.json();
+        return (Array.isArray(data) && data.length > 0) ? data : fallback;
+      } catch (err) {
+        console.warn("Bridge connection failed, using fallback/previous state:", err);
+        return fallback;
+      }
+    }
+
+    async function postTiDBData(endpoint, payload) {
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        return await res.json();
+      } catch (err) {
+        console.error("Bridge POST failed:", err);
+        throw err;
+      }
+    }
+
+    async function deleteTiDBData(endpoint, id) {
+      try {
+        const res = await fetch(`${endpoint}/${id}`, { method: 'DELETE' });
+        return await res.json();
+      } catch (err) {
+        console.error("Bridge DELETE failed:", err);
+        throw err;
+      }
+    }
+
+    async function renderAppData() {
+      const announcements = await fetchTiDBData(TIDB_API.announcements, fallbackAnnouncements);
+      const products = await fetchTiDBData(TIDB_API.products, fallbackProducts);
+
+      // Render Classic Announcements
+      const classicList = document.getElementById('classicAnnouncementsList');
+      if (classicList) {
+        classicList.innerHTML = announcements.map((ann, idx) => `
+          <div class="announcement-banner">
+            <div class="announcement-header">
+              <div class="announcement-title-box">
+                <div class="announcement-icon"><span class="material-symbols-outlined">${ann.icon_name || 'campaign'}</span></div>
+                <div class="announcement-title">${ann.title}</div>
+              </div>
+              <div style="display:flex; gap:8px; align-items:center;">
+                ${checkOpAuth() ? `<button class="btn-see-all" style="background:#ff4d4d; border-color:#ff4d4d; color:#fff;" onclick="deleteAnnouncement(${ann.id})">Delete</button>` : ''}
+                <button class="btn-see-all" onclick="toggleDetails('details_${idx}', this)">See all</button>
+              </div>
+            </div>
+            <div class="announcement-details" id="details_${idx}">${ann.description}</div>
+          </div>
+        `).join('');
+      }
+
+      // Render Modal Announcements
+      const modalBody = document.getElementById('modalAnnouncementsBody');
+      if (modalBody) {
+        modalBody.innerHTML = announcements.map(ann => `
+          <div class="announcement-item" style="padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <div style="font-weight: 700; color: #fff; font-size: 0.95rem; display:flex; align-items:center; justify-content:space-between;">
+              <span style="display:flex; align-items:center; gap:8px;">
+                <span class="material-symbols-outlined" style="font-size:18px;">${ann.icon_name || 'campaign'}</span>
+                ${ann.title}
+              </span>
+              ${checkOpAuth() ? `<button class="btn-see-all" style="background:#ff4d4d; border-color:#ff4d4d; color:#fff; padding:2px 10px; font-size:0.7rem;" onclick="deleteAnnouncement(${ann.id})">Delete</button>` : ''}
+            </div>
+            <p style="color: #94a3b8; font-size: 0.88rem; margin-top: 6px; line-height: 1.5;">${ann.description}</p>
+          </div>
+        `).join('');
+      }
+
+      // Render Classic Products Grid
+      const classicGrid = document.getElementById('classicProductsGrid');
+      if (classicGrid) {
+        classicGrid.innerHTML = products.map(prod => `
+          <div class="product-box">
+            <div>
+              <div class="product-header">
+                <span class="material-symbols-outlined product-icon">${prod.icon_name || 'extension'}</span>
+                <div class="product-title">${prod.title}</div>
+              </div>
+              <p class="product-desc" style="margin-top: 14px;">${prod.description}</p>
+            </div>
+            <div>
+              <a href="${prod.link_url}" class="product-link">Open Project →</a>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Render Beta Sidebar & Center Cards
+      const sidebarList = document.getElementById('sidebarProductsList');
+      if (sidebarList) {
+        sidebarList.innerHTML = products.map(prod => `
+          <a href="${prod.link_url}" class="sidebar-link">
+            <span class="material-symbols-outlined" style="font-size: 18px;">${prod.icon_name || 'extension'}</span> ${prod.title}
+          </a>
+        `).join('');
+      }
+
+      const cardsContainer = document.getElementById('cardsContainer');
+      if (cardsContainer) {
+        cardsContainer.innerHTML = products.map(prod => `
+          <div class="split-card">
+            <div class="split-card-top">
+              <span class="material-symbols-outlined split-card-icon">${prod.icon_name || 'extension'}</span>
+            </div>
+            <div class="split-card-bottom">
+              <div class="split-card-title">${prod.title}</div>
+              <div class="split-card-desc">${prod.description}</div>
+              <a href="${prod.link_url}" class="btn-go">
+                <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span> Go
+              </a>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
 
     function toggleBetaHomescreen() {
       isBetaMode = !isBetaMode;
       localStorage.setItem('isBetaHomescreen', isBetaMode);
+      systemRegistry.beta_ui = isBetaMode ? "1" : "0";
       applyBetaHomescreenState();
     }
 
@@ -1192,7 +1160,7 @@
         classicContainer.style.display = 'none';
         betaContainer.style.display = 'flex';
         betaToggleBtn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px;">bolt</span> Beta UI: ON`;
-        betaToggleBtn.style.background = '#00ff66';
+        betaToggleBtn.style.background = '#ffffff';
         betaToggleBtn.style.color = '#000000';
       } else {
         navbar.classList.remove('beta-topbar');
@@ -1200,25 +1168,28 @@
         betaContainer.style.display = 'none';
         betaToggleBtn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px;">bolt</span> Beta UI: OFF`;
         betaToggleBtn.style.background = '';
-        betaToggleBtn.style.color = '#00ff66';
+        betaToggleBtn.style.color = '#f1f5f9';
       }
     }
 
     function setWorkspaceView(mode) {
       currentViewMode = mode;
       localStorage.setItem('workspaceViewMode', mode);
+      systemRegistry.workspace_view_mode = mode;
       const container = document.getElementById('cardsContainer');
       const btnGrid = document.getElementById('btnViewGrid');
       const btnRect = document.getElementById('btnViewRectangle');
 
-      if (mode === 'rectangle') {
-        container.className = 'beta-cards-container view-rectangle';
-        btnRect.classList.add('active');
-        btnGrid.classList.remove('active');
-      } else {
-        container.className = 'beta-cards-container view-grid';
-        btnGrid.classList.add('active');
-        btnRect.classList.remove('active');
+      if (container) {
+        if (mode === 'rectangle') {
+          container.className = 'beta-cards-container view-rectangle';
+          if (btnRect) btnRect.classList.add('active');
+          if (btnGrid) btnGrid.classList.remove('active');
+        } else {
+          container.className = 'beta-cards-container view-grid';
+          if (btnGrid) btnGrid.classList.add('active');
+          if (btnRect) btnRect.classList.remove('active');
+        }
       }
     }
 
@@ -1242,9 +1213,7 @@
     }
 
     function closeModalOnOverlay(e, modalId) {
-      if (e.target.id === modalId) {
-        closeModal(modalId);
-      }
+      if (e.target.id === modalId) closeModal(modalId);
     }
 
     function checkOpAuth() {
@@ -1255,132 +1224,133 @@
       const btn = document.getElementById('opStatusBtn');
       if (checkOpAuth()) {
         const storedUser = localStorage.getItem('opUser') || 'Operator';
-        btn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px; color:#00ff66;">verified</span> ${storedUser}`;
-        btn.style.borderColor = 'rgba(0, 255, 102, 0.4)';
+        btn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px; color:#ffffff;">verified</span> ${storedUser}`;
+        btn.style.borderColor = 'rgba(255, 255, 255, 0.4)';
       } else {
         btn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px;">key</span> OP Mode`;
         btn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
       }
     }
 
-    function openOpModal() {
-      const content = document.getElementById('opModalContent');
-      const modalTitle = document.getElementById('opModalHeaderTitle');
+    function renderRegistryRows() {
+      const list = document.getElementById('registryRowsList');
+      if (!list) return;
 
-      // Next-Gen Overhauled OP Panel UI if Next-Gen UI is ON
-      if (isBetaMode) {
-        modalTitle.innerHTML = `<span class="material-symbols-outlined" style="color: #00ff66;">hub</span> Next-Gen OP Command Hub`;
-        if (checkOpAuth()) {
-          const storedUser = localStorage.getItem('opUser') || 'Operator';
-          content.innerHTML = `
-            <div style="background: linear-gradient(135deg, rgba(0,255,102,0.15) 0%, rgba(18,18,24,0.95) 100%); border: 1px solid rgba(0,255,102,0.4); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 10px 30px rgba(0,255,102,0.1);">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="color:#00ff66; font-size:0.92rem; font-weight:800; display:flex; align-items:center; gap:8px;">
-                  <span class="material-symbols-outlined" style="font-size:20px;">verified_user</span> AUTHENTICATED COMMANDER
-                </span>
-                <span style="background: rgba(0,255,102,0.2); color: #00ff66; padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700;">${storedUser}</span>
-              </div>
-              <div style="font-size: 0.85rem; color: #94a3b8;">System status is nominal. Full administrative broadcast privileges active.</div>
-              <button onclick="logoutOp()" class="btn-action" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); margin-top: 4px;">
-                <span class="material-symbols-outlined" style="font-size: 16px;">logout</span> Terminate Session
-              </button>
+      const keys = Object.keys(systemRegistry);
+      list.innerHTML = keys.map((key, index) => {
+        const isSelected = index === selectedRegistryIndex;
+        return `
+          <div class="registry-row ${isSelected ? 'selected' : ''}" onclick="selectRegistryRow(${index})">
+            <span class="registry-key">${key}</span>
+            <div class="registry-value-container">
+              <input type="text" class="registry-input" value="${systemRegistry[key]}" onchange="updateRegistryVal('${key}', this.value)" />
             </div>
-
-            <div style="background: rgba(26,26,34,0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px;">
-              <h4 style="color:#fff; font-size:1rem; font-weight:800; display:flex; align-items:center; gap:8px;">
-                <span class="material-symbols-outlined" style="color:#00ff66; font-size:20px;">code</span> Broadcast Announcement Snippet
-              </h4>
-              <input type="text" id="annTitle" class="form-input" placeholder="Announcement Title" />
-              <textarea id="annDesc" class="form-textarea" placeholder="Announcement Description..." style="height: 80px;"></textarea>
-              <button class="btn-action" onclick="generateAnnouncementCode()" style="background: #00ff66; color: #000000; width:100%;">
-                <span class="material-symbols-outlined" style="font-size:18px;">content_copy</span> Copy Generated HTML Snippet
-              </button>
-            </div>
-          `;
-        } else {
-          content.innerHTML = `
-            <div style="background: rgba(26,26,34,0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="background: rgba(0,255,102,0.1); border-radius: 12px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: #00ff66;">
-                  <span class="material-symbols-outlined">lock</span>
-                </div>
-                <div>
-                  <div style="font-weight: 800; color: #fff; font-size: 1.05rem;">Restricted Operator Access</div>
-                  <div style="font-size: 0.85rem; color: #94a3b8;">Enter crew credentials to unlock next-gen control protocols.</div>
-                </div>
-              </div>
-              <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 4px;">
-                <input type="text" id="opUserInput" class="form-input" placeholder="Operator Username" />
-                <input type="password" id="opPasswordInput" class="form-input" placeholder="Operator Password" />
-                <div id="opAuthErrorMsg" class="error-msg-text">Authentication failed. Invalid username or password.</div>
-              </div>
-              <button class="btn-action" onclick="loginOp()" style="background: #00ff66; color: #000000; width: 100%; margin-top: 4px;">
-                <span class="material-symbols-outlined" style="font-size:18px;">lock_open</span> Authenticate OP Session
-              </button>
-            </div>
-          `;
-        }
-      } else {
-        // Classic OP Panel UI
-        modalTitle.innerHTML = `<span class="material-symbols-outlined" style="color: #00ff66;">admin_panel_settings</span> OP Control Panel`;
-        if (checkOpAuth()) {
-          const storedUser = localStorage.getItem('opUser') || 'Operator';
-          content.innerHTML = `
-            <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,255,102,0.1); border:1px solid rgba(0,255,102,0.3); padding:12px 18px; border-radius:14px;">
-              <span style="color:#00ff66; font-size:0.88rem; font-weight:700; display:flex; align-items:center; gap:8px;">
-                <span class="material-symbols-outlined" style="font-size:18px;">verified</span> Verified OP: ${storedUser}
-              </span>
-              <button onclick="logoutOp()" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 12px; border-radius:999px; font-size:0.78rem; cursor:pointer;">
-                Logout
-              </button>
-            </div>
-
-            <div style="margin-top:10px;">
-              <h4 style="color:#fff; font-size:0.98rem; font-weight:700; margin-bottom:8px;">Generate Announcement HTML</h4>
-              <input type="text" id="annTitle" class="form-input" placeholder="Announcement Title" style="margin-bottom:8px;" />
-              <textarea id="annDesc" class="form-textarea" placeholder="Announcement Description..." style="height:60px; margin-bottom:8px;"></textarea>
-              <button class="btn-action" onclick="generateAnnouncementCode()" style="width:100%;">
-                <span class="material-symbols-outlined" style="font-size:18px;">code</span>
-                Copy HTML Snippet
-              </button>
-            </div>
-          `;
-        } else {
-          content.innerHTML = `
-            <p style="font-size:0.9rem; color:#94a3b8; line-height:1.6;">
-              Log in with your Operator credentials to access OP mode.
-            </p>
-            <div>
-              <input type="text" id="opUserInput" class="form-input" placeholder="OP Username" style="margin-bottom:8px;" />
-              <input type="password" id="opPasswordInput" class="form-input" placeholder="OP Password" />
-              <div id="opAuthErrorMsg" class="error-msg-text">Incorrect password or username.</div>
-            </div>
-            <button class="btn-action" onclick="loginOp()" style="margin-top:8px;">
-              <span class="material-symbols-outlined" style="font-size:18px;">lock_open</span>
-              Log In as OP
-            </button>
-          `;
-        }
-      }
-      openModal('opModal');
+          </div>
+        `;
+      }).join('');
     }
 
-    function loginOp() {
+    function selectRegistryRow(index) {
+      const keys = Object.keys(systemRegistry);
+      if (index >= 0 && index < keys.length) {
+        selectedRegistryIndex = index;
+        renderRegistryRows();
+      }
+    }
+
+    function updateRegistryVal(key, val) {
+      systemRegistry[key] = val.trim();
+    }
+
+    function applyRegistryChanges() {
+      if (systemRegistry["beta_ui"] === "1") isBetaMode = true;
+      else if (systemRegistry["beta_ui"] === "0") isBetaMode = false;
+      localStorage.setItem('isBetaHomescreen', isBetaMode);
+      applyBetaHomescreenState();
+
+      if (systemRegistry["workspace_view_mode"] === "rectangle" || systemRegistry["workspace_view_mode"] === "grid") {
+        setWorkspaceView(systemRegistry["workspace_view_mode"]);
+      }
+      openOpModal();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const opModal = document.getElementById('opModal');
+      if (opModal.style.display !== 'flex') return;
+
+      const keys = Object.keys(systemRegistry);
+      if (e.key === 'ArrowDown') {
+        selectedRegistryIndex = (selectedRegistryIndex + 1) % keys.length;
+        renderRegistryRows();
+      } else if (e.key === 'ArrowUp') {
+        selectedRegistryIndex = (selectedRegistryIndex - 1 + keys.length) % keys.length;
+        renderRegistryRows();
+      }
+    });
+
+    async function loginOp() {
       const u = document.getElementById('opUserInput').value.trim();
       const p = document.getElementById('opPasswordInput').value;
       const errorMsg = document.getElementById('opAuthErrorMsg');
 
-      const matchedUser = OP_ACCOUNTS.find(acc => acc.user === u && acc.pass === p);
+      let accounts = [
+        { username: "NothingOrNo", password_hash: "NothingOrNoXDLOLz" },
+        { username: "Deniz_8bruhxd", password_hash: "thefakebossXD" }
+      ];
+      accounts = await fetchTiDBData(TIDB_API.auth, accounts);
 
-      if (matchedUser) {
+      const matched = accounts.find(acc => acc.username === u && acc.password_hash === p);
+
+      if (matched) {
         if (errorMsg) errorMsg.style.display = 'none';
         localStorage.setItem('isOpLoggedIn', 'true');
-        localStorage.setItem('opUser', matchedUser.user);
+        localStorage.setItem('opUser', matched.username);
         updateOpStatusUI();
         openOpModal();
       } else {
         if (errorMsg) errorMsg.style.display = 'block';
       }
+    }
+
+    async function publishAnnouncement() {
+      const title = document.getElementById('annTitleInput').value.trim();
+      const desc = document.getElementById('annDescInput').value.trim();
+      const icon = document.getElementById('annIconInput').value.trim() || 'campaign';
+
+      if (!title || !desc) {
+        alert('Please fill out both title and description.');
+        return;
+      }
+
+      await postTiDBData(TIDB_API.announcements, { title, description: desc, icon_name: icon });
+      document.getElementById('annTitleInput').value = '';
+      document.getElementById('annDescInput').value = '';
+      document.getElementById('annIconInput').value = '';
+      renderAppData();
+      openOpModal();
+    }
+
+    async function deleteAnnouncement(id) {
+      if (!confirm('Are you sure you want to delete this announcement?')) return;
+      await deleteTiDBData(TIDB_API.announcements, id);
+      renderAppData();
+      if (checkOpAuth()) openOpModal();
+    }
+
+    async function banIpAddress() {
+      const ip = document.getElementById('banIpInput').value.trim();
+      const reason = document.getElementById('banReasonInput').value.trim() || 'Banned by Operator';
+
+      if (!ip) {
+        alert('Please enter a valid IP address.');
+        return;
+      }
+
+      await postTiDBData(TIDB_API.ipBans, { ip_address: ip, reason });
+      alert(`IP address ${ip} successfully banned and recorded in TiDB!`);
+      document.getElementById('banIpInput').value = '';
+      document.getElementById('banReasonInput').value = '';
+      openOpModal();
     }
 
     function logoutOp() {
@@ -1390,21 +1360,120 @@
       closeModal('opModal');
     }
 
-    function generateAnnouncementCode() {
-      const title = document.getElementById('annTitle').value.trim();
-      const desc = document.getElementById('annDesc').value.trim();
-      if (!title || !desc) {
-        return;
+    async function openOpModal() {
+      const content = document.getElementById('opModalContent');
+      const modalTitle = document.getElementById('opModalHeaderTitle');
+      modalTitle.innerHTML = `<span class="material-symbols-outlined">hub</span> OP Command Hub (Bridge Active)`;
+
+      if (checkOpAuth()) {
+        const storedUser = localStorage.getItem('opUser') || 'Operator';
+        const currentBans = await fetchTiDBData(TIDB_API.ipBans, fallbackIpBans);
+
+        content.innerHTML = `
+          <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 20px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span class="material-symbols-outlined" style="font-size: 24px; color: #ffffff;">verified_user</span>
+              <div>
+                <div style="color: #ffffff; font-size: 0.95rem; font-weight: 800;">COMMAND SESSION: ACTIVE</div>
+                <div style="color: #94a3b8; font-size: 0.82rem;">Authenticated Operator: ${storedUser}</div>
+              </div>
+            </div>
+            <button onclick="logoutOp()" class="btn-action" style="background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 8px 16px;">
+              Logout
+            </button>
+          </div>
+
+          <!-- Create Live Announcement Section -->
+          <div class="op-card-section">
+            <div class="op-section-title">
+              <span class="material-symbols-outlined" style="font-size: 20px;">campaign</span>
+              Publish Live Announcement
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <input type="text" id="annTitleInput" class="form-input" placeholder="Announcement Title" />
+              <textarea id="annDescInput" class="form-textarea" placeholder="Announcement Description / Body"></textarea>
+              <input type="text" id="annIconInput" class="form-input" placeholder="Google Material Symbol Icon Name (default: campaign)" />
+            </div>
+            <button class="btn-action" onclick="publishAnnouncement()" style="background: #ffffff; color: #000000; width: 100%;">
+              <span class="material-symbols-outlined" style="font-size:18px;">send</span> Push Announcement to TiDB
+            </button>
+          </div>
+
+          <!-- Ban IP Address Section -->
+          <div class="op-card-section">
+            <div class="op-section-title">
+              <span class="material-symbols-outlined" style="font-size: 20px;">block</span>
+              Live IP Ban Manager
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <input type="text" id="banIpInput" class="form-input" placeholder="IP Address (e.g., 192.168.1.50)" />
+              <input type="text" id="banReasonInput" class="form-input" placeholder="Reason for ban (optional)" />
+            </div>
+            <button class="btn-action" onclick="banIpAddress()" style="background: #ffffff; color: #000000; width: 100%;">
+              <span class="material-symbols-outlined" style="font-size:18px;">gavel</span> Execute IP Ban
+            </button>
+            <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 4px;">Active Bans Recorded: ${currentBans.length}</div>
+          </div>
+
+          <!-- System Registry Section -->
+          <div class="op-card-section">
+            <div class="op-section-header">
+              <div class="op-section-title">
+                <span class="material-symbols-outlined" style="font-size: 20px;">settings_system_daydream</span>
+                System Registry & Variables
+              </div>
+              <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">Use arrow keys or click to select</span>
+            </div>
+            <div class="registry-window">
+              <div class="registry-header-row">
+                <span>KEY NAME</span>
+                <span>VALUE</span>
+              </div>
+              <div class="registry-rows-list" id="registryRowsList"></div>
+            </div>
+            <button class="btn-action" onclick="applyRegistryChanges()" style="background: #ffffff; color: #000000; width: 100%; margin-top: 4px;">
+              <span class="material-symbols-outlined" style="font-size:18px;">check_circle</span> Apply Registry Keys
+            </button>
+          </div>
+        `;
+        renderRegistryRows();
+      } else {
+        content.innerHTML = `
+          <div style="background: rgba(26,26,34,0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 18px;">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div style="background: rgba(255,255,255,0.1); border-radius: 12px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: #ffffff;">
+                <span class="material-symbols-outlined" style="font-size: 24px;">lock</span>
+              </div>
+              <div>
+                <div style="font-weight: 800; color: #fff; font-size: 1.1rem;">Restricted Operator Command Hub</div>
+                <div style="font-size: 0.85rem; color: #94a3b8;">Enter TiDB crew credentials to authenticate.</div>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 4px;">
+              <input type="text" id="opUserInput" class="form-input" placeholder="Operator Username" />
+              <input type="password" id="opPasswordInput" class="form-input" placeholder="Operator Password" />
+              <div id="opAuthErrorMsg" class="error-msg-text">Authentication failed. Invalid username or password.</div>
+            </div>
+            <button class="btn-action" onclick="loginOp()" style="background: #ffffff; color: #000000; width: 100%; margin-top: 4px;">
+              <span class="material-symbols-outlined" style="font-size:18px;">lock_open</span> Authenticate Session
+            </button>
+          </div>
+        `;
       }
-      const uniqueId = 'details_' + Date.now();
-      const code = `<div class="announcement-banner">\n  <div class="announcement-header">\n    <div class="announcement-title-box">\n      <div class="announcement-icon"><span class="material-symbols-outlined">campaign</span></div>\n      <div class="announcement-title">${title}</div>\n    </div>\n    <button class="btn-see-all" onclick="toggleDetails('${uniqueId}', this)">See all</button>\n  </div>\n  <div class="announcement-details" id="${uniqueId}">${desc}</div>\n</div>`;
-      
-      navigator.clipboard.writeText(code);
+      openModal('opModal');
     }
 
     updateOpStatusUI();
     applyBetaHomescreenState();
     setWorkspaceView(currentViewMode);
+    renderAppData();
+
+    /* =================================================================== */
+    /* RUN FOREVER: AUTO-POLLING LOOP (Refreshes every 4 seconds)          */
+    /* =================================================================== */
+    setInterval(() => {
+      renderAppData();
+    }, 4000);
   </script>
 
 </body>
