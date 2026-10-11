@@ -967,7 +967,7 @@
       <div class="modal-header">
         <div class="modal-title" id="opModalHeaderTitle">
           <span class="material-symbols-outlined">admin_panel_settings</span>
-          OP Command Hub (Bridge Active)
+          OP Command Hub (Cloud Sync Active)
         </div>
         <button class="btn-close-modal" onclick="closeModal('opModal')">
           <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
@@ -986,13 +986,15 @@
 
   <script>
     /* =================================================================== */
-    /* LOCAL BRIDGE ENDPOINTS (Connected to Node.js Bridge on port 3000)   */
+    /* LIVE CLOUD RENDER BRIDGE ENDPOINTS (24/7 Global Access)             */
     /* =================================================================== */
+    const RENDER_BRIDGE_URL = "https://nothingorno-bridge.onrender.com";
+
     const TIDB_API = {
-      auth: "http://localhost:3000/api/op_accounts",
-      announcements: "http://localhost:3000/api/announcements",
-      products: "http://localhost:3000/api/custom_products",
-      ipBans: "http://localhost:3000/api/ip_bans"
+      auth: `${RENDER_BRIDGE_URL}/api/op_accounts`,
+      announcements: `${RENDER_BRIDGE_URL}/api/announcements`,
+      products: `${RENDER_BRIDGE_URL}/api/custom_products`,
+      ipBans: `${RENDER_BRIDGE_URL}/api/ip_bans`
     };
 
     let fallbackAnnouncements = [
@@ -1024,7 +1026,7 @@
         const data = await res.json();
         return (Array.isArray(data) && data.length > 0) ? data : fallback;
       } catch (err) {
-        console.warn("Bridge connection failed, using fallback/previous state:", err);
+        console.warn("Cloud bridge connection failed, using fallback:", err);
         return fallback;
       }
     }
@@ -1038,7 +1040,7 @@
         });
         return await res.json();
       } catch (err) {
-        console.error("Bridge POST failed:", err);
+        console.error("Cloud bridge POST failed:", err);
         throw err;
       }
     }
@@ -1048,7 +1050,7 @@
         const res = await fetch(`${endpoint}/${id}`, { method: 'DELETE' });
         return await res.json();
       } catch (err) {
-        console.error("Bridge DELETE failed:", err);
+        console.error("Cloud bridge DELETE failed:", err);
         throw err;
       }
     }
@@ -1363,7 +1365,7 @@
     async function openOpModal() {
       const content = document.getElementById('opModalContent');
       const modalTitle = document.getElementById('opModalHeaderTitle');
-      modalTitle.innerHTML = `<span class="material-symbols-outlined">hub</span> OP Command Hub (Bridge Active)`;
+      modalTitle.innerHTML = `<span class="material-symbols-outlined">hub</span> OP Command Hub (Cloud Sync Active)`;
 
       if (checkOpAuth()) {
         const storedUser = localStorage.getItem('opUser') || 'Operator';
@@ -1468,9 +1470,7 @@
     setWorkspaceView(currentViewMode);
     renderAppData();
 
-    /* =================================================================== */
-    /* RUN FOREVER: AUTO-POLLING LOOP (Refreshes every 4 seconds)          */
-    /* =================================================================== */
+    /* Auto-polling loop (refreshes live every 4 seconds) */
     setInterval(() => {
       renderAppData();
     }, 4000);
