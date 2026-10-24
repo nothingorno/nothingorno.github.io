@@ -1221,7 +1221,20 @@
     function checkOpAuth() {
       return localStorage.getItem('isOpLoggedIn') === 'true';
     }
+    // Listen for messages from your C# WPF wrapper
+    window.chrome.webview.addEventListener('message', event => {
+    const action = event.data;
+    const sidebar = document.getElementById('app-sidebar'); // Your HTML sidebar element
+    const blurOverlay = document.getElementById('page-blur'); // Your HTML blur/backdrop layer
 
+    if (action === 'OPEN_SIDEBAR') {
+        sidebar.classList.add('open');
+        blurOverlay.classList.add('active');
+      } else if (action === 'CLOSE_SIDEBAR') {
+          sidebar.classList.remove('open');
+          blurOverlay.classList.remove('active');
+      }
+    });    
     function updateOpStatusUI() {
       const btn = document.getElementById('opStatusBtn');
       if (checkOpAuth()) {
