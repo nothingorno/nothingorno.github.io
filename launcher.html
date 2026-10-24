@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NothingOrNoLabs Launcher</title>
+
+  <!-- Montserrat, JetBrains Mono & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      color: #e3e2e6;
+      background-color: #070709;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Subtle Technical Grid Background Overlay */
+    .bg-grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Topbar */
+    .navbar {
+      width: 100%;
+      max-width: 960px;
+      background: rgba(20, 20, 26, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 14px 28px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      position: relative;
+      z-index: 10;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #ffffff;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 8px 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease;
+    }
+
+    .nav-link-btn:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+    }
+
+    /* Main Container */
+    .container {
+      width: 100%;
+      max-width: 960px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-card {
+      background: rgba(18, 18, 24, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      padding: 48px 40px;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 20px;
+    }
+
+    .launcher-icon-glow {
+      width: 96px;
+      height: 96px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -1px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #94a3b8;
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    .download-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .btn-download-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #ffffff;
+      color: #000000;
+      padding: 16px 36px;
+      border-radius: 9999px;
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-download-primary:hover {
+      background: #e2e8f0;
+      transform: translateY(-2px);
+      box-shadow: 0 0 35px rgba(255, 255, 255, 0.4);
+    }
+
+    .meta-tag-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: rgba(18, 18, 24, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      font-size: 32px;
+      color: #ffffff;
+    }
+
+    .feature-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .feature-desc {
+      font-size: 0.88rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    /* Changelog Section Styling */
+    .changelog-card {
+      background: rgba(18, 18, 24, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 36px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .changelog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 16px;
+    }
+
+    .changelog-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .version-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      padding: 6px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .changelog-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .changelog-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      color: #cbd5e1;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .changelog-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .badge-init {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .badge-native {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .site-footer {
+      width: 100%;
+      text-align: center;
+      font-size: 0.82rem;
+      color: #64748b;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-grid-overlay"></div>
+
+  <!-- Topbar -->
+  <nav class="navbar">
+    <a href="index.html" class="brand-title">
+      <span class="material-symbols-outlined" style="font-size: 22px;">arrow_back</span>
+      NothingOrNo Labs
+    </a>
+    <a href="index.html" class="nav-link-btn">
+      <span class="material-symbols-outlined" style="font-size: 18px;">home</span> Hub
+    </a>
+  </nav>
+
+  <div class="container">
+    
+    <!-- Hero Header -->
+    <section class="hero-card">
+      <div class="launcher-icon-glow">
+        <span class="material-symbols-outlined" style="font-size: 48px; color: #ffffff;">rocket_launch</span>
+      </div>
+      
+      <h1 class="hero-title">NothingOrNoLabs.exe</h1>
+      <p class="hero-subtitle">
+        The official native desktop portal for NothingOrNo utilities. Launch C++ apps, manage tools, and sync announcements instantly from your desktop.
+      </p>
+
+      <div class="download-actions">
+        <!-- Direct Download Target -->
+        <a href="NothingOrNoLabs.exe" download class="btn-download-primary">
+          <span class="material-symbols-outlined" style="font-size: 22px;">download</span>
+          Download Launcher v1.0.0
+        </a>
+      </div>
+
+      <div class="meta-tag-row">
+        <span>Target: Win32 / x64</span> • <span>Status: Stable Release</span> • <span>Embedded NothingUI</span>
+      </div>
+    </section>
+
+    <!-- Key Features -->
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="material-symbols-outlined feature-icon">terminal</span>
+        <div class="feature-title">Native Execution</div>
+        <div class="feature-desc">Runs compiled native C++ tools directly from memory without reliance on external DLLs or dynamic linking bottlenecks.</div>
+      </div>
+
+      <div class="feature-card">
+        <span class="material-symbols-outlined feature-icon">sync</span>
+        <div class="feature-title">TiDB Cloud Bridge</div>
+        <div class="feature-desc">Fetches live updates, announcements, and OP alerts directly from the Render bridge server in real time.</div>
+      </div>
+
+      <div class="feature-card">
+        <span class="material-symbols-outlined feature-icon">space_dashboard</span>
+        <div class="feature-title">Centralized Access</div>
+        <div class="feature-desc">Provides a unified dashboard to launch tools like NanoManager, KinematiX, and MatriX with a single click.</div>
+      </div>
+    </div>
+
+    <!-- Changelog Section -->
+    <section class="changelog-card">
+      <div class="changelog-header">
+        <div class="changelog-title">
+          <span class="material-symbols-outlined fill-icon">history</span>
+          Launcher Changelog
+        </div>
+        <div class="version-tag">v1.0.0</div>
+      </div>
+
+      <ul class="changelog-list">
+        <li class="changelog-item">
+          <span class="changelog-badge badge-init">NEW</span>
+          <div><strong>Initial Release:</strong> Official public deployment of `NothingOrNoLabs.exe` launcher portal with integrated cloud connection support.</div>
+        </li>
+        <li class="changelog-item">
+          <span class="changelog-badge badge-native">CORE</span>
+          <div><strong>Embedded UI Architecture:</strong> Transitioned from external `.dll` dependencies to hardcoded, direct-include native components for faster execution and maximum portability.</div>
+        </li>
+        <li class="changelog-item">
+          <span class="changelog-badge badge-native">SYNC</span>
+          <div><strong>TiDB & Render Bridge:</strong> Integrated live pipeline fetching for the Operator Hub announcements, quick IDs, and custom action links.</div>
+        </li>
+      </ul>
+    </section>
+
+  </div>
+
+  <footer class="site-footer">
+    NothingOrNo Studio • Desktop Portal Release
+  </footer>
+
+</body>
+</html>
