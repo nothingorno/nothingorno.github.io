@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <style>
     * {
@@ -29,6 +29,36 @@
       padding: 24px 16px;
       overflow-x: hidden;
       position: relative;
+    }
+
+    /* GLOBAL INITIAL LOADING SCREEN */
+    #loadingOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #070709;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .spinner {
+      width: 42px;
+      height: 42px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-left-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     /* Subtle Technical Grid Background Overlay */
@@ -94,31 +124,23 @@
       50% { transform: translateY(-20px) scale(1.04); }
     }
 
-    /* Standard Topbar (Classic) */
+    /* Standard Topbar */
     .navbar {
       width: 100%;
-      max-width: 950px;
+      max-width: calc(100vw - 32px);
       background: rgba(20, 20, 26, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 9999px;
-      padding: 12px 28px;
+      border-radius: 20px;
+      padding: 14px 28px;
+      margin-bottom: 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
       position: relative;
       z-index: 10;
-    }
-
-    .navbar.beta-topbar {
-      border-radius: 20px;
-      width: 100%;
-      max-width: calc(100vw - 32px);
-      padding: 16px 32px;
-      margin-bottom: 32px;
     }
 
     .brand-section {
@@ -135,27 +157,36 @@
       letter-spacing: -0.5px;
     }
 
-    .btn-topbar {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+    .btn-topbar-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: #f1f5f9;
-      padding: 6px 14px;
-      border-radius: 9999px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .btn-topbar:hover {
+    .btn-topbar-icon:hover {
       background: #ffffff;
       color: #000000;
       border-color: #ffffff;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-topbar-icon.active-btn {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+    }
+
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
     }
 
     .nav-links {
@@ -164,18 +195,9 @@
       gap: 12px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 950px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      position: relative;
-      z-index: 10;
-    }
-
-    .beta-main-layout {
-      display: none; 
+    /* FORCED MAIN LAYOUT */
+    .main-layout {
+      display: flex; 
       width: 100%;
       max-width: calc(100vw - 32px);
       gap: 32px;
@@ -184,7 +206,7 @@
       align-items: flex-start;
     }
 
-    .beta-sidebar {
+    .sidebar {
       width: 300px;
       flex-shrink: 0;
       background: rgba(18, 18, 24, 0.85);
@@ -200,7 +222,7 @@
       top: 24px;
     }
 
-    .beta-center-content {
+    .center-content {
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -279,36 +301,36 @@
       transform: translateX(4px);
     }
 
-    .beta-cards-container {
+    .cards-container {
       display: grid;
       gap: 24px;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .beta-cards-container.view-rectangle {
+    .cards-container.view-rectangle {
       grid-template-columns: 1fr;
     }
-    .beta-cards-container.view-rectangle .split-card {
+    .cards-container.view-rectangle .split-card {
       flex-direction: row;
       align-items: stretch;
     }
-    .beta-cards-container.view-rectangle .split-card-top {
+    .cards-container.view-rectangle .split-card-top {
       width: 220px;
       border-bottom: none;
       border-right: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .beta-cards-container.view-rectangle .split-card-bottom {
+    .cards-container.view-rectangle .split-card-bottom {
       flex: 1;
       justify-content: center;
     }
 
-    .beta-cards-container.view-grid {
+    .cards-container.view-grid {
       grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
     }
-    .beta-cards-container.view-grid .split-card {
+    .cards-container.view-grid .split-card {
       flex-direction: column;
     }
-    .beta-cards-container.view-grid .split-card-top {
+    .cards-container.view-grid .split-card-top {
       width: 100%;
       border-right: none;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -413,168 +435,7 @@
       font-weight: 500;
     }
 
-    .announcements-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-
-    .announcement-banner {
-      width: 100%;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(20, 20, 26, 0.9) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 20px;
-      padding: 18px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    }
-
-    .announcement-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .announcement-title-box {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .announcement-icon {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      width: 38px;
-      height: 38px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #ffffff;
-      flex-shrink: 0;
-    }
-
-    .announcement-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #f1f5f9;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .beta-badge {
-      background-color: #ffffff;
-      color: #000000;
-      font-weight: 800;
-      font-size: 0.72rem;
-      padding: 3px 10px;
-      border-radius: 8px;
-      letter-spacing: 0.5px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
-    }
-
-    .btn-see-all {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #ffffff;
-      padding: 6px 14px;
-      border-radius: 9999px;
-      font-weight: 700;
-      font-size: 0.78rem;
-      cursor: pointer;
-      font-family: 'Montserrat', sans-serif;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-    }
-
-    .btn-see-all:hover {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-    }
-
-    .announcement-details {
-      display: none;
-      font-size: 0.88rem;
-      color: #94a3b8;
-      line-height: 1.65;
-      padding-top: 8px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-    }
-
-    .product-box {
-      background: rgba(26, 26, 34, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 24px;
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 24px;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-    }
-
-    .product-box:hover {
-      border-color: rgba(255, 255, 255, 0.35);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(255, 255, 255, 0.1);
-    }
-
-    .product-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .product-icon {
-      font-size: 36px;
-      color: #ffffff;
-    }
-
-    .product-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #ffffff;
-    }
-
-    .product-desc {
-      font-size: 0.92rem;
-      color: #94a3b8;
-      line-height: 1.65;
-    }
-
-    .product-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #e2e8f0;
-      font-weight: 700;
-      font-size: 0.92rem;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-
-    .product-link:hover {
-      color: #ffffff;
-      gap: 12px;
-    }
-
+    /* MODAL BASE */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -596,7 +457,7 @@
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 28px;
       width: 100%;
-      max-width: 840px;
+      max-width: 920px;
       height: 88vh;
       display: flex;
       flex-direction: column;
@@ -648,12 +509,165 @@
       color: #000000;
     }
 
-    .modal-body {
-      padding: 28px;
+    /* MASTER-DETAIL ANNOUNCEMENTS MODAL UI */
+    .announcements-modal-window {
+      max-width: 1080px;
+      height: 85vh;
+    }
+
+    .announcements-workspace {
+      display: flex;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .announcements-sidebar {
+      width: 320px;
+      background: #09090d;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .announcements-sidebar-top {
+      padding: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sidebar-actions-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-reload-icon {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .btn-reload-icon:hover {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .announcements-list-scroll {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .announcement-list-item {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .announcement-list-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .announcement-list-item.selected {
+      background: rgba(255, 255, 255, 0.1);
+      border-left: 3px solid #ffffff;
+    }
+
+    .announcement-main-view {
+      flex: 1;
+      padding: 32px 40px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 20px;
+      background: #0d0d12;
+    }
+
+    .meta-pills-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .pill-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .pill-verified {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .pill-unverified {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .pill-quickid {
+      background: rgba(255, 255, 255, 0.06);
+      color: #94a3b8;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .op-tabs-bar {
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 14px;
+      margin-bottom: 12px;
+    }
+
+    .op-tab-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .op-tab-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+
+    .op-tab-btn.active {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
     }
 
     .form-input, .form-textarea {
@@ -669,7 +683,7 @@
     }
 
     .form-textarea {
-      height: 80px;
+      height: 100px;
       resize: vertical;
     }
 
@@ -712,101 +726,20 @@
       background: #12121a;
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 20px;
-      padding: 22px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-    }
-
-    .op-section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 12px;
+      gap: 18px;
     }
 
     .op-section-title {
-      font-size: 0.98rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: #ffffff;
       display: flex;
       align-items: center;
       gap: 10px;
       letter-spacing: -0.3px;
-    }
-
-    .registry-window {
-      background: #08080c;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 16px;
-      overflow: hidden;
-      font-family: 'JetBrains Mono', monospace;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .registry-header-row {
-      background: #181822;
-      padding: 10px 16px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #94a3b8;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .registry-rows-list {
-      display: flex;
-      flex-direction: column;
-      max-height: 180px;
-      overflow-y: auto;
-    }
-
-    .registry-row {
-      padding: 12px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      cursor: pointer;
-      transition: all 0.15s ease;
-      color: #cccccc;
-      user-select: none;
-    }
-
-    .registry-row.selected {
-      background-color: #ffffff !important;
-      color: #000000 !important;
-      font-weight: 800 !important;
-    }
-
-    .registry-row.selected .registry-input {
-      color: #000000 !important;
-      font-weight: 800 !important;
-    }
-
-    .registry-key {
-      font-weight: 600;
-    }
-
-    .registry-value-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .registry-input {
-      background: transparent;
-      border: none;
-      color: inherit;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      text-align: right;
-      outline: none;
-      width: 120px;
     }
 
     .site-footer {
@@ -822,17 +755,30 @@
     }
 
     @media (max-width: 768px) {
-      .beta-main-layout {
+      .main-layout {
         flex-direction: column;
       }
-      .beta-sidebar {
+      .sidebar {
         width: 100%;
         position: static;
+      }
+      .announcements-workspace {
+        flex-direction: column;
+      }
+      .announcements-sidebar {
+        width: 100%;
+        height: 200px;
       }
     }
   </style>
 </head>
 <body>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loadingOverlay">
+    <div class="spinner"></div>
+    <div style="font-weight: 700; font-size: 0.9rem; color: #94a3b8; letter-spacing: 0.5px;">CONNECTING TO SERVER...</div>
+  </div>
 
   <!-- Subtle Technical Grid Background -->
   <div class="bg-grid-overlay"></div>
@@ -854,53 +800,27 @@
   </div>
 
   <!-- Topbar -->
-  <nav class="navbar" id="mainNavbar">
+  <nav class="navbar">
     <div class="brand-section">
       <a href="index.html" class="brand-title">NothingOrNo</a>
-      <button class="btn-topbar" onclick="openModal('announcementsModal')">
-        <span class="material-symbols-outlined" style="font-size: 16px;">campaign</span>
-        Announcements
-      </button>
     </div>
 
     <div class="nav-links">
-      <button class="btn-topbar" onclick="toggleBetaHomescreen()" id="betaToggleBtn">
-        <span class="material-symbols-outlined" style="font-size: 16px;">bolt</span>
-        Beta UI: OFF
+      <button class="btn-topbar-icon" onclick="openModal('announcementsModal')" title="Announcements">
+        <span class="material-symbols-outlined fill-icon">campaign</span>
       </button>
-      <button class="btn-topbar" id="opStatusBtn" onclick="openOpModal()">
-        <span class="material-symbols-outlined" style="font-size: 16px;">key</span>
-        OP Mode
+
+      <button class="btn-topbar-icon" id="opStatusBtn" onclick="openOpModal()" title="OP Command Hub">
+        <span class="material-symbols-outlined fill-icon">vpn_key</span>
       </button>
     </div>
   </nav>
 
-  <!-- CLASSIC VIEW CONTAINER -->
-  <main class="container" id="classicContainer">
-    <section class="surface-card">
-      <h1 class="hero-title">NothingOrNo Labs</h1>
-      <p class="hero-desc">High-performance custom physics frameworks, data pipelines, and native C++ utilities engineered by the NothingOrNo crew.</p>
-    </section>
-
-    <section class="surface-card">
-      <div class="announcements-list" id="classicAnnouncementsList">
-        <!-- Dynamically populated -->
-      </div>
-
-      <h2 style="font-size: 1.35rem; font-weight: 700; color: #ffffff; margin-bottom: 22px;">Available Frameworks</h2>
-      
-      <div class="products-grid" id="classicProductsGrid">
-        <!-- Dynamically populated -->
-      </div>
-    </section>
-  </main>
-
-
-  <!-- BETA NEXT-GEN FULL-CANVAS LAYOUT CONTAINER -->
-  <div class="beta-main-layout" id="betaContainer">
+  <!-- FORCED MAIN LAYOUT -->
+  <div class="main-layout">
     
     <!-- Left Sidebar -->
-    <aside class="beta-sidebar">
+    <aside class="sidebar">
       <div class="sidebar-title">
         <span class="material-symbols-outlined" style="font-size: 20px;">folder_open</span>
         All Projects
@@ -911,13 +831,10 @@
     </aside>
 
     <!-- Center Content -->
-    <div class="beta-center-content">
+    <div class="center-content">
       <section class="surface-card">
-        <h1 class="hero-title">
-          NothingOrNo Labs
-          <span class="beta-badge">BETA UI</span>
-        </h1>
-        <p class="hero-desc">Explore our native utilities and simulation frameworks through our overhauled full-canvas dashboard.</p>
+        <h1 class="hero-title">NothingOrNo Labs</h1>
+        <p class="hero-desc">Explore our native utilities, simulation frameworks, and data pipelines engineered by the NothingOrNo crew.</p>
       </section>
 
       <div class="layout-switcher-bar">
@@ -935,27 +852,46 @@
         </div>
       </div>
 
-      <div class="beta-cards-container view-grid" id="cardsContainer">
+      <div class="cards-container view-grid" id="cardsContainer">
         <!-- Dynamically populated -->
       </div>
     </div>
   </div>
 
 
-  <!-- Announcements Modal -->
+  <!-- ANNOUNCEMENTS MASTER-DETAIL MODAL -->
   <div class="modal-overlay" id="announcementsModal" onclick="closeModalOnOverlay(event, 'announcementsModal')">
-    <div class="modal-window" style="max-width: 650px; height: auto;">
+    <div class="modal-window announcements-modal-window">
       <div class="modal-header">
         <div class="modal-title">
-          <span class="material-symbols-outlined">campaign</span>
-          Announcements
+          <span class="material-symbols-outlined fill-icon">campaign</span>
+          Announcements Hub
         </div>
         <button class="btn-close-modal" onclick="closeModal('announcementsModal')">
           <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
         </button>
       </div>
-      <div class="modal-body" id="modalAnnouncementsBody">
-        <!-- Dynamically populated -->
+
+      <div class="announcements-workspace">
+        <div class="announcements-sidebar">
+          <div class="announcements-sidebar-top">
+            <div class="sidebar-actions-row">
+              <span style="font-size: 0.8rem; font-weight: 800; color: #94a3b8; letter-spacing: 0.5px;">FEED</span>
+              <button class="btn-reload-icon" onclick="manualReloadAnnouncements()" title="Reload Announcements List">
+                <span class="material-symbols-outlined" style="font-size: 16px;">refresh</span>
+              </button>
+            </div>
+            <input type="text" id="annSearchInput" class="form-input" style="padding: 8px 12px; font-size: 0.82rem;" placeholder="Search announcements..." oninput="filterAnnouncements()" />
+          </div>
+
+          <div class="announcements-list-scroll" id="announcementsMasterList">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <div class="announcement-main-view" id="announcementDetailView">
+          <!-- Dynamically populated -->
+        </div>
       </div>
     </div>
   </div>
@@ -966,8 +902,8 @@
     <div class="modal-window" id="opModalWindow">
       <div class="modal-header">
         <div class="modal-title" id="opModalHeaderTitle">
-          <span class="material-symbols-outlined">admin_panel_settings</span>
-          OP Command Hub (Cloud Sync Active)
+          <span class="material-symbols-outlined fill-icon">admin_panel_settings</span>
+          OP Command Hub
         </div>
         <button class="btn-close-modal" onclick="closeModal('opModal')">
           <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
@@ -986,7 +922,7 @@
 
   <script>
     /* =================================================================== */
-    /* LIVE CLOUD RENDER BRIDGE ENDPOINTS (24/7 Global Access)             */
+    /* LIVE CLOUD RENDER BRIDGE ENDPOINTS                                  */
     /* =================================================================== */
     const RENDER_BRIDGE_URL = "https://nothingorno-bridge.onrender.com";
 
@@ -997,27 +933,44 @@
       ipBans: `${RENDER_BRIDGE_URL}/api/ip_bans`
     };
 
+    let cachedAnnouncements = [];
+    let selectedAnnouncementId = null;
+
     let fallbackAnnouncements = [
-      { id: 1, title: "NothingOrNo is going to be a crew, not a single dev anymore.", description: "Expanding into a full development crew means faster, smoother, and much easier feature updates across all our frameworks.", icon_name: "group" },
-      { id: 2, title: "MatriX: High-speed data washing & state sanitization pipeline released.", description: "MatriX filters unhandled NaN values, control characters, and malformed client packets.", icon_name: "data_object" }
+      { 
+        id: 1, 
+        title: "NothingOrNo is going to be a crew", 
+        description: "Expanding into a full development crew means faster, smoother, and much easier feature updates across all our frameworks.", 
+        icon_name: "group", 
+        author: "NothingOrNo", 
+        quick_id: "OP-849201", 
+        action_link: "https://github.com" 
+      },
+      { 
+        id: 2, 
+        title: "MatriX Pipeline Released", 
+        description: "MatriX filters unhandled NaN values, control characters, and malformed client packets.", 
+        icon_name: "data_object", 
+        author: "Deniz_8bruhxd", 
+        quick_id: "OP-394012", 
+        action_link: "" 
+      }
     ];
 
     let fallbackProducts = [
-      { id: 1, title: "NanoManager", description: "Lightweight C++ task management utilities featuring the legacy build and new C++ iteration.", icon_name: "terminal", link_url: "nanomanager.html" },
-      { id: 2, title: "KinematiX Engine", description: "Advanced physics simulation engine handling structural stress, hydrodynamics, and thermal conduction.", icon_name: "tune", link_url: "kinematix.html" },
-      { id: 3, title: "MatriX Pipeline", description: "Data and value management system that securely cycles, washes, sanitizes, and distributes clean runtime values.", icon_name: "data_object", link_url: "matrix.html" }
+      { id: 1, title: "NothingOrNo Launcher", description: "Official native desktop launcher portal (NothingOrNoLabs.exe) for quick tool deployment.", icon_name: "rocket_launch", link_url: "launcher.html" },
+      { id: 2, title: "NanoManager", description: "Lightweight C++ task management utilities featuring embedded NothingUI components.", icon_name: "terminal", link_url: "nanomanager.html" },
+      { id: 3, title: "KinematiX Engine", description: "Advanced physics simulation engine handling structural stress, hydrodynamics, and thermal conduction.", icon_name: "tune", link_url: "kinematix.html" },
+      { id: 4, title: "MatriX Pipeline", description: "Data and value management system that securely cycles, washes, sanitizes, and distributes clean runtime values.", icon_name: "data_object", link_url: "matrix.html" }
     ];
 
     let fallbackIpBans = [];
+    let currentOpTab = 'announcements';
+    let currentViewMode = localStorage.getItem('workspaceViewMode') || 'grid';
 
-    let systemRegistry = {
-      "beta_ui": localStorage.getItem('isBetaHomescreen') === 'true' ? "1" : "0",
-      "workspace_view_mode": localStorage.getItem('workspaceViewMode') || 'grid'
-    };
-    let selectedRegistryIndex = 0;
-
-    let isBetaMode = systemRegistry["beta_ui"] === "1";
-    let currentViewMode = systemRegistry["workspace_view_mode"];
+    function generateQuickId() {
+      return 'OP-' + Math.floor(100000 + Math.random() * 900000);
+    }
 
     async function fetchTiDBData(endpoint, fallback) {
       try {
@@ -1038,6 +991,10 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error || `Server responded with status ${res.status}`);
+        }
         return await res.json();
       } catch (err) {
         console.error("Cloud bridge POST failed:", err);
@@ -1056,66 +1013,16 @@
     }
 
     async function renderAppData() {
-      const announcements = await fetchTiDBData(TIDB_API.announcements, fallbackAnnouncements);
+      cachedAnnouncements = await fetchTiDBData(TIDB_API.announcements, fallbackAnnouncements);
       const products = await fetchTiDBData(TIDB_API.products, fallbackProducts);
 
-      // Render Classic Announcements
-      const classicList = document.getElementById('classicAnnouncementsList');
-      if (classicList) {
-        classicList.innerHTML = announcements.map((ann, idx) => `
-          <div class="announcement-banner">
-            <div class="announcement-header">
-              <div class="announcement-title-box">
-                <div class="announcement-icon"><span class="material-symbols-outlined">${ann.icon_name || 'campaign'}</span></div>
-                <div class="announcement-title">${ann.title}</div>
-              </div>
-              <div style="display:flex; gap:8px; align-items:center;">
-                ${checkOpAuth() ? `<button class="btn-see-all" style="background:#ff4d4d; border-color:#ff4d4d; color:#fff;" onclick="deleteAnnouncement(${ann.id})">Delete</button>` : ''}
-                <button class="btn-see-all" onclick="toggleDetails('details_${idx}', this)">See all</button>
-              </div>
-            </div>
-            <div class="announcement-details" id="details_${idx}">${ann.description}</div>
-          </div>
-        `).join('');
+      if (!selectedAnnouncementId && cachedAnnouncements.length > 0) {
+        selectedAnnouncementId = cachedAnnouncements[0].id;
       }
 
-      // Render Modal Announcements
-      const modalBody = document.getElementById('modalAnnouncementsBody');
-      if (modalBody) {
-        modalBody.innerHTML = announcements.map(ann => `
-          <div class="announcement-item" style="padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <div style="font-weight: 700; color: #fff; font-size: 0.95rem; display:flex; align-items:center; justify-content:space-between;">
-              <span style="display:flex; align-items:center; gap:8px;">
-                <span class="material-symbols-outlined" style="font-size:18px;">${ann.icon_name || 'campaign'}</span>
-                ${ann.title}
-              </span>
-              ${checkOpAuth() ? `<button class="btn-see-all" style="background:#ff4d4d; border-color:#ff4d4d; color:#fff; padding:2px 10px; font-size:0.7rem;" onclick="deleteAnnouncement(${ann.id})">Delete</button>` : ''}
-            </div>
-            <p style="color: #94a3b8; font-size: 0.88rem; margin-top: 6px; line-height: 1.5;">${ann.description}</p>
-          </div>
-        `).join('');
-      }
+      renderAnnouncementsWorkspace();
 
-      // Render Classic Products Grid
-      const classicGrid = document.getElementById('classicProductsGrid');
-      if (classicGrid) {
-        classicGrid.innerHTML = products.map(prod => `
-          <div class="product-box">
-            <div>
-              <div class="product-header">
-                <span class="material-symbols-outlined product-icon">${prod.icon_name || 'extension'}</span>
-                <div class="product-title">${prod.title}</div>
-              </div>
-              <p class="product-desc" style="margin-top: 14px;">${prod.description}</p>
-            </div>
-            <div>
-              <a href="${prod.link_url}" class="product-link">Open Project →</a>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      // Render Beta Sidebar & Center Cards
+      // Render Sidebar & Center Cards
       const sidebarList = document.getElementById('sidebarProductsList');
       if (sidebarList) {
         sidebarList.innerHTML = products.map(prod => `
@@ -1142,67 +1049,109 @@
           </div>
         `).join('');
       }
-    }
 
-    function toggleBetaHomescreen() {
-      isBetaMode = !isBetaMode;
-      localStorage.setItem('isBetaHomescreen', isBetaMode);
-      systemRegistry.beta_ui = isBetaMode ? "1" : "0";
-      applyBetaHomescreenState();
-    }
-
-    function applyBetaHomescreenState() {
-      const navbar = document.getElementById('mainNavbar');
-      const classicContainer = document.getElementById('classicContainer');
-      const betaContainer = document.getElementById('betaContainer');
-      const betaToggleBtn = document.getElementById('betaToggleBtn');
-
-      if (isBetaMode) {
-        navbar.classList.add('beta-topbar');
-        classicContainer.style.display = 'none';
-        betaContainer.style.display = 'flex';
-        betaToggleBtn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px;">bolt</span> Beta UI: ON`;
-        betaToggleBtn.style.background = '#ffffff';
-        betaToggleBtn.style.color = '#000000';
-      } else {
-        navbar.classList.remove('beta-topbar');
-        classicContainer.style.display = 'flex';
-        betaContainer.style.display = 'none';
-        betaToggleBtn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px;">bolt</span> Beta UI: OFF`;
-        betaToggleBtn.style.background = '';
-        betaToggleBtn.style.color = '#f1f5f9';
+      // Hide loading screen
+      const loader = document.getElementById('loadingOverlay');
+      if (loader) {
+        loader.style.opacity = '0';
+        setTimeout(() => loader.style.display = 'none', 400);
       }
+    }
+
+    function renderAnnouncementsWorkspace() {
+      const searchVal = (document.getElementById('annSearchInput')?.value || '').toLowerCase();
+      const masterList = document.getElementById('announcementsMasterList');
+      const detailView = document.getElementById('announcementDetailView');
+
+      if (!masterList || !detailView) return;
+
+      const filtered = cachedAnnouncements.filter(ann => 
+        ann.title.toLowerCase().includes(searchVal) || 
+        ann.description.toLowerCase().includes(searchVal)
+      );
+
+      masterList.innerHTML = filtered.map(ann => `
+        <div class="announcement-list-item ${ann.id === selectedAnnouncementId ? 'selected' : ''}" onclick="selectAnnouncement(${ann.id})">
+          <span class="material-symbols-outlined fill-icon" style="font-size: 20px; color: #ffffff;">${ann.icon_name || 'campaign'}</span>
+          <div style="overflow: hidden;">
+            <div style="font-weight: 700; color: #ffffff; font-size: 0.88rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${ann.title}</div>
+            <div style="font-size: 0.75rem; color: #94a3b8;">${ann.author || 'Operator'}</div>
+          </div>
+        </div>
+      `).join('');
+
+      const selected = cachedAnnouncements.find(ann => ann.id === selectedAnnouncementId) || filtered[0];
+
+      if (selected) {
+        const isOwnerVerified = (selected.author === 'NothingOrNo');
+        const quickId = selected.quick_id || generateQuickId();
+
+        detailView.innerHTML = `
+          <div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+              <span class="material-symbols-outlined fill-icon" style="font-size: 32px; color: #ffffff;">${selected.icon_name || 'campaign'}</span>
+              <h2 style="font-size: 1.6rem; font-weight: 800; color: #ffffff;">${selected.title}</h2>
+            </div>
+
+            <div class="meta-pills-row">
+              <span class="pill-badge ${isOwnerVerified ? 'pill-verified' : 'pill-unverified'}">
+                <span class="material-symbols-outlined" style="font-size: 14px;">${isOwnerVerified ? 'verified' : 'gpp_maybe'}</span>
+                ${isOwnerVerified ? 'VERIFIED OWNER' : 'UNVERIFIED OP'}
+              </span>
+
+              <span class="pill-badge pill-quickid">
+                <span class="material-symbols-outlined" style="font-size: 14px;">fingerprint</span>
+                ${quickId}
+              </span>
+
+              <span style="font-size: 0.82rem; color: #94a3b8; font-weight: 600;">By: <strong style="color:#fff;">${selected.author || 'Operator'}</strong></span>
+            </div>
+          </div>
+
+          <div style="font-size: 0.98rem; color: #cbd5e1; line-height: 1.7; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 24px; border-radius: 18px; white-space: pre-wrap;">${selected.description}</div>
+
+          ${selected.action_link ? `
+            <a href="${selected.action_link}" target="_blank" class="btn-action" style="align-self: flex-start;">
+              <span class="material-symbols-outlined" style="font-size: 18px;">open_in_new</span> Launch Link
+            </a>
+          ` : ''}
+        `;
+      } else {
+        detailView.innerHTML = `<div style="color: #94a3b8; text-align: center; margin-top: 40px;">No announcements found.</div>`;
+      }
+    }
+
+    function selectAnnouncement(id) {
+      selectedAnnouncementId = id;
+      renderAnnouncementsWorkspace();
+    }
+
+    function filterAnnouncements() {
+      renderAnnouncementsWorkspace();
+    }
+
+    async function manualReloadAnnouncements() {
+      cachedAnnouncements = await fetchTiDBData(TIDB_API.announcements, fallbackAnnouncements);
+      renderAnnouncementsWorkspace();
     }
 
     function setWorkspaceView(mode) {
       currentViewMode = mode;
       localStorage.setItem('workspaceViewMode', mode);
-      systemRegistry.workspace_view_mode = mode;
       const container = document.getElementById('cardsContainer');
       const btnGrid = document.getElementById('btnViewGrid');
       const btnRect = document.getElementById('btnViewRectangle');
 
       if (container) {
         if (mode === 'rectangle') {
-          container.className = 'beta-cards-container view-rectangle';
+          container.className = 'cards-container view-rectangle';
           if (btnRect) btnRect.classList.add('active');
           if (btnGrid) btnGrid.classList.remove('active');
         } else {
-          container.className = 'beta-cards-container view-grid';
+          container.className = 'cards-container view-grid';
           if (btnGrid) btnGrid.classList.add('active');
           if (btnRect) btnRect.classList.remove('active');
         }
-      }
-    }
-
-    function toggleDetails(targetId, btn) {
-      const details = document.getElementById(targetId);
-      if (details.style.display === 'block') {
-        details.style.display = 'none';
-        btn.textContent = 'See all';
-      } else {
-        details.style.display = 'block';
-        btn.textContent = 'Hide';
       }
     }
 
@@ -1221,87 +1170,15 @@
     function checkOpAuth() {
       return localStorage.getItem('isOpLoggedIn') === 'true';
     }
-    // Listen for messages from your C# WPF wrapper
-    window.chrome.webview.addEventListener('message', event => {
-    const action = event.data;
-    const sidebar = document.getElementById('app-sidebar'); // Your HTML sidebar element
-    const blurOverlay = document.getElementById('page-blur'); // Your HTML blur/backdrop layer
 
-    if (action === 'OPEN_SIDEBAR') {
-        sidebar.classList.add('open');
-        blurOverlay.classList.add('active');
-      } else if (action === 'CLOSE_SIDEBAR') {
-          sidebar.classList.remove('open');
-          blurOverlay.classList.remove('active');
-      }
-    });    
     function updateOpStatusUI() {
       const btn = document.getElementById('opStatusBtn');
       if (checkOpAuth()) {
-        const storedUser = localStorage.getItem('opUser') || 'Operator';
-        btn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px; color:#ffffff;">verified</span> ${storedUser}`;
-        btn.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+        btn.classList.add('active-btn');
       } else {
-        btn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px;">key</span> OP Mode`;
-        btn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+        btn.classList.remove('active-btn');
       }
     }
-
-    function renderRegistryRows() {
-      const list = document.getElementById('registryRowsList');
-      if (!list) return;
-
-      const keys = Object.keys(systemRegistry);
-      list.innerHTML = keys.map((key, index) => {
-        const isSelected = index === selectedRegistryIndex;
-        return `
-          <div class="registry-row ${isSelected ? 'selected' : ''}" onclick="selectRegistryRow(${index})">
-            <span class="registry-key">${key}</span>
-            <div class="registry-value-container">
-              <input type="text" class="registry-input" value="${systemRegistry[key]}" onchange="updateRegistryVal('${key}', this.value)" />
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function selectRegistryRow(index) {
-      const keys = Object.keys(systemRegistry);
-      if (index >= 0 && index < keys.length) {
-        selectedRegistryIndex = index;
-        renderRegistryRows();
-      }
-    }
-
-    function updateRegistryVal(key, val) {
-      systemRegistry[key] = val.trim();
-    }
-
-    function applyRegistryChanges() {
-      if (systemRegistry["beta_ui"] === "1") isBetaMode = true;
-      else if (systemRegistry["beta_ui"] === "0") isBetaMode = false;
-      localStorage.setItem('isBetaHomescreen', isBetaMode);
-      applyBetaHomescreenState();
-
-      if (systemRegistry["workspace_view_mode"] === "rectangle" || systemRegistry["workspace_view_mode"] === "grid") {
-        setWorkspaceView(systemRegistry["workspace_view_mode"]);
-      }
-      openOpModal();
-    }
-
-    document.addEventListener('keydown', (e) => {
-      const opModal = document.getElementById('opModal');
-      if (opModal.style.display !== 'flex') return;
-
-      const keys = Object.keys(systemRegistry);
-      if (e.key === 'ArrowDown') {
-        selectedRegistryIndex = (selectedRegistryIndex + 1) % keys.length;
-        renderRegistryRows();
-      } else if (e.key === 'ArrowUp') {
-        selectedRegistryIndex = (selectedRegistryIndex - 1 + keys.length) % keys.length;
-        renderRegistryRows();
-      }
-    });
 
     async function loginOp() {
       const u = document.getElementById('opUserInput').value.trim();
@@ -1331,24 +1208,37 @@
       const title = document.getElementById('annTitleInput').value.trim();
       const desc = document.getElementById('annDescInput').value.trim();
       const icon = document.getElementById('annIconInput').value.trim() || 'campaign';
+      const actionLink = document.getElementById('annLinkInput').value.trim();
+      const author = localStorage.getItem('opUser') || 'Operator';
+      const quickId = generateQuickId();
 
       if (!title || !desc) {
         alert('Please fill out both title and description.');
         return;
       }
 
-      await postTiDBData(TIDB_API.announcements, { title, description: desc, icon_name: icon });
-      document.getElementById('annTitleInput').value = '';
-      document.getElementById('annDescInput').value = '';
-      document.getElementById('annIconInput').value = '';
-      renderAppData();
-      openOpModal();
+      try {
+        await postTiDBData(TIDB_API.announcements, { 
+          title, 
+          description: desc, 
+          icon_name: icon, 
+          author: author, 
+          quick_id: quickId, 
+          action_link: actionLink 
+        });
+
+        alert('Announcement successfully published!');
+        await renderAppData();
+        openOpModal();
+      } catch (err) {
+        alert('Failed to publish announcement. Error: ' + err.message + '\n\nMake sure your TiDB database columns (author, quick_id, action_link) are updated!');
+      }
     }
 
     async function deleteAnnouncement(id) {
       if (!confirm('Are you sure you want to delete this announcement?')) return;
       await deleteTiDBData(TIDB_API.announcements, id);
-      renderAppData();
+      await renderAppData();
       if (checkOpAuth()) openOpModal();
     }
 
@@ -1363,8 +1253,6 @@
 
       await postTiDBData(TIDB_API.ipBans, { ip_address: ip, reason });
       alert(`IP address ${ip} successfully banned and recorded in TiDB!`);
-      document.getElementById('banIpInput').value = '';
-      document.getElementById('banReasonInput').value = '';
       openOpModal();
     }
 
@@ -1375,96 +1263,112 @@
       closeModal('opModal');
     }
 
+    function switchOpTab(tab) {
+      currentOpTab = tab;
+      openOpModal();
+    }
+
     async function openOpModal() {
       const content = document.getElementById('opModalContent');
       const modalTitle = document.getElementById('opModalHeaderTitle');
-      modalTitle.innerHTML = `<span class="material-symbols-outlined">hub</span> OP Command Hub (Cloud Sync Active)`;
+      modalTitle.innerHTML = `<span class="material-symbols-outlined fill-icon">hub</span> OP Command Hub`;
 
       if (checkOpAuth()) {
         const storedUser = localStorage.getItem('opUser') || 'Operator';
         const currentBans = await fetchTiDBData(TIDB_API.ipBans, fallbackIpBans);
 
-        content.innerHTML = `
-          <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 20px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <span class="material-symbols-outlined" style="font-size: 24px; color: #ffffff;">verified_user</span>
-              <div>
-                <div style="color: #ffffff; font-size: 0.95rem; font-weight: 800;">COMMAND SESSION: ACTIVE</div>
-                <div style="color: #94a3b8; font-size: 0.82rem;">Authenticated Operator: ${storedUser}</div>
+        let tabContentHtml = '';
+
+        if (currentOpTab === 'announcements') {
+          tabContentHtml = `
+            <div class="op-card-section">
+              <div class="op-section-title">
+                <span class="material-symbols-outlined fill-icon" style="font-size: 22px;">campaign</span>
+                Publish Live Announcement
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                <input type="text" id="annTitleInput" class="form-input" placeholder="Announcement Title" />
+                <textarea id="annDescInput" class="form-textarea" placeholder="Announcement Description / Body"></textarea>
+                <input type="text" id="annIconInput" class="form-input" placeholder="Google Icon Name (default: campaign)" />
+                <input type="text" id="annLinkInput" class="form-input" placeholder="Optional Action URL (e.g. https://...)" />
+              </div>
+              <button class="btn-action" onclick="publishAnnouncement()" style="background: #ffffff; color: #000000; width: 100%;">
+                <span class="material-symbols-outlined" style="font-size:18px;">send</span> Push Announcement to TiDB
+              </button>
+            </div>
+
+            <div class="op-card-section">
+              <div class="op-section-title">
+                <span class="material-symbols-outlined fill-icon" style="font-size: 22px;">delete</span>
+                Manage & Delete Announcements
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px; max-height: 200px; overflow-y: auto;">
+                ${cachedAnnouncements.map(ann => `
+                  <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.04); padding: 10px 14px; border-radius: 12px;">
+                    <span style="font-size: 0.88rem; font-weight: 700; color: #fff;">${ann.title}</span>
+                    <button onclick="deleteAnnouncement(${ann.id})" class="btn-action" style="background: #ff4d4d; color: #fff; padding: 4px 12px; font-size: 0.75rem;">Delete</button>
+                  </div>
+                `).join('')}
               </div>
             </div>
-            <button onclick="logoutOp()" class="btn-action" style="background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 8px 16px;">
+          `;
+        } else if (currentOpTab === 'bans') {
+          tabContentHtml = `
+            <div class="op-card-section">
+              <div class="op-section-title">
+                <span class="material-symbols-outlined fill-icon" style="font-size: 22px;">block</span>
+                Live IP Ban Manager
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                <input type="text" id="banIpInput" class="form-input" placeholder="IP Address (e.g., 192.168.1.50)" />
+                <input type="text" id="banReasonInput" class="form-input" placeholder="Reason for ban (optional)" />
+              </div>
+              <button class="btn-action" onclick="banIpAddress()" style="background: #ffffff; color: #000000; width: 100%;">
+                <span class="material-symbols-outlined" style="font-size:18px;">gavel</span> Execute IP Ban
+              </button>
+              <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 4px;">Active Bans Recorded: <strong>${currentBans.length}</strong></div>
+            </div>
+          `;
+        }
+
+        content.innerHTML = `
+          <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <span class="material-symbols-outlined fill-icon" style="font-size: 28px; color: #ffffff;">verified_user</span>
+              <div>
+                <div style="color: #ffffff; font-size: 1rem; font-weight: 800;">COMMAND SESSION ACTIVE</div>
+                <div style="color: #94a3b8; font-size: 0.82rem;">Operator: <strong>${storedUser}</strong></div>
+              </div>
+            </div>
+            <button onclick="logoutOp()" class="btn-action" style="background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 8px 18px;">
               Logout
             </button>
           </div>
 
-          <!-- Create Live Announcement Section -->
-          <div class="op-card-section">
-            <div class="op-section-title">
-              <span class="material-symbols-outlined" style="font-size: 20px;">campaign</span>
-              Publish Live Announcement
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-              <input type="text" id="annTitleInput" class="form-input" placeholder="Announcement Title" />
-              <textarea id="annDescInput" class="form-textarea" placeholder="Announcement Description / Body"></textarea>
-              <input type="text" id="annIconInput" class="form-input" placeholder="Google Material Symbol Icon Name (default: campaign)" />
-            </div>
-            <button class="btn-action" onclick="publishAnnouncement()" style="background: #ffffff; color: #000000; width: 100%;">
-              <span class="material-symbols-outlined" style="font-size:18px;">send</span> Push Announcement to TiDB
+          <div class="op-tabs-bar">
+            <button class="op-tab-btn ${currentOpTab === 'announcements' ? 'active' : ''}" onclick="switchOpTab('announcements')">
+              <span class="material-symbols-outlined fill-icon" style="font-size: 18px;">campaign</span> Announcements
+            </button>
+            <button class="op-tab-btn ${currentOpTab === 'bans' ? 'active' : ''}" onclick="switchOpTab('bans')">
+              <span class="material-symbols-outlined fill-icon" style="font-size: 18px;">block</span> IP Security
             </button>
           </div>
 
-          <!-- Ban IP Address Section -->
-          <div class="op-card-section">
-            <div class="op-section-title">
-              <span class="material-symbols-outlined" style="font-size: 20px;">block</span>
-              Live IP Ban Manager
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-              <input type="text" id="banIpInput" class="form-input" placeholder="IP Address (e.g., 192.168.1.50)" />
-              <input type="text" id="banReasonInput" class="form-input" placeholder="Reason for ban (optional)" />
-            </div>
-            <button class="btn-action" onclick="banIpAddress()" style="background: #ffffff; color: #000000; width: 100%;">
-              <span class="material-symbols-outlined" style="font-size:18px;">gavel</span> Execute IP Ban
-            </button>
-            <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 4px;">Active Bans Recorded: ${currentBans.length}</div>
-          </div>
-
-          <!-- System Registry Section -->
-          <div class="op-card-section">
-            <div class="op-section-header">
-              <div class="op-section-title">
-                <span class="material-symbols-outlined" style="font-size: 20px;">settings_system_daydream</span>
-                System Registry & Variables
-              </div>
-              <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">Use arrow keys or click to select</span>
-            </div>
-            <div class="registry-window">
-              <div class="registry-header-row">
-                <span>KEY NAME</span>
-                <span>VALUE</span>
-              </div>
-              <div class="registry-rows-list" id="registryRowsList"></div>
-            </div>
-            <button class="btn-action" onclick="applyRegistryChanges()" style="background: #ffffff; color: #000000; width: 100%; margin-top: 4px;">
-              <span class="material-symbols-outlined" style="font-size:18px;">check_circle</span> Apply Registry Keys
-            </button>
-          </div>
+          ${tabContentHtml}
         `;
-        renderRegistryRows();
       } else {
         content.innerHTML = `
-          <div style="background: rgba(26,26,34,0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 18px;">
-            <div style="display: flex; align-items: center; gap: 14px;">
-              <div style="background: rgba(255,255,255,0.1); border-radius: 12px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: #ffffff;">
-                <span class="material-symbols-outlined" style="font-size: 24px;">lock</span>
+          <div style="background: rgba(26,26,34,0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 20px;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div style="background: rgba(255,255,255,0.1); border-radius: 14px; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; color: #ffffff;">
+                <span class="material-symbols-outlined fill-icon" style="font-size: 28px;">lock</span>
               </div>
               <div>
-                <div style="font-weight: 800; color: #fff; font-size: 1.1rem;">Restricted Operator Command Hub</div>
-                <div style="font-size: 0.85rem; color: #94a3b8;">Enter TiDB crew credentials to authenticate.</div>
+                <div style="font-weight: 800; color: #fff; font-size: 1.15rem;">Restricted Operator Command Hub</div>
+                <div style="font-size: 0.88rem; color: #94a3b8;">Enter TiDB crew credentials to authenticate.</div>
               </div>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 4px;">
+            <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 4px;">
               <input type="text" id="opUserInput" class="form-input" placeholder="Operator Username" />
               <input type="password" id="opPasswordInput" class="form-input" placeholder="Operator Password" />
               <div id="opAuthErrorMsg" class="error-msg-text">Authentication failed. Invalid username or password.</div>
@@ -1479,14 +1383,8 @@
     }
 
     updateOpStatusUI();
-    applyBetaHomescreenState();
     setWorkspaceView(currentViewMode);
     renderAppData();
-
-    /* Auto-polling loop (refreshes live every 4 seconds) */
-    setInterval(() => {
-      renderAppData();
-    }, 4000);
   </script>
 
 </body>
