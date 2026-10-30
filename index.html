@@ -80,7 +80,7 @@
       pointer-events: none;
     }
 
-    /* Floating Background Tiles */
+    /* Floating Background Rounded Tiles */
     .bg-cubes-container {
       position: fixed;
       top: 0;
@@ -98,7 +98,7 @@
       height: 80px;
       background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(7, 7, 9, 0.95));
       border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 18px;
+      border-radius: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -181,12 +181,6 @@
       border-color: #ffffff;
       transform: translateY(-2px);
       box-shadow: 0 0 18px rgba(255, 255, 255, 0.3);
-    }
-
-    .btn-topbar-icon.active-btn {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
     }
 
     .material-symbols-outlined.fill-icon {
@@ -348,6 +342,7 @@
       display: flex;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }
 
     .split-card:hover {
@@ -381,12 +376,26 @@
       font-size: 1.25rem;
       font-weight: 700;
       color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .split-card-desc {
       font-size: 0.9rem;
       color: #94a3b8;
       line-height: 1.6;
+    }
+
+    .beta-tag {
+      background: rgba(37, 99, 235, 0.2);
+      border: 1px solid rgba(37, 99, 235, 0.4);
+      color: #60a5fa;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
     }
 
     .btn-go {
@@ -784,10 +793,10 @@
     <div style="font-weight: 700; font-size: 0.9rem; color: #94a3b8; letter-spacing: 0.5px;">CONNECTING TO SERVER...</div>
   </div>
 
-  <!-- Subtle Technical Grid Background -->
+  <!-- Technical Grid Background Wallpaper -->
   <div class="bg-grid-overlay"></div>
 
-  <!-- Background Tiles -->
+  <!-- Floating Rounded Background Tiles Wallpaper -->
   <div class="bg-cubes-container">
     <div class="bg-cube">Nothing</div>
     <div class="bg-cube">OrNo</div>
@@ -800,7 +809,7 @@
     <div class="bg-cube">:3</div>
     <div class="bg-cube">MatriX</div>
     <div class="bg-cube">KinematiX</div>
-    <div class="bg-cube">Roblox</div>
+    <div class="bg-cube">ZeroModel</div>
   </div>
 
   <!-- Topbar -->
@@ -838,7 +847,7 @@
     <div class="center-content">
       <section class="surface-card">
         <h1 class="hero-title">NothingOrNo Labs</h1>
-        <p class="hero-desc">Explore our native utilities, simulation frameworks, and data pipelines engineered by the NothingOrNo crew.</p>
+        <p class="hero-desc">Explore our native utilities, simulation frameworks, and 3D modeling pipelines engineered by the NothingOrNo crew.</p>
       </section>
 
       <div class="layout-switcher-bar">
@@ -925,9 +934,6 @@
   </footer>
 
   <script>
-    /* =================================================================== */
-    /* LIVE CLOUD RENDER BRIDGE ENDPOINTS                                  */
-    /* =================================================================== */
     const RENDER_BRIDGE_URL = "https://nothingorno-bridge.onrender.com";
 
     const TIDB_API = {
@@ -962,6 +968,7 @@
     ];
 
     let fallbackProducts = [
+      { id: 0, title: "ZeroModel Studio", description: "3D low-poly box studio with procedural textures, gizmos, and TiDB community marketplace integration.", icon_name: "view_in_ar", link_url: "zeromodel.html", is_beta: true },
       { id: 1, title: "NothingOrNo Launcher", description: "Official native desktop launcher portal (NothingOrNoLabs.exe) for quick tool deployment.", icon_name: "rocket_launch", link_url: "launcher.html" },
       { id: 2, title: "NanoManager", description: "Lightweight C++ task management utilities featuring embedded NothingUI components.", icon_name: "terminal", link_url: "nanomanager.html" },
       { id: 3, title: "KinematiX Engine", description: "Advanced physics simulation engine handling structural stress, hydrodynamics, and thermal conduction.", icon_name: "tune", link_url: "kinematix.html" },
@@ -1007,19 +1014,14 @@
       }
     }
 
-    async function deleteTiDBData(endpoint, id) {
-      try {
-        const res = await fetch(`${endpoint}/${id}`, { method: 'DELETE' });
-        return await res.json();
-      } catch (err) {
-        console.error("Cloud bridge DELETE failed:", err);
-        throw err;
-      }
-    }
-
     async function renderAppData() {
       cachedAnnouncements = await fetchTiDBData(TIDB_API.announcements, fallbackAnnouncements);
-      const products = await fetchTiDBData(TIDB_API.products, fallbackProducts);
+      let products = await fetchTiDBData(TIDB_API.products, fallbackProducts);
+
+      // Ensure ZeroModel is always pinned at the top
+      if (!products.some(p => p.link_url === 'zeromodel.html')) {
+        products.unshift({ id: 0, title: "ZeroModel Studio", description: "3D low-poly box studio with procedural textures, gizmos, and TiDB marketplace integration.", icon_name: "view_in_ar", link_url: "zeromodel.html", is_beta: true });
+      }
 
       if (!selectedAnnouncementId && cachedAnnouncements.length > 0) {
         selectedAnnouncementId = cachedAnnouncements[0].id;
@@ -1032,30 +1034,37 @@
       if (sidebarList) {
         sidebarList.innerHTML = products.map(prod => `
           <a href="${prod.link_url}" class="sidebar-link">
-            <span class="material-symbols-outlined" style="font-size: 18px;">${prod.icon_name || 'extension'}</span> ${prod.title}
+            <span class="material-symbols-outlined" style="font-size: 18px;">${prod.icon_name || 'extension'}</span> ${prod.title} ${prod.is_beta ? '<span class="beta-tag" style="font-size:0.55rem; padding:1px 4px; margin-left:auto;">BETA</span>' : ''}
           </a>
         `).join('');
       }
 
       const cardsContainer = document.getElementById('cardsContainer');
       if (cardsContainer) {
-        cardsContainer.innerHTML = products.map(prod => `
-          <div class="split-card">
-            <div class="split-card-top">
-              <span class="material-symbols-outlined split-card-icon">${prod.icon_name || 'extension'}</span>
+        cardsContainer.innerHTML = products.map(prod => {
+          const isZeroModel = prod.link_url === 'zeromodel.html';
+          const iconName = isZeroModel ? 'open_in_new' : 'arrow_forward';
+
+          return `
+            <div class="split-card">
+              <div class="split-card-top">
+                <span class="material-symbols-outlined split-card-icon">${prod.icon_name || 'extension'}</span>
+              </div>
+              <div class="split-card-bottom">
+                <div class="split-card-title">
+                  ${prod.title}
+                  ${prod.is_beta ? '<span class="beta-tag">BETA</span>' : ''}
+                </div>
+                <div class="split-card-desc">${prod.description}</div>
+                <a href="${prod.link_url}" class="btn-go">
+                  <span class="material-symbols-outlined" style="font-size: 18px;">${iconName}</span> ${isZeroModel ? 'Open Studio' : 'Go'}
+                </a>
+              </div>
             </div>
-            <div class="split-card-bottom">
-              <div class="split-card-title">${prod.title}</div>
-              <div class="split-card-desc">${prod.description}</div>
-              <a href="${prod.link_url}" class="btn-go">
-                <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span> Go
-              </a>
-            </div>
-          </div>
-        `).join('');
+          `;
+        }).join('');
       }
 
-      // Hide loading screen
       const loader = document.getElementById('loadingOverlay');
       if (loader) {
         loader.style.opacity = '0';
@@ -1093,36 +1102,34 @@
 
         detailView.innerHTML = `
           <div>
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
               <span class="material-symbols-outlined fill-icon" style="font-size: 32px; color: #ffffff;">${selected.icon_name || 'campaign'}</span>
-              <h2 style="font-size: 1.6rem; font-weight: 800; color: #ffffff;">${selected.title}</h2>
+              <h2 style="font-size: 1.5rem; font-weight: 800; color: #ffffff; letter-spacing: -0.5px;">${selected.title}</h2>
             </div>
-
             <div class="meta-pills-row">
               <span class="pill-badge ${isOwnerVerified ? 'pill-verified' : 'pill-unverified'}">
-                <span class="material-symbols-outlined" style="font-size: 14px;">${isOwnerVerified ? 'verified' : 'gpp_maybe'}</span>
-                ${isOwnerVerified ? 'VERIFIED OWNER' : 'UNVERIFIED OP'}
+                <span class="material-symbols-outlined" style="font-size: 14px;">${isOwnerVerified ? 'verified' : 'person'}</span>
+                ${selected.author || 'Operator'} (${isOwnerVerified ? 'Verified Owner' : 'Team Member'})
               </span>
-
               <span class="pill-badge pill-quickid">
-                <span class="material-symbols-outlined" style="font-size: 14px;">fingerprint</span>
+                <span class="material-symbols-outlined" style="font-size: 14px;">tag</span>
                 ${quickId}
               </span>
-
-              <span style="font-size: 0.82rem; color: #94a3b8; font-weight: 600;">By: <strong style="color:#fff;">${selected.author || 'Operator'}</strong></span>
             </div>
           </div>
-
-          <div style="font-size: 0.98rem; color: #cbd5e1; line-height: 1.7; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 24px; border-radius: 18px; white-space: pre-wrap;">${selected.description}</div>
-
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 24px; font-size: 0.96rem; color: #cbd5e1; line-height: 1.7;">
+            ${selected.description}
+          </div>
           ${selected.action_link ? `
-            <a href="${selected.action_link}" target="_blank" class="btn-action" style="align-self: flex-start;">
-              <span class="material-symbols-outlined" style="font-size: 18px;">open_in_new</span> Launch Link
-            </a>
+            <div>
+              <a href="${selected.action_link}" target="_blank" class="btn-action">
+                <span class="material-symbols-outlined" style="font-size: 18px;">open_in_new</span> Open Link
+              </a>
+            </div>
           ` : ''}
         `;
       } else {
-        detailView.innerHTML = `<div style="color: #94a3b8; text-align: center; margin-top: 40px;">No announcements found.</div>`;
+        detailView.innerHTML = `<div style="color: #94a3b8; text-align: center; margin-top: 40px;">No announcement selected.</div>`;
       }
     }
 
@@ -1143,313 +1150,303 @@
     function setWorkspaceView(mode) {
       currentViewMode = mode;
       localStorage.setItem('workspaceViewMode', mode);
+
       const container = document.getElementById('cardsContainer');
       const btnGrid = document.getElementById('btnViewGrid');
       const btnRect = document.getElementById('btnViewRectangle');
 
       if (container) {
-        if (mode === 'rectangle') {
-          container.className = 'cards-container view-rectangle';
-          if (btnRect) btnRect.classList.add('active');
-          if (btnGrid) btnGrid.classList.remove('active');
+        container.className = `cards-container view-${mode}`;
+      }
+      if (btnGrid && btnRect) {
+        if (mode === 'grid') {
+          btnGrid.classList.add('active');
+          btnRect.classList.remove('active');
         } else {
-          container.className = 'cards-container view-grid';
-          if (btnGrid) btnGrid.classList.add('active');
-          if (btnRect) btnRect.classList.remove('active');
+          btnRect.classList.add('active');
+          btnGrid.classList.remove('active');
         }
       }
     }
 
     function openModal(modalId) {
-      document.getElementById(modalId).style.display = 'flex';
+      const modal = document.getElementById(modalId);
+      if (modal) modal.style.display = 'flex';
     }
 
     function closeModal(modalId) {
-      document.getElementById(modalId).style.display = 'none';
+      const modal = document.getElementById(modalId);
+      if (modal) modal.style.display = 'none';
     }
 
-    function closeModalOnOverlay(e, modalId) {
-      if (e.target.id === modalId) closeModal(modalId);
-    }
-
-    function checkOpAuth() {
-      return localStorage.getItem('isOpLoggedIn') === 'true';
-    }
-
-    function updateOpStatusUI() {
-      const btn = document.getElementById('opStatusBtn');
-      if (checkOpAuth()) {
-        btn.classList.add('active-btn');
-      } else {
-        btn.classList.remove('active-btn');
+    function closeModalOnOverlay(event, modalId) {
+      if (event.target.id === modalId) {
+        closeModal(modalId);
       }
     }
 
-    function switchAuthTab(tab) {
-      opAuthTab = tab;
-      openOpModal();
+    function openOpModal() {
+      openModal('opModal');
+      renderOpModalContent();
     }
 
-    async function loginOp() {
-      const u = document.getElementById('opUserInput').value.trim();
-      const p = document.getElementById('opPasswordInput').value;
-      const errorMsg = document.getElementById('opAuthErrorMsg');
-
-      let accounts = [
-        { username: "NothingOrNo", password_hash: "NothingOrNoXDLOLz" },
-        { username: "Deniz_8bruhxd", password_hash: "thefakebossXD" }
-      ];
-      accounts = await fetchTiDBData(TIDB_API.auth, accounts);
-
-      const matched = accounts.find(acc => acc.username === u && acc.password_hash === p);
-
-      if (matched) {
-        if (errorMsg) errorMsg.style.display = 'none';
-        localStorage.setItem('isOpLoggedIn', 'true');
-        localStorage.setItem('opUser', matched.username);
-        updateOpStatusUI();
-        openOpModal();
-      } else {
-        if (errorMsg) errorMsg.style.display = 'block';
-      }
-    }
-
-    async function registerOpAccount() {
-      const u = document.getElementById('signUpUserInput').value.trim();
-      const p = document.getElementById('signUpPassInput').value;
-      const pConfirm = document.getElementById('signUpPassConfirmInput').value;
-      const errorMsg = document.getElementById('signUpErrorMsg');
-
-      if (!u || !p) {
-        if (errorMsg) {
-          errorMsg.innerText = "Please fill out all username and password fields.";
-          errorMsg.style.display = 'block';
-        }
-        return;
-      }
-
-      if (p !== pConfirm) {
-        if (errorMsg) {
-          errorMsg.innerText = "Passwords do not match!";
-          errorMsg.style.display = 'block';
-        }
-        return;
-      }
-
-      try {
-        await postTiDBData(TIDB_API.auth, { username: u, password_hash: p });
-        alert(`Account "${u}" successfully created! You can now log in.`);
-        opAuthTab = 'login';
-        openOpModal();
-      } catch (err) {
-        if (errorMsg) {
-          errorMsg.innerText = err.message || "Failed to create account. User may already exist.";
-          errorMsg.style.display = 'block';
-        }
-      }
-    }
-
-    async function publishAnnouncement() {
-      const title = document.getElementById('annTitleInput').value.trim();
-      const desc = document.getElementById('annDescInput').value.trim();
-      const icon = document.getElementById('annIconInput').value.trim() || 'campaign';
-      const actionLink = document.getElementById('annLinkInput').value.trim();
-      const author = localStorage.getItem('opUser') || 'Operator';
-      const quickId = generateQuickId();
-
-      if (!title || !desc) {
-        alert('Please fill out both title and description.');
-        return;
-      }
-
-      try {
-        await postTiDBData(TIDB_API.announcements, { 
-          title, 
-          description: desc, 
-          icon_name: icon, 
-          author: author, 
-          quick_id: quickId, 
-          action_link: actionLink 
-        });
-
-        alert('Announcement successfully published!');
-        await renderAppData();
-        openOpModal();
-      } catch (err) {
-        alert('Failed to publish announcement. Error: ' + err.message);
-      }
-    }
-
-    async function deleteAnnouncement(id) {
-      if (!confirm('Are you sure you want to delete this announcement?')) return;
-      await deleteTiDBData(TIDB_API.announcements, id);
-      await renderAppData();
-      if (checkOpAuth()) openOpModal();
-    }
-
-    async function banIpAddress() {
-      const ip = document.getElementById('banIpInput').value.trim();
-      const reason = document.getElementById('banReasonInput').value.trim() || 'Banned by Operator';
-
-      if (!ip) {
-        alert('Please enter a valid IP address.');
-        return;
-      }
-
-      await postTiDBData(TIDB_API.ipBans, { ip_address: ip, reason });
-      alert(`IP address ${ip} successfully banned and recorded in TiDB!`);
-      openOpModal();
-    }
-
-    function logoutOp() {
-      localStorage.removeItem('isOpLoggedIn');
-      localStorage.removeItem('opUser');
-      updateOpStatusUI();
-      closeModal('opModal');
-    }
-
-    function switchOpTab(tab) {
-      currentOpTab = tab;
-      openOpModal();
-    }
-
-    async function openOpModal() {
+    function renderOpModalContent() {
       const content = document.getElementById('opModalContent');
-      const modalTitle = document.getElementById('opModalHeaderTitle');
-      modalTitle.innerHTML = `<span class="material-symbols-outlined fill-icon">admin_panel_settings</span> OP Command Hub`;
+      if (!content) return;
 
-      if (checkOpAuth()) {
-        const storedUser = localStorage.getItem('opUser') || 'Operator';
-        const currentBans = await fetchTiDBData(TIDB_API.ipBans, fallbackIpBans);
+      const isAuthed = sessionStorage.getItem('opAuthSession') === 'active';
 
-        let tabContentHtml = '';
-
-        if (currentOpTab === 'announcements') {
-          tabContentHtml = `
-            <div class="op-card-section">
-              <div class="op-section-title">
-                <span class="material-symbols-outlined fill-icon" style="font-size: 22px;">campaign</span>
-                Publish Live Announcement
-              </div>
-              <div style="display: flex; flex-direction: column; gap: 12px;">
-                <input type="text" id="annTitleInput" class="form-input" placeholder="Announcement Title" />
-                <textarea id="annDescInput" class="form-textarea" placeholder="Announcement Description / Body"></textarea>
-                <input type="text" id="annIconInput" class="form-input" placeholder="Google Icon Name (default: campaign)" />
-                <input type="text" id="annLinkInput" class="form-input" placeholder="Optional Action URL (e.g. https://...)" />
-              </div>
-              <button class="btn-action" onclick="publishAnnouncement()" style="background: #ffffff; color: #000000; width: 100%;">
-                <span class="material-symbols-outlined" style="font-size:18px;">send</span> Push Announcement to TiDB
-              </button>
-            </div>
-
-            <div class="op-card-section">
-              <div class="op-section-title">
-                <span class="material-symbols-outlined fill-icon" style="font-size: 22px;">delete</span>
-                Manage & Delete Announcements
-              </div>
-              <div style="display: flex; flex-direction: column; gap: 10px; max-height: 200px; overflow-y: auto;">
-                ${cachedAnnouncements.map(ann => `
-                  <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.04); padding: 10px 14px; border-radius: 12px;">
-                    <span style="font-size: 0.88rem; font-weight: 700; color: #fff;">${ann.title}</span>
-                    <button onclick="deleteAnnouncement(${ann.id})" class="btn-action" style="background: #ff4d4d; color: #fff; padding: 4px 12px; font-size: 0.75rem;">Delete</button>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          `;
-        } else if (currentOpTab === 'bans') {
-          tabContentHtml = `
-            <div class="op-card-section">
-              <div class="op-section-title">
-                <span class="material-symbols-outlined fill-icon" style="font-size: 22px;">block</span>
-                Live IP Ban Manager
-              </div>
-              <div style="display: flex; flex-direction: column; gap: 12px;">
-                <input type="text" id="banIpInput" class="form-input" placeholder="IP Address (e.g., 192.168.1.50)" />
-                <input type="text" id="banReasonInput" class="form-input" placeholder="Reason for ban (optional)" />
-              </div>
-              <button class="btn-action" onclick="banIpAddress()" style="background: #ffffff; color: #000000; width: 100%;">
-                <span class="material-symbols-outlined" style="font-size:18px;">gavel</span> Execute IP Ban
-              </button>
-              <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 4px;">Active Bans Recorded: <strong>${currentBans.length}</strong></div>
-            </div>
-          `;
-        }
-
+      if (!isAuthed) {
         content.innerHTML = `
-          <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center;">
-            <div style="display: flex; align-items: center; gap: 14px;">
-              <span class="material-symbols-outlined fill-icon" style="font-size: 28px; color: #ffffff;">verified_user</span>
-              <div>
-                <div style="color: #ffffff; font-size: 1rem; font-weight: 800;">COMMAND SESSION ACTIVE</div>
-                <div style="color: #94a3b8; font-size: 0.82rem;">Operator: <strong style="color:#fff;">${storedUser}</strong></div>
-              </div>
-            </div>
-            <button onclick="logoutOp()" class="btn-action" style="background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 8px 18px;">
-              Logout
-            </button>
-          </div>
-
-          <div class="op-tabs-bar">
-            <button class="op-tab-btn ${currentOpTab === 'announcements' ? 'active' : ''}" onclick="switchOpTab('announcements')">
-              <span class="material-symbols-outlined fill-icon" style="font-size: 18px;">campaign</span> Announcements
-            </button>
-            <button class="op-tab-btn ${currentOpTab === 'bans' ? 'active' : ''}" onclick="switchOpTab('bans')">
-              <span class="material-symbols-outlined fill-icon" style="font-size: 18px;">block</span> IP Security
-            </button>
-          </div>
-
-          ${tabContentHtml}
-        `;
-      } else {
-        content.innerHTML = `
-          <div style="background: rgba(26,26,34,0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 20px;">
-            
-            <!-- Auth Tab Buttons -->
-            <div style="display: flex; gap: 8px; background: rgba(0,0,0,0.4); padding: 6px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08);">
-              <button onclick="switchAuthTab('login')" class="op-tab-btn ${opAuthTab === 'login' ? 'active' : ''}" style="flex: 1; justify-content: center;">
-                <span class="material-symbols-outlined" style="font-size:18px;">login</span> Log In
-              </button>
-              <button onclick="switchAuthTab('signup')" class="op-tab-btn ${opAuthTab === 'signup' ? 'active' : ''}" style="flex: 1; justify-content: center;">
-                <span class="material-symbols-outlined" style="font-size:18px;">person_add</span> Sign Up
-              </button>
+          <div style="display: flex; flex-direction: column; gap: 16px; max-width: 440px; margin: 40px auto; width: 100%;">
+            <div style="display: flex; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px;">
+              <button class="op-tab-btn ${opAuthTab === 'login' ? 'active' : ''}" onclick="setOpAuthTab('login')">Operator Login</button>
+              <button class="op-tab-btn ${opAuthTab === 'register' ? 'active' : ''}" onclick="setOpAuthTab('register')">Register Operator</button>
             </div>
 
             ${opAuthTab === 'login' ? `
-              <!-- LOGIN FORM -->
-              <div style="display: flex; flex-direction: column; gap: 14px;">
-                <div style="font-weight: 800; color: #fff; font-size: 1.1rem;">Operator Authentication</div>
-                <input type="text" id="opUserInput" class="form-input" placeholder="Operator Username" />
-                <input type="password" id="opPasswordInput" class="form-input" placeholder="Operator Password" />
-                <div id="opAuthErrorMsg" class="error-msg-text">Authentication failed. Invalid username or password.</div>
-                <button class="btn-action" onclick="loginOp()" style="background: #ffffff; color: #000000; width: 100%; margin-top: 4px;">
-                  <span class="material-symbols-outlined" style="font-size:18px;">lock_open</span> Authenticate Session
-                </button>
+              <div class="op-card-section">
+                <div class="op-section-title"><span class="material-symbols-outlined">lock</span> Operator Authentication</div>
+                <div>
+                  <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">USERNAME</label>
+                  <input type="text" id="opLoginUser" class="form-input" placeholder="Enter operator username..." />
+                </div>
+                <div>
+                  <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">PASSWORD</label>
+                  <input type="password" id="opLoginPass" class="form-input" placeholder="Enter password..." />
+                </div>
+                <div id="opLoginError" class="error-msg-text"></div>
+                <button class="btn-action" onclick="submitOpLogin()">Authenticate</button>
               </div>
             ` : `
-              <!-- SIGN UP FORM -->
-              <div style="display: flex; flex-direction: column; gap: 14px;">
-                <div style="font-weight: 800; color: #fff; font-size: 1.1rem;">Create New Operator Credentials</div>
-                <input type="text" id="signUpUserInput" class="form-input" placeholder="Choose Username" />
-                <input type="password" id="signUpPassInput" class="form-input" placeholder="Choose Password" />
-                <input type="password" id="signUpPassConfirmInput" class="form-input" placeholder="Confirm Password" />
-                <div id="signUpErrorMsg" class="error-msg-text">Failed to register account.</div>
-                <button class="btn-action" onclick="registerOpAccount()" style="background: #ffffff; color: #000000; width: 100%; margin-top: 4px;">
-                  <span class="material-symbols-outlined" style="font-size:18px;">how_to_reg</span> Register Account
-                </button>
+              <div class="op-card-section">
+                <div class="op-section-title"><span class="material-symbols-outlined">person_add</span> Register Operator</div>
+                <div>
+                  <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">CHOOSE USERNAME</label>
+                  <input type="text" id="opRegUser" class="form-input" placeholder="Operator username..." />
+                </div>
+                <div>
+                  <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">CHOOSE PASSWORD</label>
+                  <input type="password" id="opRegPass" class="form-input" placeholder="Secure password..." />
+                </div>
+                <div>
+                  <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">MASTER OPERATOR PASSKEY</label>
+                  <input type="password" id="opRegPasskey" class="form-input" placeholder="Master passkey..." />
+                </div>
+                <div id="opRegError" class="error-msg-text"></div>
+                <button class="btn-action" onclick="submitOpRegister()">Create Account</button>
               </div>
             `}
-
           </div>
         `;
+      } else {
+        content.innerHTML = `
+          <div class="op-tabs-bar">
+            <button class="op-tab-btn ${currentOpTab === 'announcements' ? 'active' : ''}" onclick="setOpTab('announcements')">
+              <span class="material-symbols-outlined" style="font-size:16px;">campaign</span> Manage Announcements
+            </button>
+            <button class="op-tab-btn ${currentOpTab === 'products' ? 'active' : ''}" onclick="setOpTab('products')">
+              <span class="material-symbols-outlined" style="font-size:16px;">extension</span> Manage Products
+            </button>
+            <button class="op-tab-btn ${currentOpTab === 'security' ? 'active' : ''}" onclick="setOpTab('security')">
+              <span class="material-symbols-outlined" style="font-size:16px;">security</span> IP & Security Bans
+            </button>
+            <button class="op-tab-btn" onclick="opLogout()" style="margin-left: auto; border-color: rgba(239,68,68,0.3); color: #f87171;">
+              <span class="material-symbols-outlined" style="font-size:16px;">logout</span> Logout
+            </button>
+          </div>
+
+          ${currentOpTab === 'announcements' ? `
+            <div class="op-card-section">
+              <div class="op-section-title"><span class="material-symbols-outlined">add_box</span> Post New Announcement</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                  <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">TITLE</label>
+                  <input type="text" id="newAnnTitle" class="form-input" placeholder="Announcement title..." />
+                </div>
+                <div>
+                  <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">AUTHOR / OPERATOR</label>
+                  <input type="text" id="newAnnAuthor" class="form-input" value="NothingOrNo" />
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                  <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">MATERIAL ICON</label>
+                  <input type="text" id="newAnnIcon" class="form-input" value="campaign" />
+                </div>
+                <div>
+                  <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">ACTION LINK (OPTIONAL)</label>
+                  <input type="text" id="newAnnLink" class="form-input" placeholder="https://..." />
+                </div>
+              </div>
+              <div>
+                <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">DESCRIPTION</label>
+                <textarea id="newAnnDesc" class="form-textarea" placeholder="Detailed update description..."></textarea>
+              </div>
+              <button class="btn-action" onclick="handleCreateAnnouncement()">Publish Announcement</button>
+            </div>
+          ` : currentOpTab === 'products' ? `
+            <div class="op-card-section">
+              <div class="op-section-title"><span class="material-symbols-outlined">post_add</span> Register / Update Product</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                  <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">PRODUCT TITLE</label>
+                  <input type="text" id="newProdTitle" class="form-input" placeholder="Product name..." />
+                </div>
+                <div>
+                  <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">LINK URL</label>
+                  <input type="text" id="newProdLink" class="form-input" placeholder="e.g. tool.html" />
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
+                <div>
+                  <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">MATERIAL ICON</label>
+                  <input type="text" id="newProdIcon" class="form-input" value="extension" />
+                </div>
+              </div>
+              <div>
+                <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">DESCRIPTION</label>
+                <textarea id="newProdDesc" class="form-textarea" placeholder="Brief utility summary..."></textarea>
+              </div>
+              <button class="btn-action" onclick="handleCreateProduct()">Add Product Card</button>
+            </div>
+          ` : `
+            <div class="op-card-section">
+              <div class="op-section-title"><span class="material-symbols-outlined">gpp_bad</span> IP Security Management</div>
+              <div>
+                <label style="font-size:0.8rem; font-weight:700; color:#94a3b8; display:block; margin-bottom:6px;">IP ADDRESS TO BAN</label>
+                <input type="text" id="banIpInput" class="form-input" placeholder="e.g. 192.168.1.50" />
+              </div>
+              <button class="btn-action" style="background:#ef4444; color:#ffffff;" onclick="handleIpBan()">Issue IP Ban</button>
+            </div>
+          `}
+        `;
       }
-      openModal('opModal');
     }
 
-    updateOpStatusUI();
-    setWorkspaceView(currentViewMode);
-    renderAppData();
-  </script>
+    function setOpAuthTab(tab) {
+      opAuthTab = tab;
+      renderOpModalContent();
+    }
 
+    function setOpTab(tab) {
+      currentOpTab = tab;
+      renderOpModalContent();
+    }
+
+    async function submitOpLogin() {
+      const username = document.getElementById('opLoginUser')?.value.trim();
+      const password = document.getElementById('opLoginPass')?.value.trim();
+      const errEl = document.getElementById('opLoginError');
+
+      if (!username || !password) {
+        if (errEl) { errEl.textContent = "Please fill in all fields."; errEl.style.display = 'block'; }
+        return;
+      }
+
+      try {
+        const res = await postTiDBData(`${TIDB_API.auth}/login`, { username, password });
+        if (res.success) {
+          sessionStorage.setItem('opAuthSession', 'active');
+          renderOpModalContent();
+        } else {
+          throw new Error(res.error || "Authentication failed");
+        }
+      } catch (err) {
+        if (errEl) { errEl.textContent = err.message; errEl.style.display = 'block'; }
+      }
+    }
+
+    async function submitOpRegister() {
+      const username = document.getElementById('opRegUser')?.value.trim();
+      const password = document.getElementById('opRegPass')?.value.trim();
+      const passkey = document.getElementById('opRegPasskey')?.value.trim();
+      const errEl = document.getElementById('opRegError');
+
+      if (!username || !password || !passkey) {
+        if (errEl) { errEl.textContent = "All fields required."; errEl.style.display = 'block'; }
+        return;
+      }
+
+      try {
+        const res = await postTiDBData(`${TIDB_API.auth}/register`, { username, password, passkey });
+        if (res.success) {
+          sessionStorage.setItem('opAuthSession', 'active');
+          renderOpModalContent();
+        } else {
+          throw new Error(res.error || "Registration failed");
+        }
+      } catch (err) {
+        if (errEl) { errEl.textContent = err.message; errEl.style.display = 'block'; }
+      }
+    }
+
+    function opLogout() {
+      sessionStorage.removeItem('opAuthSession');
+      renderOpModalContent();
+    }
+
+    async function handleCreateAnnouncement() {
+      const title = document.getElementById('newAnnTitle')?.value.trim();
+      const author = document.getElementById('newAnnAuthor')?.value.trim() || 'NothingOrNo';
+      const icon_name = document.getElementById('newAnnIcon')?.value.trim() || 'campaign';
+      const action_link = document.getElementById('newAnnLink')?.value.trim() || '';
+      const description = document.getElementById('newAnnDesc')?.value.trim();
+      const quick_id = generateQuickId();
+
+      if (!title || !description) {
+        alert("Title and description are required.");
+        return;
+      }
+
+      try {
+        await postTiDBData(TIDB_API.announcements, { title, author, icon_name, action_link, description, quick_id });
+        alert("Announcement published successfully!");
+        renderAppData();
+        closeModal('opModal');
+      } catch (err) {
+        alert("Failed to publish: " + err.message);
+      }
+    }
+
+    async function handleCreateProduct() {
+      const title = document.getElementById('newProdTitle')?.value.trim();
+      const link_url = document.getElementById('newProdLink')?.value.trim();
+      const icon_name = document.getElementById('newProdIcon')?.value.trim() || 'extension';
+      const description = document.getElementById('newProdDesc')?.value.trim();
+
+      if (!title || !link_url || !description) {
+        alert("All product fields are required.");
+        return;
+      }
+
+      try {
+        await postTiDBData(TIDB_API.products, { title, link_url, icon_name, description });
+        alert("Product registered successfully!");
+        renderAppData();
+        closeModal('opModal');
+      } catch (err) {
+        alert("Failed to register product: " + err.message);
+      }
+    }
+
+    async function handleIpBan() {
+      const ip = document.getElementById('banIpInput')?.value.trim();
+      if (!ip) { alert("Enter a valid IP address."); return; }
+
+      try {
+        await postTiDBData(TIDB_API.ipBans, { ip_address: ip });
+        alert(`IP address ${ip} has been successfully banned.`);
+        document.getElementById('banIpInput').value = '';
+      } catch (err) {
+        alert("Failed to ban IP: " + err.message);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setWorkspaceView(currentViewMode);
+      renderAppData();
+    });
+  </script>
 </body>
 </html>
