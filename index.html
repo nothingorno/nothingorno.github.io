@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NothingOrNo Labs</title>
 
+  <!-- Web Icon / Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
   <!-- Montserrat, JetBrains Mono & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -195,7 +199,7 @@
       gap: 12px;
     }
 
-    /* FORCED MAIN LAYOUT */
+    /* MAIN LAYOUT */
     .main-layout {
       display: flex; 
       width: 100%;
@@ -816,7 +820,7 @@
     </div>
   </nav>
 
-  <!-- FORCED MAIN LAYOUT -->
+  <!-- MAIN LAYOUT -->
   <div class="main-layout">
     
     <!-- Left Sidebar -->
@@ -910,7 +914,7 @@
         </button>
       </div>
 
-      <div class="modal-body" id="opModalContent">
+      <div class="modal-body" id="opModalContent" style="padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px;">
         <!-- Rendered via JS -->
       </div>
     </div>
@@ -966,6 +970,7 @@
 
     let fallbackIpBans = [];
     let currentOpTab = 'announcements';
+    let opAuthTab = 'login';
     let currentViewMode = localStorage.getItem('workspaceViewMode') || 'grid';
 
     function generateQuickId() {
@@ -1180,6 +1185,11 @@
       }
     }
 
+    function switchAuthTab(tab) {
+      opAuthTab = tab;
+      openOpModal();
+    }
+
     async function loginOp() {
       const u = document.getElementById('opUserInput').value.trim();
       const p = document.getElementById('opPasswordInput').value;
@@ -1201,6 +1211,41 @@
         openOpModal();
       } else {
         if (errorMsg) errorMsg.style.display = 'block';
+      }
+    }
+
+    async function registerOpAccount() {
+      const u = document.getElementById('signUpUserInput').value.trim();
+      const p = document.getElementById('signUpPassInput').value;
+      const pConfirm = document.getElementById('signUpPassConfirmInput').value;
+      const errorMsg = document.getElementById('signUpErrorMsg');
+
+      if (!u || !p) {
+        if (errorMsg) {
+          errorMsg.innerText = "Please fill out all username and password fields.";
+          errorMsg.style.display = 'block';
+        }
+        return;
+      }
+
+      if (p !== pConfirm) {
+        if (errorMsg) {
+          errorMsg.innerText = "Passwords do not match!";
+          errorMsg.style.display = 'block';
+        }
+        return;
+      }
+
+      try {
+        await postTiDBData(TIDB_API.auth, { username: u, password_hash: p });
+        alert(`Account "${u}" successfully created! You can now log in.`);
+        opAuthTab = 'login';
+        openOpModal();
+      } catch (err) {
+        if (errorMsg) {
+          errorMsg.innerText = err.message || "Failed to create account. User may already exist.";
+          errorMsg.style.display = 'block';
+        }
       }
     }
 
@@ -1231,7 +1276,7 @@
         await renderAppData();
         openOpModal();
       } catch (err) {
-        alert('Failed to publish announcement. Error: ' + err.message + '\n\nMake sure your TiDB database columns (author, quick_id, action_link) are updated!');
+        alert('Failed to publish announcement. Error: ' + err.message);
       }
     }
 
@@ -1271,7 +1316,7 @@
     async function openOpModal() {
       const content = document.getElementById('opModalContent');
       const modalTitle = document.getElementById('opModalHeaderTitle');
-      modalTitle.innerHTML = `<span class="material-symbols-outlined fill-icon">hub</span> OP Command Hub`;
+      modalTitle.innerHTML = `<span class="material-symbols-outlined fill-icon">admin_panel_settings</span> OP Command Hub`;
 
       if (checkOpAuth()) {
         const storedUser = localStorage.getItem('opUser') || 'Operator';
@@ -1337,7 +1382,7 @@
               <span class="material-symbols-outlined fill-icon" style="font-size: 28px; color: #ffffff;">verified_user</span>
               <div>
                 <div style="color: #ffffff; font-size: 1rem; font-weight: 800;">COMMAND SESSION ACTIVE</div>
-                <div style="color: #94a3b8; font-size: 0.82rem;">Operator: <strong>${storedUser}</strong></div>
+                <div style="color: #94a3b8; font-size: 0.82rem;">Operator: <strong style="color:#fff;">${storedUser}</strong></div>
               </div>
             </div>
             <button onclick="logoutOp()" class="btn-action" style="background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 8px 18px;">
@@ -1358,24 +1403,43 @@
         `;
       } else {
         content.innerHTML = `
-          <div style="background: rgba(26,26,34,0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 20px;">
-            <div style="display: flex; align-items: center; gap: 16px;">
-              <div style="background: rgba(255,255,255,0.1); border-radius: 14px; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; color: #ffffff;">
-                <span class="material-symbols-outlined fill-icon" style="font-size: 28px;">lock</span>
-              </div>
-              <div>
-                <div style="font-weight: 800; color: #fff; font-size: 1.15rem;">Restricted Operator Command Hub</div>
-                <div style="font-size: 0.88rem; color: #94a3b8;">Enter TiDB crew credentials to authenticate.</div>
-              </div>
+          <div style="background: rgba(26,26,34,0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 20px;">
+            
+            <!-- Auth Tab Buttons -->
+            <div style="display: flex; gap: 8px; background: rgba(0,0,0,0.4); padding: 6px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08);">
+              <button onclick="switchAuthTab('login')" class="op-tab-btn ${opAuthTab === 'login' ? 'active' : ''}" style="flex: 1; justify-content: center;">
+                <span class="material-symbols-outlined" style="font-size:18px;">login</span> Log In
+              </button>
+              <button onclick="switchAuthTab('signup')" class="op-tab-btn ${opAuthTab === 'signup' ? 'active' : ''}" style="flex: 1; justify-content: center;">
+                <span class="material-symbols-outlined" style="font-size:18px;">person_add</span> Sign Up
+              </button>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 4px;">
-              <input type="text" id="opUserInput" class="form-input" placeholder="Operator Username" />
-              <input type="password" id="opPasswordInput" class="form-input" placeholder="Operator Password" />
-              <div id="opAuthErrorMsg" class="error-msg-text">Authentication failed. Invalid username or password.</div>
-            </div>
-            <button class="btn-action" onclick="loginOp()" style="background: #ffffff; color: #000000; width: 100%; margin-top: 4px;">
-              <span class="material-symbols-outlined" style="font-size:18px;">lock_open</span> Authenticate Session
-            </button>
+
+            ${opAuthTab === 'login' ? `
+              <!-- LOGIN FORM -->
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div style="font-weight: 800; color: #fff; font-size: 1.1rem;">Operator Authentication</div>
+                <input type="text" id="opUserInput" class="form-input" placeholder="Operator Username" />
+                <input type="password" id="opPasswordInput" class="form-input" placeholder="Operator Password" />
+                <div id="opAuthErrorMsg" class="error-msg-text">Authentication failed. Invalid username or password.</div>
+                <button class="btn-action" onclick="loginOp()" style="background: #ffffff; color: #000000; width: 100%; margin-top: 4px;">
+                  <span class="material-symbols-outlined" style="font-size:18px;">lock_open</span> Authenticate Session
+                </button>
+              </div>
+            ` : `
+              <!-- SIGN UP FORM -->
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div style="font-weight: 800; color: #fff; font-size: 1.1rem;">Create New Operator Credentials</div>
+                <input type="text" id="signUpUserInput" class="form-input" placeholder="Choose Username" />
+                <input type="password" id="signUpPassInput" class="form-input" placeholder="Choose Password" />
+                <input type="password" id="signUpPassConfirmInput" class="form-input" placeholder="Confirm Password" />
+                <div id="signUpErrorMsg" class="error-msg-text">Failed to register account.</div>
+                <button class="btn-action" onclick="registerOpAccount()" style="background: #ffffff; color: #000000; width: 100%; margin-top: 4px;">
+                  <span class="material-symbols-outlined" style="font-size:18px;">how_to_reg</span> Register Account
+                </button>
+              </div>
+            `}
+
           </div>
         `;
       }
