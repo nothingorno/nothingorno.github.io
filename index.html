@@ -937,7 +937,7 @@
     const RENDER_BRIDGE_URL = "https://nothingorno-bridge.onrender.com";
 
     const TIDB_API = {
-      auth: `${RENDER_BRIDGE_URL}/api/op_accounts`,
+      auth: `${RENDER_BRIDGE_URL}/api/login`, // Points directly to /api/login
       announcements: `${RENDER_BRIDGE_URL}/api/announcements`,
       products: `${RENDER_BRIDGE_URL}/api/custom_products`,
       ipBans: `${RENDER_BRIDGE_URL}/api/ip_bans`
@@ -979,7 +979,7 @@
     let currentOpTab = 'announcements';
     let opAuthTab = 'login';
     let currentViewMode = localStorage.getItem('workspaceViewMode') || 'grid';
-
+    
     function generateQuickId() {
       return 'OP-' + Math.floor(100000 + Math.random() * 900000);
     }
@@ -1345,9 +1345,12 @@
       }
 
       try {
-        const res = await postTiDBData(`${TIDB_API.auth}/login`, { username, password });
+        // Updated endpoint path to point directly to /api/login:
+        const res = await postTiDBData(`${RENDER_BRIDGE_URL}/api/login`, { username, password });
+        
         if (res.success) {
           sessionStorage.setItem('opAuthSession', 'active');
+          sessionStorage.setItem('opAuthSessionUser', username);
           renderOpModalContent();
         } else {
           throw new Error(res.error || "Authentication failed");
