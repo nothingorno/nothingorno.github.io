@@ -1372,9 +1372,11 @@
       }
 
       try {
-        const res = await postTiDBData(`${TIDB_API.auth}/register`, { username, password, passkey });
+        // Updated endpoint URL to point directly to /api/register
+        const res = await postTiDBData(`${RENDER_BRIDGE_URL}/api/register`, { username, password, passkey });
         if (res.success) {
           sessionStorage.setItem('opAuthSession', 'active');
+          sessionStorage.setItem('opAuthSessionUser', username);
           renderOpModalContent();
         } else {
           throw new Error(res.error || "Registration failed");
