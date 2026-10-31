@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZeroModel — 3D Box Studio</title>
+  <title>ZeroModel — Roblox Studio Edition</title>
 
-  <!-- Montserrat, JetBrains Mono & Material Symbols -->
+  <!-- Google Fonts & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-  <!-- Three.js, OrbitControls, TransformControls & Exporters via CDN -->
+  <!-- Three.js, Controls & Exporters -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/TransformControls.js"></script>
@@ -30,7 +30,7 @@
       font-family: 'Montserrat', sans-serif;
       height: 100vh;
       width: 100vw;
-      background-color: #070709;
+      background-color: #1e1e24;
       color: #e3e2e6;
       display: flex;
       flex-direction: column;
@@ -38,79 +38,79 @@
       position: relative;
     }
 
-    /* FIXED FULL-WIDTH TOPBAR */
+    /* ROBLOX STUDIO RIBBON TOPBAR */
     .fixed-topbar {
       width: 100%;
-      height: 52px;
-      background: rgba(13, 13, 18, 0.95);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      height: 54px;
+      background: #18181d;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 18px;
+      padding: 0 14px;
       z-index: 100;
-      position: relative;
-    }
-
-    .topbar-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
     }
 
     .brand-title {
       font-family: 'JetBrains Mono', monospace;
       font-weight: 800;
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: #ffffff;
       text-decoration: none;
-      letter-spacing: -0.5px;
-    }
-
-    .menu-bar {
-      display: flex;
-      gap: 4px;
-    }
-
-    .menu-btn {
-      background: transparent;
-      border: none;
-      color: #94a3b8;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      position: relative;
-      transition: all 0.15s ease;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
     }
 
-    .menu-btn:hover, .menu-btn.active {
-      background: rgba(255, 255, 255, 0.08);
+    .topbar-section {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      position: relative;
+    }
+
+    .btn-tool {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-tool:hover, .btn-tool.active {
+      background: #2563eb;
       color: #ffffff;
+      border-color: #3b82f6;
     }
 
+    .btn-tool:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* DROPDOWN MENU */
     .dropdown-menu {
       position: absolute;
       top: 100%;
       left: 0;
       margin-top: 6px;
-      background: #12121a;
+      background: #18181d;
       border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 12px;
+      border-radius: 10px;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9);
       padding: 6px;
-      min-width: 220px;
+      min-width: 200px;
       display: none;
       flex-direction: column;
       gap: 2px;
-      z-index: 200;
+      z-index: 300;
     }
 
     .dropdown-item {
@@ -118,147 +118,87 @@
       align-items: center;
       gap: 10px;
       padding: 8px 12px;
-      color: #e2e8f0;
-      font-size: 0.8rem;
+      color: #cbd5e1;
+      font-size: 0.78rem;
       font-weight: 600;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
       transition: background 0.15s;
     }
 
     .dropdown-item:hover {
-      background: #ffffff;
-      color: #000000;
-    }
-
-    .topbar-center {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.03);
-      padding: 4px;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .topbar-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-tool {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #94a3b8;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .btn-tool:hover, .btn-tool.active {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-tool:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-
-    .btn-danger {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #f87171;
-    }
-
-    .btn-danger:hover {
-      background: #ef4444;
-      color: #ffffff;
-      border-color: #ef4444;
-    }
-
-    .btn-signup-blue {
       background: #2563eb;
       color: #ffffff;
-      border: 1px solid #3b82f6;
-      padding: 7px 16px;
-      border-radius: 10px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
+    }
+
+    /* CUSTOM KEYCAP TOOLTIPS */
+    .keycap {
+      display: inline-flex;
+      justify-content: center;
       align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      background: #0f0f13;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: #94a3b8;
+      box-shadow: 0 2px 0 rgba(0,0,0,0.5);
     }
 
-    .btn-signup-blue:hover {
-      background: #1d4ed8;
-      border-color: #60a5fa;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
-    }
-
-    /* VIEWPORT CANVAS */
+    /* VIEWPORT CONTAINER */
     #viewport-container {
       flex: 1;
-      width: 100vw;
+      width: 100%;
+      height: calc(100vh - 54px);
       position: relative;
-      background: radial-gradient(circle at center, #14141c 0%, #070709 100%);
+      background: #121216;
+      cursor: crosshair;
     }
 
     #viewport-canvas {
-      width: 100%;
-      height: 100%;
+      width: 100% !important;
+      height: 100% !important;
       display: block;
     }
 
-    /* FLOATING DRAGGABLE WINDOWS */
+    /* CONTEXT MENU */
+    #context-menu {
+      position: fixed;
+      background: #18181d;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 6px;
+      min-width: 180px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.95);
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      z-index: 1000;
+    }
+
+    /* STUDIO DOCKABLE FLOATING PANELS */
     .floating-window {
       position: absolute;
-      background: rgba(13, 13, 18, 0.88);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 18px;
-      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.7);
+      background: rgba(24, 24, 29, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
       z-index: 10;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
       overflow: hidden;
     }
 
-    .floating-explorer {
-      top: 68px;
-      left: 16px;
-      width: 250px;
-      max-height: calc(100vh - 90px);
-    }
-
-    .floating-properties {
-      top: 68px;
-      right: 16px;
-      width: 280px;
-      max-height: calc(100vh - 90px);
-    }
+    .floating-explorer { top: 66px; left: 14px; width: 240px; max-height: 40vh; }
+    .floating-properties { top: 66px; right: 14px; width: 290px; max-height: calc(100vh - 80px); }
 
     .window-header {
-      padding: 12px 16px;
-      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.04);
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 800;
       color: #ffffff;
       display: flex;
@@ -271,61 +211,28 @@
     .window-body {
       flex: 1;
       overflow-y: auto;
-      padding: 14px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .explorer-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 12px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      font-weight: 600;
-      transition: all 0.15s ease;
-    }
-
-    .explorer-item:hover {
-      background: rgba(255, 255, 255, 0.07);
-    }
-
-    .explorer-item.selected {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-    }
-
-    .btn-delete-item {
-      color: #ff4d4d;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-    }
-
-    /* PROPERTIES FIELDS */
-    .prop-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    .prop-card {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 12px;
-      border-radius: 12px;
+      border-radius: 8px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
-    .prop-label {
-      font-size: 0.7rem;
+    .prop-title {
+      font-size: 0.68rem;
+      font-family: 'JetBrains Mono', monospace;
       font-weight: 800;
       color: #94a3b8;
-      font-family: 'JetBrains Mono', monospace;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
     .prop-row {
@@ -334,69 +241,93 @@
       gap: 6px;
     }
 
-    .prop-field {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .prop-field span {
-      font-size: 0.62rem;
-      color: #64748b;
-      font-weight: 700;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
     .input-num, .input-text, .select-mode {
       width: 100%;
-      background: #14141c;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #0f0f13;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 6px;
-      padding: 6px 8px;
+      padding: 5px 8px;
       color: #ffffff;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       outline: none;
     }
 
     .input-num:focus, .input-text:focus, .select-mode:focus {
-      border-color: #ffffff;
+      border-color: #3b82f6;
     }
 
-    .input-color {
+    .color-picker-input {
       width: 100%;
-      height: 34px;
-      background: #14141c;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      height: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 6px;
-      padding: 2px;
+      background: transparent;
       cursor: pointer;
     }
 
-    /* CONTEXT MENU */
-    #context-menu {
-      position: fixed;
-      background: #12121a;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
-      padding: 6px;
-      min-width: 170px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9);
-      display: none;
-      flex-direction: column;
-      gap: 2px;
-      z-index: 1000;
+    /* CUSTOM SWITCH */
+    .custom-switch-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      font-weight: 600;
     }
 
-    /* MODAL OVERLAYS */
+    .custom-switch {
+      position: relative;
+      display: inline-block;
+      width: 34px;
+      height: 18px;
+    }
+
+    .custom-switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute; cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(255, 255, 255, 0.15);
+      transition: .2s;
+      border-radius: 99px;
+    }
+
+    .slider:before {
+      position: absolute; content: "";
+      height: 14px; width: 14px; left: 2px; bottom: 2px;
+      background-color: white; transition: .2s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider { background-color: #2563eb; }
+    input:checked + .slider:before { transform: translateX(16px); }
+
+    /* EXPLORER ITEM */
+    .explorer-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+
+    .explorer-item.selected {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #ffffff;
+    }
+
+    /* MODALS */
     .modal-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(12px);
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
       z-index: 2000;
       display: none;
       justify-content: center;
@@ -405,236 +336,179 @@
     }
 
     .modal-box {
-      background: #0d0d12;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 24px;
-      padding: 28px;
-      max-width: 540px;
+      background: #18181d;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 22px;
+      max-width: 720px;
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 18px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+      gap: 14px;
     }
 
     .marketplace-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 14px;
-      max-height: 380px;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 12px;
+      max-height: 400px;
       overflow-y: auto;
     }
 
     .market-card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      padding: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      transition: all 0.2s ease;
     }
 
-    .market-card:hover {
-      border-color: rgba(255, 255, 255, 0.3);
-      transform: translateY(-2px);
-    }
-
-    .material-symbols-outlined { font-size: 18px; }
+    .material-symbols-outlined { font-size: 16px; }
   </style>
 </head>
 <body>
 
-  <!-- FIXED FULL-WIDTH TOPBAR -->
+  <!-- TOPBAR RIBBON -->
   <header class="fixed-topbar">
-    <div class="topbar-left">
-      <a href="index.html" class="brand-title">ZeroModel</a>
+    <div class="topbar-section">
+      <a href="index.html" class="brand-title">
+        <span class="material-symbols-outlined" style="color: #3b82f6;">view_in_ar</span> ZeroModel
+      </a>
 
-      <div class="menu-bar">
-        <div class="menu-btn" onclick="toggleDropdown('fileMenu', event)">
-          File <span class="material-symbols-outlined" style="font-size: 14px;">expand_more</span>
-          <div class="dropdown-menu" id="fileMenu">
-            <div class="dropdown-item" onclick="addCube()"><span class="material-symbols-outlined">add_box</span> New Cube</div>
-            <div class="dropdown-item" onclick="importJSON()"><span class="material-symbols-outlined">upload</span> Open JSON</div>
-            <div class="dropdown-item" onclick="exportJSON()"><span class="material-symbols-outlined">download</span> Export JSON (.json)</div>
-            <div class="dropdown-item" onclick="exportOBJ()"><span class="material-symbols-outlined">view_in_ar</span> Export Wavefront (.obj)</div>
-            <div class="dropdown-item" onclick="exportGLB()"><span class="material-symbols-outlined">token</span> Export Binary GLTF (.glb)</div>
-            <div class="dropdown-item" onclick="openUploadModal()"><span class="material-symbols-outlined">cloud_upload</span> Publish to Marketplace</div>
-            <div class="dropdown-item" onclick="openMarketplaceModal()"><span class="material-symbols-outlined">storefront</span> Community Marketplace</div>
-            <div class="dropdown-item" onclick="clearScene()"><span class="material-symbols-outlined">delete_sweep</span> Clear Scene</div>
-          </div>
-        </div>
-
-        <div class="menu-btn" onclick="openMarketplaceModal()">
-          <span class="material-symbols-outlined" style="font-size: 16px;">storefront</span> Marketplace
-        </div>
-
-        <div class="menu-btn" onclick="openModal('helpModal')">Help</div>
+      <!-- FILE & HELP DROPDOWN MENUS -->
+      <button class="btn-tool" onclick="toggleDropdown('fileMenu', event)"><span class="material-symbols-outlined">folder</span> File <span class="material-symbols-outlined" style="font-size:12px;">expand_more</span></button>
+      <div class="dropdown-menu" id="fileMenu">
+        <div class="dropdown-item" onclick="createShape('cube')"><span class="material-symbols-outlined">add_box</span> Add Cube</div>
+        <div class="dropdown-item" onclick="importJSON()"><span class="material-symbols-outlined">upload</span> Open JSON</div>
+        <div class="dropdown-item" onclick="exportJSON()"><span class="material-symbols-outlined">download</span> Export JSON (.json)</div>
+        <div class="dropdown-item" onclick="exportOBJ()"><span class="material-symbols-outlined">view_in_ar</span> Export Wavefront (.obj)</div>
+        <div class="dropdown-item" onclick="exportGLB()"><span class="material-symbols-outlined">token</span> Export Binary GLTF (.glb)</div>
+        <div class="dropdown-item" onclick="clearScene()"><span class="material-symbols-outlined">delete_sweep</span> Clear Scene</div>
       </div>
+
+      <button class="btn-tool" onclick="openMarketplaceModal()"><span class="material-symbols-outlined">storefront</span> Marketplace</button>
+      <button class="btn-tool" onclick="openModal('helpModal')"><span class="material-symbols-outlined">help</span> Help</button>
     </div>
 
-    <!-- TRANSFORM GIZMO & HISTORY TOGGLES -->
-    <div class="topbar-center">
-      <button class="btn-tool" id="btnUndo" onclick="undo()" title="Undo (Ctrl+Z)" disabled>
-        <span class="material-symbols-outlined">undo</span>
-      </button>
-      <button class="btn-tool" id="btnRedo" onclick="redo()" title="Redo (Ctrl+Y)" disabled>
-        <span class="material-symbols-outlined">redo</span>
-      </button>
-
-      <div style="width:1px; height:20px; background:rgba(255,255,255,0.1); margin:0 4px;"></div>
-
-      <button class="btn-tool active" id="btnTranslate" onclick="setGizmoMode('translate')" title="Move (W)">
-        <span class="material-symbols-outlined">open_with</span> Move
-      </button>
-      <button class="btn-tool" id="btnRotate" onclick="setGizmoMode('rotate')" title="Rotate (E)">
-        <span class="material-symbols-outlined">rotate_right</span> Rotate
-      </button>
-      <button class="btn-tool" id="btnScale" onclick="setGizmoMode('scale')" title="Scale (R)">
-        <span class="material-symbols-outlined">aspect_ratio</span> Scale
-      </button>
-
-      <div style="width:1px; height:20px; background:rgba(255,255,255,0.1); margin:0 4px;"></div>
-
-      <button class="btn-tool" id="btnToggleGrid" onclick="toggleGrid()" title="Toggle Grid">
-        <span class="material-symbols-outlined">grid_on</span>
-      </button>
+    <!-- SHAPE CREATORS -->
+    <div class="topbar-section">
+      <button class="btn-tool" onclick="createShape('cube')"><span class="material-symbols-outlined">add_box</span> Cube</button>
+      <button class="btn-tool" onclick="createShape('wedge')"><span class="material-symbols-outlined">change_history</span> Wedge</button>
+      <button class="btn-tool" onclick="createShape('corner_w')"><span class="material-symbols-outlined">play_arrow</span> Corner W</button>
+      <button class="btn-tool" onclick="openCylinderModal()"><span class="material-symbols-outlined">circle</span> Cylinder</button>
     </div>
 
-    <div class="topbar-right">
-      <button class="btn-tool" onclick="addCube()">
-        <span class="material-symbols-outlined">add_box</span> Add Cube
-      </button>
+    <!-- UNDO, REDO, GIZMOS, SNAPPING WITH KEYCAP BADGES -->
+    <div class="topbar-section">
+      <button class="btn-tool" id="btnUndo" onclick="undo()" title="Undo (Ctrl+Z)" disabled><span class="material-symbols-outlined">undo</span></button>
+      <button class="btn-tool" id="btnRedo" onclick="redo()" title="Redo (Ctrl+Y)" disabled><span class="material-symbols-outlined">redo</span></button>
 
-      <!-- PROMINENT BLUE SIGN UP / LOGIN BUTTON -->
-      <button class="btn-signup-blue" id="authBtn" onclick="openModal('authModal')">
-        <span class="material-symbols-outlined" style="font-size: 18px;">person_add</span> Sign Up!
-      </button>
+      <div style="width:1px; height:18px; background:rgba(255,255,255,0.1); margin:0 2px;"></div>
+
+      <button class="btn-tool active" id="btnSnap" onclick="toggleSnapping()"><span class="material-symbols-outlined">grid_4x4</span> Snap</button>
+      <button class="btn-tool active" id="btnTranslate" onclick="setGizmoMode('translate')"><span class="material-symbols-outlined">open_with</span> Move <span class="keycap">W</span></button>
+      <button class="btn-tool" id="btnRotate" onclick="setGizmoMode('rotate')"><span class="material-symbols-outlined">rotate_right</span> Rotate <span class="keycap">E</span></button>
+      <button class="btn-tool" id="btnScale" onclick="setGizmoMode('scale')"><span class="material-symbols-outlined">aspect_ratio</span> Scale <span class="keycap">R</span></button>
+    </div>
+
+    <!-- PUBLISH -->
+    <div class="topbar-section">
+      <button class="btn-tool" style="background:#2563eb; border-color:#3b82f6; color:#fff;" onclick="openUploadModal()"><span class="material-symbols-outlined">cloud_upload</span> Publish</button>
     </div>
   </header>
 
-  <!-- 3D VIEWPORT CONTAINER -->
+  <!-- VIEWPORT CONTAINER -->
   <div id="viewport-container">
     <canvas id="viewport-canvas"></canvas>
   </div>
 
-  <!-- FLOATING EXPLORER PANEL -->
-  <aside class="floating-window floating-explorer" id="floatingExplorer">
-    <div class="window-header" id="explorerHeader">
-      <span class="material-symbols-outlined">account_tree</span>
-      Explorer
-    </div>
-    <div class="window-body" id="explorerList">
-      <!-- Dynamically populated -->
-    </div>
-  </aside>
-
-  <!-- FLOATING PROPERTIES PANEL -->
-  <aside class="floating-window floating-properties" id="floatingProperties">
-    <div class="window-header" id="propertiesHeader">
-      <span class="material-symbols-outlined">tune</span>
-      Properties
-    </div>
-    <div class="window-body" id="propertiesBody">
-      <div style="color: #64748b; font-size: 0.8rem; text-align: center; margin-top: 20px;">
-        Select a block to inspect properties.
-      </div>
-    </div>
-  </aside>
-
   <!-- CONTEXT MENU -->
   <div id="context-menu">
-    <div class="dropdown-item" onclick="addCube()"><span class="material-symbols-outlined">add_box</span> Add Cube</div>
-    <div class="dropdown-item" onclick="duplicateSelected()"><span class="material-symbols-outlined">content_copy</span> Duplicate (Shift+D)</div>
-    <div class="dropdown-item" onclick="deleteSelected()"><span class="material-symbols-outlined">delete</span> Delete (Del)</div>
-    <div class="dropdown-item" onclick="resetCamera()"><span class="material-symbols-outlined">center_focus_strong</span> Reset View</div>
+    <div class="dropdown-item" onclick="createShape('cube')"><span class="material-symbols-outlined">add_box</span> Add Cube</div>
+    <div class="dropdown-item" onclick="createShape('wedge')"><span class="material-symbols-outlined">change_history</span> Add Wedge</div>
+    <div class="dropdown-item" onclick="duplicateSelected()"><span class="material-symbols-outlined">content_copy</span> Duplicate <span class="keycap">Shift+D</span></div>
+    <div class="dropdown-item" onclick="deleteSelected()"><span class="material-symbols-outlined">delete</span> Delete <span class="keycap">Del</span></div>
+    <div style="height:1px; background:rgba(255,255,255,0.08); margin:4px 0;"></div>
+    <div class="dropdown-item" onclick="clearScene()"><span class="material-symbols-outlined">delete_sweep</span> Clear Scene</div>
   </div>
 
-  <!-- COMMUNITY MARKETPLACE MODAL -->
-  <div class="modal-overlay" id="marketplaceModal">
-    <div class="modal-box" style="max-width: 680px;">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h2 style="font-size:1.2rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:8px;">
-          <span class="material-symbols-outlined">storefront</span> ZeroModel Marketplace
-        </h2>
-        <div style="display:flex; gap:8px;">
-          <button class="btn-tool" onclick="openUploadModal()"><span class="material-symbols-outlined">cloud_upload</span> Upload Mine</button>
-          <span class="material-symbols-outlined" style="cursor:pointer; color:#94a3b8;" onclick="closeModal('marketplaceModal')">close</span>
-        </div>
-      </div>
+  <!-- SCENE EXPLORER -->
+  <aside class="floating-window floating-explorer" id="floatingExplorer">
+    <div class="window-header" id="explorerHeader">
+      <span class="material-symbols-outlined">account_tree</span> Explorer
+    </div>
+    <div class="window-body" id="outlinerList"></div>
+  </aside>
 
-      <div class="marketplace-grid" id="marketplaceGrid">
-        <!-- Live populated from TiDB -->
+  <!-- PROPERTIES PANEL -->
+  <aside class="floating-window floating-properties" id="floatingProperties">
+    <div class="window-header" id="propertiesHeaderTitle">
+      <span class="material-symbols-outlined">tune</span> Properties
+    </div>
+    <div class="window-body" id="propertiesContent"></div>
+  </aside>
+
+  <!-- CYLINDER MODAL -->
+  <div class="modal-overlay" id="cylinderModal">
+    <div class="modal-box" style="max-width: 360px;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3 style="color:#fff; font-size:1rem;">Cylinder Settings</h3>
+        <span class="material-symbols-outlined" style="cursor:pointer; color:#94a3b8;" onclick="closeModal('cylinderModal')">close</span>
       </div>
+      <div>
+        <label style="font-size:0.7rem; color:#94a3b8; font-family:'JetBrains Mono'; display:block; margin-bottom:4px;">RADIAL SEGMENTS</label>
+        <input type="number" id="cylSidesInput" class="input-num" value="8" min="3" max="64" />
+      </div>
+      <button class="btn-tool" style="background:#2563eb; color:#fff; justify-content:center; padding:8px;" onclick="submitCreateCylinder()">Create Cylinder</button>
     </div>
   </div>
 
-  <!-- UPLOAD TO MARKETPLACE MODAL -->
-  <div class="modal-overlay" id="uploadModal">
+  <!-- MARKETPLACE MODAL -->
+  <div class="modal-overlay" id="marketplaceModal">
     <div class="modal-box">
       <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h2 style="font-size:1.15rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:8px;">
-          <span class="material-symbols-outlined">cloud_upload</span> Publish to Marketplace
+        <h2 style="font-size:1.1rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:6px;">
+          <span class="material-symbols-outlined">storefront</span> Marketplace
         </h2>
+        <span class="material-symbols-outlined" style="cursor:pointer; color:#94a3b8;" onclick="closeModal('marketplaceModal')">close</span>
+      </div>
+      <div class="marketplace-grid" id="marketplaceGrid"></div>
+    </div>
+  </div>
+
+  <!-- UPLOAD MODAL -->
+  <div class="modal-overlay" id="uploadModal">
+    <div class="modal-box" style="max-width: 420px;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2 style="font-size:1.05rem; font-weight:800; color:#fff;">Publish Asset</h2>
         <span class="material-symbols-outlined" style="cursor:pointer; color:#94a3b8;" onclick="closeModal('uploadModal')">close</span>
       </div>
-
-      <div style="display:flex; flex-direction:column; gap:12px;">
-        <input type="text" id="uploadTitleInput" class="input-text" placeholder="Model Title (e.g. LowPoly Spacecraft)" />
-        <div style="font-size: 0.72rem; color: #94a3b8;">🛡️ Protected by AI moderation: No NSFW, hate speech, or explicit titles allowed.</div>
-        <button class="btn-signup-blue" style="justify-content:center; margin-top:6px;" onclick="publishModelToTiDB()">
-          <span class="material-symbols-outlined">send</span> Push Creation to TiDB
-        </button>
-      </div>
+      <input type="text" id="uploadTitleInput" class="input-text" placeholder="Model Title" />
+      <select class="select-mode" id="uploadCategorySelect">
+        <option value="Prop">Prop</option>
+        <option value="Vehicle">Vehicle</option>
+        <option value="Architecture">Architecture</option>
+        <option value="Character">Character</option>
+      </select>
+      <button class="btn-tool" style="background:#2563eb; color:#fff; justify-content:center; padding:10px;" onclick="publishModelToTiDB()">Push to TiDB</button>
     </div>
   </div>
 
-  <!-- SIGN UP & LOGIN AUTH MODAL -->
-  <div class="modal-overlay" id="authModal">
-    <div class="modal-box">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h2 style="font-size:1.15rem; font-weight:800; color:#fff;" id="authModalTitle">Account Authentication</h2>
-        <span class="material-symbols-outlined" style="cursor:pointer; color:#94a3b8;" onclick="closeModal('authModal')">close</span>
-      </div>
-
-      <div style="display:flex; gap:8px; background:rgba(0,0,0,0.4); padding:4px; border-radius:10px;">
-        <button class="btn-tool" id="tabSignUpBtn" style="flex:1; justify-content:center;" onclick="switchAuthMode('signup')">Sign Up</button>
-        <button class="btn-tool" id="tabLoginBtn" style="flex:1; justify-content:center;" onclick="switchAuthMode('login')">Log In</button>
-      </div>
-
-      <div style="display:flex; flex-direction:column; gap:12px;" id="authFormBody">
-        <!-- Dynamic form contents -->
-      </div>
-    </div>
-  </div>
-
-  <!-- HELP & KEYBINDS MODAL -->
+  <!-- HELP MODAL -->
   <div class="modal-overlay" id="helpModal">
-    <div class="modal-box">
+    <div class="modal-box" style="max-width: 460px;">
       <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h2 style="font-size:1.2rem; font-weight:800; color:#fff;">ZeroModel Studio</h2>
+        <h2 style="font-size:1.1rem; font-weight:800; color:#fff;">ZeroModel Shortcuts</h2>
         <span class="material-symbols-outlined" style="cursor:pointer; color:#94a3b8;" onclick="closeModal('helpModal')">close</span>
       </div>
-
-      <div style="font-size:0.85rem; color:#cbd5e1; line-height:1.6; display:flex; flex-direction:column; gap:12px;">
-        <p><strong>ZeroModel</strong> is a web-based 3D low-poly box modeling environment built for rapid asset creation and C++ game engine integration.</p>
-        
-        <div style="background:rgba(255,255,255,0.03); padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
-          <strong style="color:#fff;">Shortcuts & Keybinds:</strong><br>
-          • <strong>W / E / R:</strong> Switch Gizmos (Translate / Rotate / Scale)<br>
-          • <strong>Ctrl + Z / Ctrl + Y:</strong> Undo / Redo Actions<br>
-          • <strong>Delete / Backspace:</strong> Delete Selected Block<br>
-          • <strong>Shift + D:</strong> Duplicate Selected Block<br>
-          • <strong>Orbit Camera:</strong> Left-click + drag<br>
-          • <strong>Pan Camera:</strong> Right-click + drag<br>
-          • <strong>Context Menu:</strong> Right-click on empty viewport
-        </div>
-      </div>
-
-      <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); padding:12px; border-radius:12px; font-family:'JetBrains Mono'; font-size:0.75rem; color:#94a3b8;">
-        In collaboration with <strong>KinematiX Engine</strong><br>
-        Engineered by NothingOrNo
+      <div style="font-size:0.82rem; color:#cbd5e1; line-height:1.6; display:flex; flex-direction:column; gap:8px;">
+        <div>• <span class="keycap">W</span> / <span class="keycap">E</span> / <span class="keycap">R</span>: Switch Gizmos (Move / Rotate / Scale)</div>
+        <div>• <span class="keycap">Ctrl</span> + <span class="keycap">Z</span> / <span class="keycap">Y</span>: Undo / Redo Actions</div>
+        <div>• <span class="keycap">Shift</span> + <span class="keycap">D</span>: Duplicate Selected Model</div>
+        <div>• <span class="keycap">Delete</span> / <span class="keycap">Backspace</span>: Remove Selected Model</div>
+        <div>• <span class="keycap">Right Click</span>: Open Viewport Context Menu</div>
       </div>
     </div>
   </div>
@@ -643,111 +517,116 @@
 
   <script>
     const RENDER_BRIDGE_URL = "https://nothingorno-bridge.onrender.com";
-    const API_ENDPOINTS = {
-      auth: `${RENDER_BRIDGE_URL}/api/op_accounts`,
-      models: `${RENDER_BRIDGE_URL}/api/community_models`
-    };
+    const API_ENDPOINTS = { models: `${RENDER_BRIDGE_URL}/api/community_models` };
 
     let scene, camera, renderer, controls, transformControls, gridHelper;
-    let cubes = [];
-    let selectedCube = null;
-    let authMode = 'signup';
-    let fetchedMarketModels = [];
-    let isOperatorUser = false;
+    let ambientLight, dirLight;
+    let raycaster, mouse;
+    let sceneObjects = [];
+    let selectedObject = null;
+    let isSnappingEnabled = true;
 
-    // UNDO / REDO STATE MANAGEMENT
+    // Undo / Redo stacks
     let undoStack = [];
     let redoStack = [];
-    let isPerformingHistoryAction = false;
+    let isHistoryLocked = false;
 
     function saveState() {
-      if (isPerformingHistoryAction) return;
-      const snapshot = cubes.map(c => ({
-        uuid: c.uuid,
-        name: c.name,
-        position: [c.position.x, c.position.y, c.position.z],
-        rotation: [c.rotation.x, c.rotation.y, c.rotation.z],
-        scale: [c.scale.x, c.scale.y, c.scale.z],
-        color: '#' + c.material.color.getHexString(),
-        textureMode: c.userData.textureMode || 'solid',
-        wireframe: c.userData.wireframe || false
+      if (isHistoryLocked) return;
+      const snapshot = sceneObjects.map(o => ({
+        name: o.name,
+        type: o.userData.type || 'cube',
+        sides: o.userData.sides || 8,
+        position: [o.position.x, o.position.y, o.position.z],
+        rotation: [o.rotation.x, o.rotation.y, o.rotation.z],
+        scale: [o.scale.x, o.scale.y, o.scale.z],
+        color: '#' + o.material.color.getHexString(),
+        textureMode: o.userData.textureMode || 'solid',
+        wireframe: o.material.wireframe || false,
+        opacity: o.material.opacity || 1.0,
+        roughness: o.material.roughness ?? 0.4,
+        metalness: o.material.metalness ?? 0.1
       }));
-
       undoStack.push(JSON.stringify(snapshot));
-      redoStack = []; 
+      redoStack = [];
       updateHistoryButtons();
     }
 
     function undo() {
       if (undoStack.length === 0) return;
-      isPerformingHistoryAction = true;
-
-      const currentSnapshot = cubes.map(c => ({
-        uuid: c.uuid,
-        name: c.name,
-        position: [c.position.x, c.position.y, c.position.z],
-        rotation: [c.rotation.x, c.rotation.y, c.rotation.z],
-        scale: [c.scale.x, c.scale.y, c.scale.z],
-        color: '#' + c.material.color.getHexString(),
-        textureMode: c.userData.textureMode || 'solid',
-        wireframe: c.userData.wireframe || false
+      isHistoryLocked = true;
+      const current = sceneObjects.map(o => ({
+        name: o.name, type: o.userData.type || 'cube', sides: o.userData.sides || 8,
+        position: [o.position.x, o.position.y, o.position.z],
+        rotation: [o.rotation.x, o.rotation.y, o.rotation.z],
+        scale: [o.scale.x, o.scale.y, o.scale.z],
+        color: '#' + o.material.color.getHexString(),
+        textureMode: o.userData.textureMode || 'solid',
+        wireframe: o.material.wireframe || false,
+        opacity: o.material.opacity || 1.0,
+        roughness: o.material.roughness ?? 0.4,
+        metalness: o.material.metalness ?? 0.1
       }));
-      redoStack.push(JSON.stringify(currentSnapshot));
-
-      const previousState = JSON.parse(undoStack.pop());
-      loadStateSnapshot(previousState);
-
-      isPerformingHistoryAction = false;
+      redoStack.push(JSON.stringify(current));
+      loadSnapshot(JSON.parse(undoStack.pop()));
+      isHistoryLocked = false;
       updateHistoryButtons();
     }
 
     function redo() {
       if (redoStack.length === 0) return;
-      isPerformingHistoryAction = true;
-
-      const currentSnapshot = cubes.map(c => ({
-        uuid: c.uuid,
-        name: c.name,
-        position: [c.position.x, c.position.y, c.position.z],
-        rotation: [c.rotation.x, c.rotation.y, c.rotation.z],
-        scale: [c.scale.x, c.scale.y, c.scale.z],
-        color: '#' + c.material.color.getHexString(),
-        textureMode: c.userData.textureMode || 'solid',
-        wireframe: c.userData.wireframe || false
+      isHistoryLocked = true;
+      const current = sceneObjects.map(o => ({
+        name: o.name, type: o.userData.type || 'cube', sides: o.userData.sides || 8,
+        position: [o.position.x, o.position.y, o.position.z],
+        rotation: [o.rotation.x, o.rotation.y, o.rotation.z],
+        scale: [o.scale.x, o.scale.y, o.scale.z],
+        color: '#' + o.material.color.getHexString(),
+        textureMode: o.userData.textureMode || 'solid',
+        wireframe: o.material.wireframe || false,
+        opacity: o.material.opacity || 1.0,
+        roughness: o.material.roughness ?? 0.4,
+        metalness: o.material.metalness ?? 0.1
       }));
-      undoStack.push(JSON.stringify(currentSnapshot));
-
-      const nextState = JSON.parse(redoStack.pop());
-      loadStateSnapshot(nextState);
-
-      isPerformingHistoryAction = false;
+      undoStack.push(JSON.stringify(current));
+      loadSnapshot(JSON.parse(redoStack.pop()));
+      isHistoryLocked = false;
       updateHistoryButtons();
     }
 
-    function loadStateSnapshot(snapshotData) {
-      clearSceneSilent();
-      snapshotData.forEach(item => {
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshStandardMaterial({ color: item.color || 0x6366f1 });
-        const mesh = new THREE.Mesh(geometry, material);
-        mesh.name = item.name || 'Cube';
+    function loadSnapshot(data) {
+      sceneObjects.forEach(o => scene.remove(o));
+      sceneObjects = [];
+      data.forEach(item => {
+        let geom;
+        if (item.type === 'wedge') geom = createWedgeGeometry();
+        else if (item.type === 'corner_w') geom = createCornerWedgeGeometry();
+        else if (item.type === 'cylinder') geom = new THREE.CylinderGeometry(0.5, 0.5, 1, item.sides || 8);
+        else geom = new THREE.BoxGeometry(1, 1, 1);
+
+        const mat = new THREE.MeshStandardMaterial({
+          color: item.color || 0x3b82f6,
+          roughness: item.roughness ?? 0.4,
+          metalness: item.metalness ?? 0.1,
+          wireframe: item.wireframe || false,
+          transparent: item.opacity < 1.0,
+          opacity: item.opacity ?? 1.0
+        });
+        if (item.textureMode && item.textureMode !== 'solid') {
+          mat.map = createTexture(item.textureMode);
+        }
+
+        const mesh = new THREE.Mesh(geom, mat);
+        mesh.name = item.name;
         mesh.position.set(...item.position);
         mesh.rotation.set(...item.rotation);
         mesh.scale.set(...item.scale);
-        mesh.userData = { textureMode: item.textureMode || 'solid', wireframe: item.wireframe || false };
-        
-        if (item.textureMode && item.textureMode !== 'solid') {
-          mesh.material.map = createTexture(item.textureMode);
-        }
-        mesh.material.wireframe = item.wireframe;
-
+        mesh.userData = { type: item.type || 'cube', sides: item.sides || 8, textureMode: item.textureMode || 'solid' };
         scene.add(mesh);
-        cubes.push(mesh);
+        sceneObjects.push(mesh);
       });
-
-      if (cubes.length > 0) selectCube(cubes[0]);
-      else selectCube(null);
-      updateExplorer();
+      selectObject(sceneObjects[0] || null);
+      updateOutliner();
     }
 
     function updateHistoryButtons() {
@@ -760,56 +639,63 @@
       const canvas = document.getElementById('viewport-canvas');
 
       scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x121216);
+
       camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
       camera.position.set(6, 6, 8);
 
-      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
       renderer.setSize(container.clientWidth, container.clientHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
       controls = new THREE.OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
-      controls.dampingFactor = 0.05;
 
       transformControls = new THREE.TransformControls(camera, renderer.domElement);
-      transformControls.size = 0.8;
+      transformControls.setTranslationSnap(0.5);
+      transformControls.setRotationSnap(THREE.MathUtils.degToRad(15));
       scene.add(transformControls);
 
       transformControls.addEventListener('dragging-changed', (e) => controls.enabled = !e.value);
       transformControls.addEventListener('mouseDown', () => saveState());
-      transformControls.addEventListener('change', () => { if (selectedCube) updateProperties(); });
+      transformControls.addEventListener('change', () => { if (selectedObject) renderPropertiesPanel(); });
 
-      scene.add(new THREE.AmbientLight(0xffffff, 0.7));
-      const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+      scene.add(ambientLight);
+
+      dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
       dirLight.position.set(10, 20, 15);
       scene.add(dirLight);
 
       gridHelper = new THREE.GridHelper(25, 25, 0xffffff, 0x22222a);
-      gridHelper.position.y = -0.01;
       scene.add(gridHelper);
 
-      window.addEventListener('resize', onWindowResize);
-      window.addEventListener('keydown', handleGlobalKeybinds);
+      raycaster = new THREE.Raycaster();
+      mouse = new THREE.Vector2();
+
+      canvas.addEventListener('pointerdown', onViewportClick);
       canvas.addEventListener('contextmenu', openContextMenu);
-      window.addEventListener('click', hideMenus);
+      window.addEventListener('resize', onWindowResize);
+      window.addEventListener('keydown', handleKeybinds);
+      window.addEventListener('click', () => { hideDropdowns(); hideContextMenu(); });
 
-      addCube();
       makeDraggableWindow('floatingExplorer', 'explorerHeader');
-      makeDraggableWindow('floatingProperties', 'propertiesHeader');
-      updateAuthBtnState();
+      makeDraggableWindow('floatingProperties', 'propertiesHeaderTitle');
 
+      createShape('cube');
+      renderPropertiesPanel();
       animate();
     }
 
-    function handleGlobalKeybinds(e) {
+    function handleKeybinds(e) {
       if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
 
       if (e.ctrlKey && e.key.toLowerCase() === 'z') {
-        e.preventDefault();
-        undo();
+        e.preventDefault(); undo();
       } else if ((e.ctrlKey && e.key.toLowerCase() === 'y') || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'z')) {
-        e.preventDefault();
-        redo();
+        e.preventDefault(); redo();
+      } else if (e.shiftKey && e.key.toLowerCase() === 'd') {
+        e.preventDefault(); duplicateSelected();
       } else if (e.key.toLowerCase() === 'w') {
         setGizmoMode('translate');
       } else if (e.key.toLowerCase() === 'e') {
@@ -817,15 +703,73 @@
       } else if (e.key.toLowerCase() === 'r') {
         setGizmoMode('scale');
       } else if (e.key === 'Delete' || e.key === 'Backspace') {
-        if (selectedCube) deleteSelected();
-      } else if (e.shiftKey && e.key.toLowerCase() === 'd') {
-        e.preventDefault();
-        duplicateSelected();
-      } else if (e.key === 'Escape') {
-        selectCube(null);
-        hideMenus();
-        closeModal('helpModal'); closeModal('marketplaceModal'); closeModal('authModal'); closeModal('uploadModal');
+        deleteSelected();
       }
+    }
+
+    function duplicateSelected() {
+      if (!selectedObject) return;
+      saveState();
+      const mesh = selectedObject.clone();
+      mesh.geometry = selectedObject.geometry.clone();
+      mesh.material = selectedObject.material.clone();
+      mesh.position.add(new THREE.Vector3(0.5, 0, 0.5));
+      mesh.name = `${selectedObject.name}_Copy`;
+      mesh.userData = { ...selectedObject.userData };
+      scene.add(mesh);
+      sceneObjects.push(mesh);
+      selectObject(mesh);
+      updateOutliner();
+    }
+
+    function deleteSelected() {
+      if (!selectedObject) return;
+      saveState();
+      const idx = sceneObjects.indexOf(selectedObject);
+      if (idx !== -1) {
+        scene.remove(selectedObject);
+        sceneObjects.splice(idx, 1);
+        selectObject(null);
+        updateOutliner();
+      }
+    }
+
+    function onWindowResize() {
+      const container = document.getElementById('viewport-container');
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    }
+
+    function onViewportClick(event) {
+      if (transformControls.dragging) return;
+      if (event.button !== 0) return; // Left click only
+      const rect = renderer.domElement.getBoundingClientRect();
+      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(sceneObjects, true);
+
+      if (intersects.length > 0) {
+        selectObject(intersects[0].object);
+      } else {
+        selectObject(null);
+      }
+    }
+
+    /* CONTEXT MENU HANDLERS */
+    function openContextMenu(e) {
+      e.preventDefault();
+      const menu = document.getElementById('context-menu');
+      menu.style.display = 'flex';
+      menu.style.left = `${e.clientX}px`;
+      menu.style.top = `${e.clientY}px`;
+    }
+
+    function hideContextMenu() {
+      const menu = document.getElementById('context-menu');
+      if (menu) menu.style.display = 'none';
     }
 
     function createTexture(mode) {
@@ -841,27 +785,9 @@
       } else if (mode === 'checker') {
         ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, 256, 256);
         ctx.fillStyle = '#14141c'; ctx.fillRect(0, 0, 128, 128); ctx.fillRect(128, 128, 128, 128);
-      } else if (mode === 'dots') {
-        ctx.fillStyle = '#14141c'; ctx.fillRect(0, 0, 256, 256);
-        ctx.fillStyle = '#ffffff';
-        for (let x = 32; x < 256; x += 64) {
-          for (let y = 32; y < 256; y += 64) {
-            ctx.beginPath(); ctx.arc(x, y, 12, 0, Math.PI * 2); ctx.fill();
-          }
-        }
-      } else if (mode === 'stripes') {
-        ctx.fillStyle = '#14141c'; ctx.fillRect(0, 0, 256, 256);
-        ctx.fillStyle = '#ffffff';
-        for (let i = -256; i < 512; i += 64) {
-          ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i + 32, 0); ctx.lineTo(i - 224, 256); ctx.lineTo(i - 256, 256); ctx.fill();
-        }
       } else if (mode === 'metal') {
         ctx.fillStyle = '#2a2b36'; ctx.fillRect(0, 0, 256, 256);
         ctx.strokeStyle = '#474859'; ctx.lineWidth = 6; ctx.strokeRect(6, 6, 244, 244);
-        ctx.fillStyle = '#8f92a1';
-        [[20,20], [236,20], [20,236], [236,236]].forEach(([x,y]) => {
-          ctx.beginPath(); ctx.arc(x, y, 8, 0, Math.PI * 2); ctx.fill();
-        });
       } else if (mode === 'bricks') {
         ctx.fillStyle = '#1c1c24'; ctx.fillRect(0, 0, 256, 256);
         ctx.strokeStyle = '#8f92a1'; ctx.lineWidth = 4;
@@ -879,535 +805,362 @@
       return texture;
     }
 
-    function toggleGrid() {
-      if (gridHelper) {
-        gridHelper.visible = !gridHelper.visible;
-        document.getElementById('btnToggleGrid').classList.toggle('active', gridHelper.visible);
-      }
-    }
-
-    function addCube() {
+    function createShape(type, sides = 8) {
       saveState();
-      const geometry = new THREE.BoxGeometry(1, 1, 1);
-      const material = new THREE.MeshStandardMaterial({ color: 0x6366f1, roughness: 0.3 });
-      const mesh = new THREE.Mesh(geometry, material);
+      let geom;
+      if (type === 'wedge') geom = createWedgeGeometry();
+      else if (type === 'corner_w') geom = createCornerWedgeGeometry();
+      else if (type === 'cylinder') geom = new THREE.CylinderGeometry(0.5, 0.5, 1, sides);
+      else geom = new THREE.BoxGeometry(1, 1, 1);
 
+      const material = new THREE.MeshStandardMaterial({ color: 0x3b82f6, roughness: 0.4 });
+      const mesh = new THREE.Mesh(geom, material);
       mesh.position.set(0, 0.5, 0);
-      mesh.name = `Cube_${cubes.length + 1}`;
-      mesh.userData = { textureMode: 'solid', wireframe: false };
+      mesh.name = `${type.toUpperCase()}_${sceneObjects.length + 1}`;
+      mesh.userData = { type: type, sides: sides, textureMode: 'solid' };
 
       scene.add(mesh);
-      cubes.push(mesh);
-      selectCube(mesh);
-      updateExplorer();
+      sceneObjects.push(mesh);
+      selectObject(mesh);
+      updateOutliner();
     }
 
-    function duplicateSelected() {
-      if (!selectedCube) return;
-      saveState();
-
-      const geometry = selectedCube.geometry.clone();
-      const material = selectedCube.material.clone();
-      const mesh = new THREE.Mesh(geometry, material);
-
-      mesh.position.copy(selectedCube.position).add(new THREE.Vector3(0.5, 0, 0.5));
-      mesh.scale.copy(selectedCube.scale);
-      mesh.rotation.copy(selectedCube.rotation);
-      mesh.name = `${selectedCube.name}_Copy`;
-      mesh.userData = { ...selectedCube.userData };
-
-      scene.add(mesh);
-      cubes.push(mesh);
-      selectCube(mesh);
-      updateExplorer();
+    function createWedgeGeometry() {
+      const geom = new THREE.BufferGeometry();
+      const vertices = new Float32Array([
+        -0.5,-0.5, 0.5,   0.5,-0.5, 0.5,   -0.5, 0.5,-0.5,
+         0.5,-0.5, 0.5,   0.5, 0.5,-0.5,   -0.5, 0.5,-0.5,
+        -0.5,-0.5,-0.5,  -0.5,-0.5, 0.5,   -0.5, 0.5,-0.5,
+         0.5,-0.5, 0.5,   0.5,-0.5,-0.5,    0.5, 0.5,-0.5,
+        -0.5,-0.5,-0.5,   0.5,-0.5,-0.5,    0.5,-0.5, 0.5,
+        -0.5,-0.5,-0.5,   0.5,-0.5, 0.5,   -0.5,-0.5, 0.5,
+        -0.5, 0.5,-0.5,   0.5, 0.5,-0.5,   -0.5,-0.5,-0.5,
+         0.5, 0.5,-0.5,   0.5,-0.5,-0.5,   -0.5,-0.5,-0.5
+      ]);
+      geom.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+      geom.computeVertexNormals();
+      return geom;
     }
 
-    function selectCube(cube) {
-      selectedCube = cube;
-      if (selectedCube) transformControls.attach(selectedCube);
+    function createCornerWedgeGeometry() {
+      const geom = new THREE.BufferGeometry();
+      const vertices = new Float32Array([
+        -0.5,-0.5, 0.5,   0.5,-0.5,-0.5,   -0.5, 0.5,-0.5,
+        -0.5,-0.5,-0.5,  -0.5,-0.5, 0.5,   -0.5, 0.5,-0.5,
+        -0.5,-0.5,-0.5,   0.5,-0.5,-0.5,   -0.5, 0.5,-0.5,
+        -0.5,-0.5,-0.5,   0.5,-0.5,-0.5,   -0.5,-0.5, 0.5
+      ]);
+      geom.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+      geom.computeVertexNormals();
+      return geom;
+    }
+
+    function openCylinderModal() { openModal('cylinderModal'); }
+    function submitCreateCylinder() {
+      const sides = parseInt(document.getElementById('cylSidesInput').value) || 8;
+      createShape('cylinder', sides);
+      closeModal('cylinderModal');
+    }
+
+    function selectObject(obj) {
+      selectedObject = obj;
+      if (selectedObject) transformControls.attach(selectedObject);
       else transformControls.detach();
-      updateExplorer();
-      updateProperties();
+      updateOutliner();
+      renderPropertiesPanel();
     }
 
-    function deleteSelected() { if (selectedCube) deleteCube(selectedCube); }
-
-    function deleteCube(cube, event) {
-      if (event) event.stopPropagation();
-      saveState();
-
-      if (selectedCube === cube) selectCube(null);
-      scene.remove(cube);
-      cubes = cubes.filter(c => c !== cube);
-      updateExplorer();
-    }
-
-    function updateExplorer() {
-      const list = document.getElementById('explorerList');
-      list.innerHTML = cubes.map(cube => `
-        <div class="explorer-item ${selectedCube === cube ? 'selected' : ''}" onclick="selectCubeByUuid('${cube.uuid}')">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span class="material-symbols-outlined" style="font-size:16px;">view_in_ar</span>
-            ${cube.name}
-          </div>
-          <span class="material-symbols-outlined btn-delete-item" onclick="deleteCubeByUuid('${cube.uuid}', event)">delete</span>
+    function updateOutliner() {
+      const list = document.getElementById('outlinerList');
+      if (!list) return;
+      list.innerHTML = sceneObjects.map(obj => `
+        <div class="explorer-item ${selectedObject === obj ? 'selected' : ''}" onclick="selectByName('${obj.name}')">
+          <span>${obj.name}</span>
+          <span class="material-symbols-outlined" style="font-size:14px; color:#f87171;" onclick="deleteByName('${obj.name}', event)">delete</span>
         </div>
       `).join('');
     }
 
-    function selectCubeByUuid(uuid) {
-      const target = cubes.find(c => c.uuid === uuid);
-      if (target) selectCube(target);
+    function selectByName(name) {
+      const obj = sceneObjects.find(o => o.name === name);
+      if (obj) selectObject(obj);
     }
 
-    function deleteCubeByUuid(uuid, event) {
-      const target = cubes.find(c => c.uuid === uuid);
-      if (target) deleteCube(target, event);
-    }
-
-    function updateProperties() {
-      const body = document.getElementById('propertiesBody');
-      if (!selectedCube) {
-        body.innerHTML = `<div style="color: #64748b; font-size: 0.8rem; text-align: center; margin-top: 20px;">Select a block to inspect properties.</div>`;
-        return;
+    function deleteByName(name, event) {
+      if (event) event.stopPropagation();
+      const obj = sceneObjects.find(o => o.name === name);
+      if (obj) {
+        if (selectedObject === obj) selectObject(null);
+        scene.remove(obj);
+        sceneObjects.splice(sceneObjects.indexOf(obj), 1);
+        updateOutliner();
       }
-
-      const p = selectedCube.position;
-      const s = selectedCube.scale;
-      const hexColor = '#' + selectedCube.material.color.getHexString();
-      const currentMode = selectedCube.userData.textureMode || 'solid';
-      const isWireframe = selectedCube.userData.wireframe || false;
-
-      body.innerHTML = `
-        <div class="prop-group">
-          <div class="prop-label">Block Name</div>
-          <input type="text" class="input-text" value="${selectedCube.name}" onchange="saveState(); selectedCube.name = this.value; updateExplorer();" />
-        </div>
-
-        <div class="prop-group">
-          <div class="prop-label">Position</div>
-          <div class="prop-row">
-            <div class="prop-field"><span>X</span><input type="number" step="0.1" class="input-num" value="${p.x.toFixed(2)}" oninput="selectedCube.position.x = parseFloat(this.value)" onchange="saveState()" /></div>
-            <div class="prop-field"><span>Y</span><input type="number" step="0.1" class="input-num" value="${p.y.toFixed(2)}" oninput="selectedCube.position.y = parseFloat(this.value)" onchange="saveState()" /></div>
-            <div class="prop-field"><span>Z</span><input type="number" step="0.1" class="input-num" value="${p.z.toFixed(2)}" oninput="selectedCube.position.z = parseFloat(this.value)" onchange="saveState()" /></div>
-          </div>
-        </div>
-
-        <div class="prop-group">
-          <div class="prop-label">Scale</div>
-          <div class="prop-row">
-            <div class="prop-field"><span>X</span><input type="number" step="0.1" class="input-num" value="${s.x.toFixed(2)}" oninput="selectedCube.scale.x = parseFloat(this.value)" onchange="saveState()" /></div>
-            <div class="prop-field"><span>Y</span><input type="number" step="0.1" class="input-num" value="${s.y.toFixed(2)}" oninput="selectedCube.scale.y = parseFloat(this.value)" onchange="saveState()" /></div>
-            <div class="prop-field"><span>Z</span><input type="number" step="0.1" class="input-num" value="${s.z.toFixed(2)}" oninput="selectedCube.scale.z = parseFloat(this.value)" onchange="saveState()" /></div>
-          </div>
-        </div>
-
-        <div class="prop-group">
-          <div class="prop-label">Texture Pattern</div>
-          <select class="select-mode" onchange="changeTextureMode(this.value)">
-            <option value="solid" ${currentMode === 'solid' ? 'selected' : ''}>Solid Color</option>
-            <option value="grid" ${currentMode === 'grid' ? 'selected' : ''}>Grid Pattern</option>
-            <option value="checker" ${currentMode === 'checker' ? 'selected' : ''}>Checkerboard</option>
-            <option value="dots" ${currentMode === 'dots' ? 'selected' : ''}>Voxel Dots</option>
-            <option value="stripes" ${currentMode === 'stripes' ? 'selected' : ''}>Diagonal Stripes</option>
-            <option value="metal" ${currentMode === 'metal' ? 'selected' : ''}>Metal Plate & Rivets</option>
-            <option value="bricks" ${currentMode === 'bricks' ? 'selected' : ''}>Bricks Pattern</option>
-          </select>
-        </div>
-
-        <div class="prop-group">
-          <div class="prop-label">Material & Rendering</div>
-          <div style="display:flex; gap:10px; align-items:center;">
-            <input type="color" class="input-color" value="${hexColor}" oninput="selectedCube.material.color.set(this.value)" onchange="saveState()" />
-            <label style="font-size:0.75rem; color:#e2e8f0; display:flex; align-items:center; gap:6px; cursor:pointer;">
-              <input type="checkbox" ${isWireframe ? 'checked' : ''} onchange="toggleWireframe(this.checked)" /> Wireframe
-            </label>
-          </div>
-        </div>
-      `;
     }
 
-    function toggleWireframe(enabled) {
-      if (!selectedCube) return;
-      saveState();
-      selectedCube.userData.wireframe = enabled;
-      selectedCube.material.wireframe = enabled;
+    function renderPropertiesPanel() {
+      const content = document.getElementById('propertiesContent');
+      const header = document.getElementById('propertiesHeaderTitle');
+      if (!content || !header) return;
+
+      if (!selectedObject) {
+        header.innerHTML = `<span class="material-symbols-outlined">tune</span> Global Settings`;
+        content.innerHTML = `
+          <div class="prop-card">
+            <div class="prop-title">Ambient Intensity</div>
+            <input type="range" min="0" max="2" step="0.1" value="${ambientLight.intensity}" oninput="ambientLight.intensity = parseFloat(this.value)" />
+          </div>
+          <div class="prop-card">
+            <div class="custom-switch-row">
+              <span>Show Grid</span>
+              <label class="custom-switch">
+                <input type="checkbox" ${gridHelper.visible ? 'checked' : ''} onchange="gridHelper.visible = this.checked">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        `;
+      } else {
+        header.innerHTML = `<span class="material-symbols-outlined">category</span> ${selectedObject.name}`;
+        const hexColor = '#' + selectedObject.material.color.getHexString();
+
+        content.innerHTML = `
+          <div class="prop-card">
+            <div class="prop-title">Color</div>
+            <input type="color" class="color-picker-input" value="${hexColor}" oninput="selectedObject.material.color.set(this.value)" />
+          </div>
+          <div class="prop-card">
+            <div class="prop-title">Position (X, Y, Z)</div>
+            <div class="prop-row">
+              <input type="number" class="input-num" value="${selectedObject.position.x.toFixed(2)}" step="0.1" onchange="selectedObject.position.x = parseFloat(this.value)" />
+              <input type="number" class="input-num" value="${selectedObject.position.y.toFixed(2)}" step="0.1" onchange="selectedObject.position.y = parseFloat(this.value)" />
+              <input type="number" class="input-num" value="${selectedObject.position.z.toFixed(2)}" step="0.1" onchange="selectedObject.position.z = parseFloat(this.value)" />
+            </div>
+          </div>
+          <div class="prop-card">
+            <div class="prop-title">Scale (X, Y, Z)</div>
+            <div class="prop-row">
+              <input type="number" class="input-num" value="${selectedObject.scale.x.toFixed(2)}" step="0.1" onchange="selectedObject.scale.x = parseFloat(this.value)" />
+              <input type="number" class="input-num" value="${selectedObject.scale.y.toFixed(2)}" step="0.1" onchange="selectedObject.scale.y = parseFloat(this.value)" />
+              <input type="number" class="input-num" value="${selectedObject.scale.z.toFixed(2)}" step="0.1" onchange="selectedObject.scale.z = parseFloat(this.value)" />
+            </div>
+          </div>
+          <div class="prop-card">
+            <div class="prop-title">Texture Preset</div>
+            <select class="select-mode" onchange="applyTexture(this.value)">
+              <option value="solid" ${selectedObject.userData.textureMode==='solid'?'selected':''}>Solid Color</option>
+              <option value="grid" ${selectedObject.userData.textureMode==='grid'?'selected':''}>Grid Pattern</option>
+              <option value="checker" ${selectedObject.userData.textureMode==='checker'?'selected':''}>Checkerboard</option>
+              <option value="bricks" ${selectedObject.userData.textureMode==='bricks'?'selected':''}>Bricks Pattern</option>
+              <option value="metal" ${selectedObject.userData.textureMode==='metal'?'selected':''}>Brushed Metal</option>
+            </select>
+          </div>
+          <div class="prop-card">
+            <div class="prop-title">Transparency / Opacity</div>
+            <input type="range" min="0.1" max="1" step="0.05" value="${selectedObject.material.opacity}" oninput="setTransparency(this.value)" />
+          </div>
+          <div class="prop-card">
+            <div class="custom-switch-row">
+              <span>Wireframe Mode</span>
+              <label class="custom-switch">
+                <input type="checkbox" ${selectedObject.material.wireframe ? 'checked' : ''} onchange="selectedObject.material.wireframe = this.checked">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        `;
+      }
     }
 
-    function changeTextureMode(mode) {
-      if (!selectedCube) return;
-      saveState();
-      selectedCube.userData.textureMode = mode;
-      selectedCube.material.map = createTexture(mode);
-      selectedCube.material.needsUpdate = true;
+    function applyTexture(mode) {
+      if (!selectedObject) return;
+      selectedObject.userData.textureMode = mode;
+      if (mode === 'solid') selectedObject.material.map = null;
+      else selectedObject.material.map = createTexture(mode);
+      selectedObject.material.needsUpdate = true;
+    }
+
+    function setTransparency(val) {
+      if (!selectedObject) return;
+      selectedObject.material.transparent = val < 1.0;
+      selectedObject.material.opacity = parseFloat(val);
+      selectedObject.material.needsUpdate = true;
+    }
+
+    function toggleSnapping() {
+      isSnappingEnabled = !isSnappingEnabled;
+      transformControls.setTranslationSnap(isSnappingEnabled ? 0.5 : null);
+      transformControls.setRotationSnap(isSnappingEnabled ? THREE.MathUtils.degToRad(15) : null);
+      document.getElementById('btnSnap').classList.toggle('active', isSnappingEnabled);
     }
 
     function setGizmoMode(mode) {
       transformControls.setMode(mode);
-      document.querySelectorAll('.topbar-center .btn-tool').forEach(b => {
-        if (['btnTranslate', 'btnRotate', 'btnScale'].includes(b.id)) b.classList.remove('active');
+      ['translate', 'rotate', 'scale'].forEach(m => {
+        document.getElementById(`btn${m.charAt(0).toUpperCase() + m.slice(1)}`).classList.toggle('active', m === mode);
       });
-      if (mode === 'translate') document.getElementById('btnTranslate').classList.add('active');
-      if (mode === 'rotate') document.getElementById('btnRotate').classList.add('active');
-      if (mode === 'scale') document.getElementById('btnScale').classList.add('active');
-    }
-
-    function openContextMenu(e) {
-      e.preventDefault();
-      const menu = document.getElementById('context-menu');
-      menu.style.display = 'flex';
-      menu.style.top = `${e.clientY}px`;
-      menu.style.left = `${e.clientX}px`;
-    }
-
-    function hideMenus() {
-      document.getElementById('context-menu').style.display = 'none';
-      document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
     }
 
     function toggleDropdown(id, e) {
       e.stopPropagation();
-      hideMenus();
       const menu = document.getElementById(id);
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+      const isVisible = menu.style.display === 'flex';
+      hideDropdowns();
+      menu.style.display = isVisible ? 'none' : 'flex';
+    }
+
+    function hideDropdowns() {
+      document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
     }
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    function resetCamera() {
-      camera.position.set(6, 6, 8);
-      controls.target.set(0, 0, 0);
-    }
-
-    function clearScene() {
-      saveState();
-      clearSceneSilent();
-    }
-
-    function clearSceneSilent() {
-      cubes.forEach(c => scene.remove(c));
-      cubes = [];
-      selectCube(null);
-    }
-
-    function exportJSON() {
-      const exportData = cubes.map(c => ({
-        name: c.name,
-        position: [c.position.x, c.position.y, c.position.z],
-        rotation: [c.rotation.x, c.rotation.y, c.rotation.z],
-        scale: [c.scale.x, c.scale.y, c.scale.z],
-        color: '#' + c.material.color.getHexString(),
-        textureMode: c.userData.textureMode
-      }));
-
-      downloadBlob(new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' }), 'zeromodel_asset.json');
-    }
-
-    function exportOBJ() {
-      if (cubes.length === 0) return alert('No cubes in scene to export.');
-      const group = new THREE.Group();
-      cubes.forEach(c => group.add(c.clone()));
-
-      const exporter = new THREE.OBJExporter();
-      const result = exporter.parse(group);
-      downloadBlob(new Blob([result], { type: 'text/plain' }), 'zeromodel_mesh.obj');
-    }
-
-    function exportGLB() {
-      if (cubes.length === 0) return alert('No cubes in scene to export.');
-      const group = new THREE.Group();
-      cubes.forEach(c => group.add(c.clone()));
-
-      const exporter = new THREE.GLTFExporter();
-      exporter.parse(group, (gltf) => {
-        downloadBlob(new Blob([gltf], { type: 'application/octet-stream' }), 'zeromodel_model.glb');
-      }, { binary: true });
-    }
-
-    function downloadBlob(blob, filename) {
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = filename;
-      a.click();
-    }
-
-    function importJSON() { document.getElementById('fileInput').click(); }
-
-    function handleFileImport(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        try {
-          const data = JSON.parse(event.target.result);
-          saveState();
-          clearSceneSilent();
-          data.forEach(item => {
-            const geometry = new THREE.BoxGeometry(1, 1, 1);
-            const material = new THREE.MeshStandardMaterial({ color: item.color || 0x6366f1 });
-            const mesh = new THREE.Mesh(geometry, material);
-            mesh.name = item.name || 'Cube';
-            mesh.position.set(...item.position);
-            mesh.rotation.set(...item.rotation);
-            mesh.scale.set(...item.scale);
-            mesh.userData = { textureMode: item.textureMode || 'solid' };
-            if (item.textureMode && item.textureMode !== 'solid') {
-              mesh.material.map = createTexture(item.textureMode);
-            }
-            scene.add(mesh);
-            cubes.push(mesh);
-          });
-          if (cubes.length > 0) selectCube(cubes[0]);
-        } catch (err) { alert('Invalid JSON file format.'); }
-      };
-      reader.readAsText(file);
-    }
-
     async function openMarketplaceModal() {
       openModal('marketplaceModal');
       const grid = document.getElementById('marketplaceGrid');
-      grid.innerHTML = `<div style="color:#94a3b8; font-size:0.85rem;">Loading models from TiDB...</div>`;
-
+      grid.innerHTML = `<div style="color:#94a3b8;">Loading marketplace...</div>`;
       try {
         const res = await fetch(API_ENDPOINTS.models);
-        if (!res.ok) throw new Error('Failed to fetch');
-        fetchedMarketModels = await res.json();
-
-        if (fetchedMarketModels.length === 0) {
-          grid.innerHTML = `<div style="color:#94a3b8; font-size:0.85rem;">No community models published yet! Be the first to upload.</div>`;
-          return;
-        }
-
-        grid.innerHTML = fetchedMarketModels.map(item => `
+        const models = await res.json();
+        grid.innerHTML = models.map(m => `
           <div class="market-card">
-            <div style="font-weight:700; color:#fff; font-size:0.9rem;">${item.title}</div>
-            <div style="font-size:0.75rem; color:#94a3b8;">By: <strong>${item.author || 'Operator'}</strong></div>
-            <div style="display:flex; gap:6px; margin-top:4px;">
-              <button class="btn-tool" style="flex:1; background:#fff; color:#000; justify-content:center;" onclick="loadTiDBModel(${item.id})">Load Model</button>
-              ${isOperatorUser ? `<button class="btn-tool btn-danger" onclick="deleteTiDBModel(${item.id})"><span class="material-symbols-outlined" style="font-size:16px;">delete</span></button>` : ''}
-            </div>
+            <div style="font-weight:700; color:#fff; font-size:0.85rem;">${m.title}</div>
+            <div style="font-size:0.7rem; color:#94a3b8;">By: ${m.author || 'Anonymous'}</div>
+            <button class="btn-tool" style="background:#2563eb; color:#fff; justify-content:center; padding:6px;" onclick='loadModelData(${JSON.stringify(m.model_data)})'>Load</button>
           </div>
         `).join('');
-      } catch (err) {
-        grid.innerHTML = `<div style="color:#f87171; font-size:0.85rem;">Failed to connect to TiDB bridge server.</div>`;
+      } catch(e) {
+        grid.innerHTML = `<div style="color:#f87171;">Failed to load.</div>`;
       }
     }
 
-    async function deleteTiDBModel(id) {
-      const username = localStorage.getItem('zeroModelUser');
-      if (!username || !isOperatorUser) {
-        return alert('Access Denied: Only Operator accounts can delete community assets.');
-      }
-
-      if (!confirm('Operator Action: Delete this creation from TiDB Marketplace permanently?')) return;
-
-      try {
-        const res = await fetch(`${API_ENDPOINTS.models}/${id}`, {
-          method: 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username })
-        });
-
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Delete failed.');
-
-        alert('Asset permanently deleted from TiDB!');
-        openMarketplaceModal();
-      } catch (err) {
-        alert('Delete Error: ' + err.message);
-      }
-    }
-
-    function openUploadModal() {
-      if (cubes.length === 0) return alert('Your scene is empty! Add cubes before publishing.');
-      openModal('uploadModal');
-    }
-
+    function openUploadModal() { openModal('uploadModal'); }
     async function publishModelToTiDB() {
       const title = document.getElementById('uploadTitleInput').value.trim();
-      const author = localStorage.getItem('zeroModelUser') || 'NothingOrNo';
+      const category = document.getElementById('uploadCategorySelect').value;
+      const author = sessionStorage.getItem('opAuthSessionUser') || 'Anonymous';
+      if (!title) { alert("Enter a title."); return; }
 
-      if (!title) return alert('Please enter a model title.');
-
-      const modelPayload = cubes.map(c => ({
-        name: c.name,
-        position: [c.position.x, c.position.y, c.position.z],
-        rotation: [c.rotation.x, c.rotation.y, c.rotation.z],
-        scale: [c.scale.x, c.scale.y, c.scale.z],
-        color: '#' + c.material.color.getHexString(),
-        textureMode: c.userData.textureMode
+      const model_data = sceneObjects.map(o => ({
+        type: o.userData.type || 'cube',
+        sides: o.userData.sides || 8,
+        position: [o.position.x, o.position.y, o.position.z],
+        rotation: [o.rotation.x, o.rotation.y, o.rotation.z],
+        scale: [o.scale.x, o.scale.y, o.scale.z],
+        color: '#' + o.material.color.getHexString()
       }));
 
       try {
         const res = await fetch(API_ENDPOINTS.models, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, author, model_data: modelPayload })
+          body: JSON.stringify({ title, author, category, model_data })
         });
-
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Publishing failed.');
-
-        alert(`🛡️ AI Moderation Passed: "${title}" published to TiDB Marketplace!`);
-        closeModal('uploadModal');
-        openMarketplaceModal();
-      } catch (err) {
-        alert('⚠️ Moderation Blocked: ' + err.message);
-      }
+        const r = await res.json();
+        if (r.success) { alert("Published successfully!"); closeModal('uploadModal'); }
+        else throw new Error(r.error);
+      } catch(err) { alert("Error: " + err.message); }
     }
 
-    function loadTiDBModel(id) {
-      const target = fetchedMarketModels.find(m => m.id === id);
-      if (!target) return;
+    function loadModelData(data) {
+      saveState();
+      sceneObjects.forEach(c => scene.remove(c));
+      sceneObjects = [];
+      const parsed = typeof data === 'string' ? JSON.parse(data) : data;
+      parsed.forEach(item => {
+        let geom;
+        if (item.type === 'wedge') geom = createWedgeGeometry();
+        else if (item.type === 'corner_w') geom = createCornerWedgeGeometry();
+        else if (item.type === 'cylinder') geom = new THREE.CylinderGeometry(0.5, 0.5, 1, item.sides || 8);
+        else geom = new THREE.BoxGeometry(1, 1, 1);
 
-      try {
-        const data = typeof target.model_data === 'string' ? JSON.parse(target.model_data) : target.model_data;
-        saveState();
-        clearSceneSilent();
-        data.forEach(item => {
-          const geometry = new THREE.BoxGeometry(1, 1, 1);
-          const material = new THREE.MeshStandardMaterial({ color: item.color || 0x6366f1 });
-          const mesh = new THREE.Mesh(geometry, material);
-          mesh.name = item.name || 'Cube';
-          mesh.position.set(...item.position);
-          mesh.rotation.set(...item.rotation);
-          mesh.scale.set(...item.scale);
-          mesh.userData = { textureMode: item.textureMode || 'solid' };
-          if (item.textureMode && item.textureMode !== 'solid') {
-            mesh.material.map = createTexture(item.textureMode);
-          }
-          scene.add(mesh);
-          cubes.push(mesh);
-        });
-        if (cubes.length > 0) selectCube(cubes[0]);
-        closeModal('marketplaceModal');
-      } catch (err) {
-        alert('Error parsing model data.');
-      }
+        const mesh = new THREE.Mesh(geom, new THREE.MeshStandardMaterial({ color: item.color || 0x3b82f6 }));
+        mesh.position.set(...item.position);
+        mesh.rotation.set(...item.rotation);
+        mesh.scale.set(...item.scale);
+        mesh.name = `${(item.type || 'CUBE').toUpperCase()}_${sceneObjects.length + 1}`;
+        mesh.userData = { type: item.type || 'cube', sides: item.sides || 8, textureMode: 'solid' };
+        scene.add(mesh);
+        sceneObjects.push(mesh);
+      });
+      selectObject(null);
+      updateOutliner();
+      closeModal('marketplaceModal');
     }
 
-    function switchAuthMode(mode) {
-      authMode = mode;
-      const body = document.getElementById('authFormBody');
-      const tabSign = document.getElementById('tabSignUpBtn');
-      const tabLog = document.getElementById('tabLoginBtn');
-
-      if (mode === 'signup') {
-        tabSign.classList.add('active'); tabLog.classList.remove('active');
-        body.innerHTML = `
-          <input type="text" id="regUser" class="input-text" placeholder="Choose Username" />
-          <input type="password" id="regPass" class="input-text" placeholder="Choose Password" />
-          <button class="btn-signup-blue" style="justify-content:center; margin-top:6px;" onclick="handleRegister()">Register Account</button>
-        `;
-      } else {
-        tabLog.classList.add('active'); tabSign.classList.remove('active');
-        body.innerHTML = `
-          <input type="text" id="loginUser" class="input-text" placeholder="Username" />
-          <input type="password" id="loginPass" class="input-text" placeholder="Password" />
-          <button class="btn-signup-blue" style="justify-content:center; margin-top:6px;" onclick="handleLogin()">Log In</button>
-        `;
-      }
+    function exportJSON() {
+      const data = JSON.stringify(sceneObjects.map(o => ({
+        type: o.userData.type || 'cube',
+        sides: o.userData.sides || 8,
+        position: [o.position.x, o.position.y, o.position.z],
+        rotation: [o.rotation.x, o.rotation.y, o.rotation.z],
+        scale: [o.scale.x, o.scale.y, o.scale.z],
+        color: '#' + o.material.color.getHexString()
+      })));
+      const blob = new Blob([data], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'zeromodel_scene.json';
+      link.click();
     }
 
-    async function handleRegister() {
-      const u = document.getElementById('regUser').value.trim();
-      const p = document.getElementById('regPass').value;
-      if (!u || !p) return alert('Fill in all fields.');
-
-      try {
-        const res = await fetch(API_ENDPOINTS.auth, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username: u, password_hash: p })
-        });
-        if (!res.ok) throw new Error('Registration failed.');
-        localStorage.setItem('zeroModelUser', u);
-        await updateAuthBtnState();
-        closeModal('authModal');
-      } catch (err) {
-        alert('Sign Up Error: ' + err.message);
-      }
+    function importJSON() { document.getElementById('fileInput').click(); }
+    function handleFileImport(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => { loadModelData(event.target.result); };
+      reader.readAsText(file);
     }
 
-    async function handleLogin() {
-      const u = document.getElementById('loginUser').value.trim();
-      const p = document.getElementById('loginPass').value;
-      if (!u || !p) return alert('Fill in all fields.');
-
-      try {
-        const res = await fetch(API_ENDPOINTS.auth);
-        const accounts = await res.json();
-        const matched = accounts.find(acc => acc.username === u && acc.password_hash === p);
-
-        if (matched) {
-          localStorage.setItem('zeroModelUser', matched.username);
-          await updateAuthBtnState();
-          closeModal('authModal');
-        } else {
-          alert('Invalid credentials.');
-        }
-      } catch (err) {
-        alert('Login Error: ' + err.message);
-      }
+    function exportOBJ() {
+      const exporter = new THREE.OBJExporter();
+      const result = exporter.parse(scene);
+      const blob = new Blob([result], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'zeromodel_scene.obj';
+      link.click();
     }
 
-    async function updateAuthBtnState() {
-      const btn = document.getElementById('authBtn');
-      const user = localStorage.getItem('zeroModelUser');
-      isOperatorUser = false;
-
-      if (user) {
-        // Verify against op_accounts database table to grant Operator permissions
-        try {
-          const res = await fetch(API_ENDPOINTS.auth);
-          const ops = await res.json();
-          if (ops.some(op => op.username === user)) {
-            isOperatorUser = true;
-          }
-        } catch (e) {
-          console.error("Failed to verify Operator status.");
-        }
-
-        btn.innerHTML = `<span class="material-symbols-outlined">account_circle</span> ${user} ${isOperatorUser ? '(OP)' : ''}`;
-        btn.onclick = () => {
-          if (confirm('Logout of ' + user + '?')) {
-            localStorage.removeItem('zeroModelUser');
-            isOperatorUser = false;
-            updateAuthBtnState();
-          }
-        };
-      } else {
-        btn.innerHTML = `<span class="material-symbols-outlined">person_add</span> Sign Up!`;
-        btn.onclick = () => openModal('authModal');
-        switchAuthMode('signup');
-      }
+    function exportGLB() {
+      const exporter = new THREE.GLTFExporter();
+      exporter.parse(scene, (glb) => {
+        const blob = new Blob([glb], { type: 'application/octet-stream' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'zeromodel_scene.glb';
+        link.click();
+      }, { binary: true });
     }
 
-    function makeDraggableWindow(windowId, handleId) {
+    function clearScene() {
+      saveState();
+      sceneObjects.forEach(c => scene.remove(c));
+      sceneObjects = [];
+      selectObject(null);
+      updateOutliner();
+    }
+
+    function makeDraggableWindow(windowId, headerId) {
       const win = document.getElementById(windowId);
-      const handle = document.getElementById(handleId);
-      let posX = 0, posY = 0, mouseX = 0, mouseY = 0;
+      const header = document.getElementById(headerId);
+      let isDragging = false, startX, startY, initialX, initialY;
 
-      handle.onpointerdown = (e) => {
-        e.preventDefault();
-        mouseX = e.clientX; mouseY = e.clientY;
-        document.onpointerup = () => { document.onpointerup = null; document.onpointermove = null; };
-        document.onpointermove = (e) => {
-          e.preventDefault();
-          posX = mouseX - e.clientX; posY = mouseY - e.clientY;
-          mouseX = e.clientX; mouseY = e.clientY;
-          win.style.top = (win.offsetTop - posY) + "px";
-          win.style.left = (win.offsetLeft - posX) + "px";
-        };
-      };
-    }
+      header.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        startX = e.clientX; startY = e.clientY;
+        initialX = win.offsetLeft; initialY = win.offsetTop;
+        header.setPointerCapture(e.pointerId);
+      });
 
-    function onWindowResize() {
-      const container = document.getElementById('viewport-container');
-      camera.aspect = container.clientWidth / container.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(container.clientWidth, container.clientHeight);
+      header.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        win.style.left = `${initialX + (e.clientX - startX)}px`;
+        win.style.top = `${initialY + (e.clientY - startY)}px`;
+      });
+
+      header.addEventListener('pointerup', () => { isDragging = false; });
     }
 
     function animate() {
@@ -1418,6 +1171,5 @@
 
     window.onload = init;
   </script>
-
 </body>
 </html>
