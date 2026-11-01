@@ -314,6 +314,8 @@ function PhyXR.createScalePart(cframe: CFrame, parent: Instance?): (Part, Surfac
 	return scaleBase, surfaceGui
 end
 
+--test
+
 function PhyXR.buildPartStressNode(part: BasePart): WSNode
 	local size = part.Size / 2
 	local joints = {}
