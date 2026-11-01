@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SubstrateFX Engine • NothingOrNo Labs</title>
+
+  <!-- Web Icon / Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
+  <!-- Montserrat, JetBrains Mono & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      color: #e3e2e6;
+      background-color: #070709;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Technical Grid Overlay */
+    .bg-grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Floating Background Rounded Tiles */
+    .bg-cubes-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .bg-cube {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(7, 7, 9, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 800;
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.3);
+      animation: floatCube 12s infinite ease-in-out;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      user-select: none;
+    }
+
+    .bg-cube:nth-child(1)  { top: 5%;   left: 4%;  animation-delay: 0s; }
+    .bg-cube:nth-child(2)  { top: 25%;  left: 12%; animation-delay: -2s; }
+    .bg-cube:nth-child(3)  { top: 50%;  left: 3%;  animation-delay: -4s; }
+    .bg-cube:nth-child(4)  { top: 75%;  left: 10%; animation-delay: -6s; }
+    .bg-cube:nth-child(5)  { top: 8%;   right: 5%; animation-delay: -1s; }
+    .bg-cube:nth-child(6)  { top: 30%;  right: 14%; animation-delay: -3s; }
+    .bg-cube:nth-child(7)  { top: 55%;  right: 6%; animation-delay: -5s; }
+    .bg-cube:nth-child(8)  { top: 80%;  right: 12%; animation-delay: -7s; }
+    .bg-cube:nth-child(9)  { top: 15%;  left: 80%; animation-delay: -8s; font-size: 1.1rem; color: rgba(255, 255, 255, 0.45); }
+    .bg-cube:nth-child(10) { top: 68%;  left: 82%; animation-delay: -9s; }
+    .bg-cube:nth-child(11) { top: 40%;  left: 6%;  animation-delay: -2.5s; }
+    .bg-cube:nth-child(12) { top: 88%;  left: 45%; animation-delay: -4.5s; }
+
+    @keyframes floatCube {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.04); }
+    }
+
+    /* Topbar */
+    .navbar {
+      width: 100%;
+      max-width: calc(100vw - 32px);
+      background: rgba(20, 20, 26, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 14px 28px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      position: relative;
+      z-index: 10;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #ffffff;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .btn-topbar-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-topbar-icon:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.3);
+    }
+
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* MAIN LAYOUT */
+    .main-layout {
+      display: flex; 
+      width: 100%;
+      max-width: calc(100vw - 32px);
+      gap: 32px;
+      position: relative;
+      z-index: 10;
+      align-items: flex-start;
+    }
+
+    .sidebar {
+      width: 300px;
+      flex-shrink: 0;
+      background: rgba(18, 18, 24, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+      position: sticky;
+      top: 24px;
+    }
+
+    .sidebar-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(26, 26, 34, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px 16px;
+      border-radius: 14px;
+      color: #e2e8f0;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-link:hover, .sidebar-link.active {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      transform: translateX(4px);
+    }
+
+    .center-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .surface-card {
+      background: rgba(18, 18, 24, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    .engine-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .engine-icon-wrapper {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .engine-icon {
+      font-size: 32px;
+      color: #ffffff;
+    }
+
+    .engine-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.6px;
+    }
+
+    .description_text {
+      background-color: rgba(26, 26, 34, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 24px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    .description_text h3 {
+      color: #ffffff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Lua Code Textbox Wrapper */
+    .code_textbox_wrapper {
+      background-color: #0b0b0f;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .code_header {
+      background-color: #14141c;
+      padding: 14px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .code_label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #ffffff;
+      color: #000000;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-copy:hover {
+      background-color: #e2e8f0;
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+    }
+
+    .code_textbox {
+      padding: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.86rem;
+      line-height: 1.65;
+      overflow: auto;
+      color: #e3e2e6;
+      white-space: pre;
+      max-height: 520px;
+      user-select: text;
+    }
+
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070709;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ffffff;
+    }
+
+    /* Syntax Highlighting */
+    .lua-keyword { color: #f43f5e; font-weight: 700; }  
+    .lua-builtin { color: #38bdf8; }                 
+    .lua-string  { color: #4ade80; }                 
+    .lua-comment { color: #64748b; font-style: italic; } 
+    .lua-number  { color: #fbbf24; }                 
+
+    .site-footer {
+      width: 100%;
+      max-width: 950px;
+      margin-top: 36px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: #64748b;
+      font-weight: 500;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-discord {
+      background: rgba(88, 101, 242, 0.15);
+      border: 1px solid rgba(88, 101, 242, 0.4);
+      color: #8ea1e1;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-discord:hover {
+      background: #5865f2;
+      color: #ffffff;
+      border-color: #5865f2;
+      box-shadow: 0 0 16px rgba(88, 101, 242, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      .main-layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Technical Grid Background Overlay -->
+  <div class="bg-grid-overlay"></div>
+
+  <!-- Floating Background Rounded Tiles Wallpaper -->
+  <div class="bg-cubes-container">
+    <div class="bg-cube">Nothing</div>
+    <div class="bg-cube">OrNo</div>
+    <div class="bg-cube">Studio</div>
+    <div class="bg-cube">Crew</div>
+    <div class="bg-cube">C++</div>
+    <div class="bg-cube">.dll</div>
+    <div class="bg-cube">Luau</div>
+    <div class="bg-cube">Engine</div>
+    <div class="bg-cube">:3</div>
+    <div class="bg-cube">MatriX</div>
+    <div class="bg-cube">Substrate</div>
+    <div class="bg-cube">ZeroModel</div>
+  </div>
+
+  <!-- Topbar -->
+  <nav class="navbar">
+    <div class="brand-section">
+      <a href="index.html" class="brand-title">NothingOrNo</a>
+    </div>
+
+    <div class="nav-links">
+      <a href="index.html" class="btn-topbar-icon" title="Home Hub">
+        <span class="material-symbols-outlined">home</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- MAIN LAYOUT -->
+  <main class="main-layout">
+    
+    <!-- Left Sidebar / Explorer -->
+    <aside class="sidebar">
+      <div class="sidebar-title">
+        <span class="material-symbols-outlined" style="font-size: 20px;">folder_open</span>
+        All Projects
+      </div>
+      <div id="sidebarProductsList" style="display:flex; flex-direction:column; gap:12px;">
+        <a href="zeromodel.html" class="sidebar-link">
+          <span class="material-symbols-outlined" style="font-size: 18px;">view_in_ar</span> ZeroModel Studio
+        </a>
+        <a href="launcher.html" class="sidebar-link">
+          <span class="material-symbols-outlined" style="font-size: 18px;">rocket_launch</span> Launcher
+        </a>
+        <a href="nanomanager.html" class="sidebar-link">
+          <span class="material-symbols-outlined" style="font-size: 18px;">terminal</span> NanoManager
+        </a>
+        <a href="substratefx.html" class="sidebar-link active">
+          <span class="material-symbols-outlined" style="font-size: 18px;">tune</span> SubstrateFX Engine
+        </a>
+        <a href="matrix.html" class="sidebar-link">
+          <span class="material-symbols-outlined" style="font-size: 18px;">data_object</span> MatriX Pipeline
+        </a>
+      </div>
+
+      <!-- Explorer Legal / Policy Section -->
+      <div style="margin-top: auto; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 14px; display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; letter-spacing: 0.5px; padding-left: 4px;">LEGAL & POLICIES</div>
+        <a href="privacy.html" class="sidebar-link" style="padding: 8px 12px; font-size: 0.8rem;">
+          <span class="material-symbols-outlined" style="font-size: 16px;">gpp_maybe</span> Privacy Policy
+        </a>
+        <a href="tos.html" class="sidebar-link" style="padding: 8px 12px; font-size: 0.8rem;">
+          <span class="material-symbols-outlined" style="font-size: 16px;">description</span> Terms of Service
+        </a>
+      </div>
+    </aside>
+
+    <!-- Center Content -->
+    <div class="center-content">
+      <section class="surface-card">
+        
+        <div class="engine-header">
+          <div class="engine-icon-wrapper">
+            <span class="material-symbols-outlined engine-icon">tune</span>
+          </div>
+          <div>
+            <h1 class="engine-title">SubstrateFX Engine</h1>
+            <div style="font-size: 0.82rem; color: #60a5fa; font-family: 'JetBrains Mono', monospace; font-weight: 700; margin-top: 2px;">
+              ROBLOX LUAU PHYSICS & STRUCTURAL STRESS FRAMEWORK
+            </div>
+          </div>
+        </div>
+
+        <!-- Description Text Box -->
+        <div class="description_text">
+          <h3>
+            <span class="material-symbols-outlined" style="font-size: 20px; color: #38bdf8;">info</span>
+            Overview & Capabilities
+          </h3>
+          <p>
+            SubstrateFX is a high-performance Luau physics and structural stress simulation framework designed for Roblox Studio. It evaluates real physical mass distributions, structural stress vectors, aerodynamic drag profiles, hydrodynamics, and thermal fatigue across complex models.
+          </p>
+        </div>
+
+        <!-- Code Textbox Container -->
+        <div class="code_textbox_wrapper">
+          <div class="code_header">
+            <span class="code_label">
+              <span class="material-symbols-outlined" style="font-size: 16px;">code</span>
+              SubstrateFX.luau
+            </span>
+
+            <button class="btn-copy" onclick="copyCode(this)">
+              <span class="material-symbols-outlined" style="font-size: 16px;">content_copy</span>
+              <span class="copy-text">Copy Module</span>
+            </button>
+          </div>
+
+          <div class="code_textbox" id="luaCode"></div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div>NothingOrNo Studio • Independent Asset Showcase</div>
+    <a href="https://discord.gg/FNsQymaUWv" target="_blank" class="btn-discord">
+      <span class="material-symbols-outlined" style="font-size: 16px;">chat</span> Join Discord Community
+    </a>
+  </footer>
+
+  <script>
+    const rawCode = `--!strict
+--[[
+	 _________________.            __                    __                   ___________________  
+	╱  _____╱__ _╲_ │__   _______╱  │_____________ _╱  │_  ____╲_  _____╱╲   ╲╱  ╱
+	╲_____  ╲│  │  ╲ __ ╲ ╱  ___╱╲   __╲_  __ ╲__  ╲╲   __╲╱ __ ╲│   __)   ╲   _╱  
+	╱      ╲  │  ╱ ╲_╲ ╲╲___ ╲  │  │  │  │ ╲╱╱ __ ╲│  │ ╲  ___╱│   ╲    ╱     ╲  
+	╱_______  ╱____╱│___  ____  > │__│  │__│  (____  ╱__│  ╲___  >___  ╱   ╱___╱╲  ╲
+	        ╲╱      ╲╱     ╲╱                 ╲╱          ╲╱    ╲╱           ╲_╱
+	
+	SubstrateFX is made by NothingOrNo Labs. 
+--]]
+
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+local UserInputService = game:GetService("UserInputService")
+
+local SubstrateFX = {}
+SubstrateFX.__index = SubstrateFX
+
+-- Engine Constants & Unit Conversion Factors
+SubstrateFX.KG_PER_RMU = 0.45359237 -- Fixed RMU to KG ratio
+SubstrateFX.STUDS_PER_METER = 0.28
+SubstrateFX.METERS_PER_STUD = 1 / 0.28
+SubstrateFX.DEFAULT_DENSITY = 0.7
+SubstrateFX.AIR_DENSITY_KG_M3 = 1.225
+SubstrateFX.GRAVITY_ACCEL_MS2 = 9.81
+SubstrateFX.CHARACTER_DENSITY_SCALER = 0.32
+SubstrateFX.BASELINE_WEIGHT_KG = 70.0
+SubstrateFX.DEFAULT_WALKSPEED = 16.0
+SubstrateFX.DEFAULT_JUMP_HEIGHT = 7.2
+SubstrateFX.MIN_HUMAN_MASS_KG = 30.0
+SubstrateFX.MAX_HUMAN_MASS_KG = 350.0
+SubstrateFX.MIN_WALKSPEED = 4.0
+SubstrateFX.MAX_WALKSPEED = 36.0
+SubstrateFX.MIN_JUMP_HEIGHT = 1.5
+SubstrateFX.MAX_JUMP_HEIGHT = 22.0
+SubstrateFX.HPC_UPDATE_INTERVAL = 1 / 30
+SubstrateFX.HPC_GRAVITY_MULTIPLIER = 10.0
+SubstrateFX.WS_STRESS_THRESHOLD = 0.05
+SubstrateFX.ATMOSPHERE_SCALE_HEIGHT = 8500
+SubstrateFX.SEA_LEVEL_PRESSURE = 101325
+SubstrateFX.MOLAR_MASS_AIR = 0.0289644
+SubstrateFX.UNIVERSAL_GAS_CONSTANT = 8.31447
+
+-- Safe Mode State Property
+SubstrateFX.SafeModeActive = false
+
+local weightCache = {}
+local comIndicatorCache = {}
+local materialYieldStrengths = {
+	[Enum.Material.Wood] = 40,
+	[Enum.Material.WoodPlanks] = 35,
+	[Enum.Material.Concrete] = 120,
+	[Enum.Material.Brick] = 80,
+	[Enum.Material.CorrodedMetal] = 150,
+	[Enum.Material.DiamondPlate] = 250,
+	[Enum.Material.Glass] = 15,
+	[Enum.Material.Ice] = 5,
+	[Enum.Material.Plastic] = 50,
+	[Enum.Material.SmoothPlastic] = 50,
+	[Enum.Material.Metal] = 200,
+}
+
+local materialDensities = {
+	[Enum.Material.Wood] = 700,
+	[Enum.Material.Concrete] = 2400,
+	[Enum.Material.Brick] = 1900,
+	[Enum.Material.Metal] = 7850,
+	[Enum.Material.Glass] = 2500,
+	[Enum.Material.Plastic] = 900,
+}
+
+export type WSNode = {
+	Part: BasePart,
+	Vertices: { Vector3 },
+	Normals: { Vector3 },
+	StressFactor: number,
+	DominantAxis: Vector3,
+	CenterOfMassOffset: Vector3,
+	MassKg: number,
+	AccruedFatigue: number,
+	TemperatureCelsius: number,
+	IsSubmerged: boolean,
+	BuoyancyForce: Vector3,
+	ThermodynamicConductionRate: number,
+	AerodynamicCenter: Vector3,
+	StructuralHealth: number,
+	JointConstraints: { Constraint },
+}
+
+export type HPCController = {
+	Model: Model,
+	Active: boolean,
+	Nodes: { [BasePart]: WSNode },
+	HeartbeatConn: RBXScriptConnection?,
+	WindVector: Vector3,
+	GlobalTemperature: number,
+	FluidLevelY: number,
+	EnableDestruction: boolean,
+	OnPartFractured: BindableEvent?,
+}
+
+-- =========================================================================
+-- SAFE MODE UTILITIES
+-- =========================================================================
+
+function SubstrateFX.SetSafeMode(active: boolean)
+	SubstrateFX.SafeModeActive = active
+end
+
+-- Automatically bind window focus loss on the client to trigger Safe Mode
+if RunService:IsClient() then
+	UserInputService.WindowFocusReleased:Connect(function()
+		SubstrateFX.SetSafeMode(true)
+	end)
+	UserInputService.WindowFocused:Connect(function()
+		SubstrateFX.SetSafeMode(false)
+	end)
+end
+
+-- =========================================================================
+-- CORE MASS & CONVERSION UTILITIES (FIXED)
+-- =========================================================================
+
+function SubstrateFX.getRawRobloxMass(model: Model): number
+	if not model or not model:IsA("Model") then return 0 end
+	local totalMass = 0
+	for _, part in model:GetDescendants() do
+		if part:IsA("BasePart") and not part.Massless then
+			local isAccessory = part:FindFirstAncestorOfClass("Accessory") ~= nil
+			local mass = part:GetMass()
+			if mass <= 0 then
+				local volume = math.min(part.Size.X * part.Size.Y * part.Size.Z, 4.0)
+				local density = part.CustomPhysicalProperties and part.CustomPhysicalProperties.Density or SubstrateFX.DEFAULT_DENSITY
+				mass = volume * density
+			end
+			if isAccessory then mass = math.clamp(mass, 0.01, 0.25) end
+			totalMass += mass
+		end
+	end
+	return totalMass
+end
+
+function SubstrateFX.getWeightInKg(model: Model): number
+	if not model or not model:IsA("Model") then return 0 end
+	if weightCache[model] and weightCache[model] > 0 then return weightCache[model] end
+	local rawRMU = SubstrateFX.getRawRobloxMass(model)
+	local rawKg = rawRMU * SubstrateFX.KG_PER_RMU
+	if model:FindFirstChildOfClass("Humanoid") then
+		rawKg = math.clamp(rawKg * SubstrateFX.CHARACTER_DENSITY_SCALER, SubstrateFX.MIN_HUMAN_MASS_KG, SubstrateFX.MAX_HUMAN_MASS_KG)
+	end
+	local finalKg = math.floor(rawKg * 100 + 0.5) / 100
+	if finalKg > 0 then
+		weightCache[model] = finalKg
+		model.Destroying:Once(function()
+			weightCache[model] = nil
+			SubstrateFX.clearCoMIndicator(model)
+		end)
+	end
+	return finalKg
+end
+
+SubstrateFX.getWeightKg = SubstrateFX.getWeightInKg
+
+function SubstrateFX.invalidateCache(model: Model)
+	weightCache[model] = nil
+end
+
+-- =========================================================================
+-- MATERIAL-DRIVEN CENTER OF MASS (COM) ENGINE
+-- =========================================================================
+
+function SubstrateFX.getCenterOfMass(model: Model): (Vector3, Vector3)
+	if not model or not model:IsA("Model") then return Vector3.zero, Vector3.zero end
+	local totalWeightedPos, totalMass = Vector3.zero, 0
+	for _, part in model:GetDescendants() do
+		if part:IsA("BasePart") and not part.Massless then
+			local densityVal = materialDensities[part.Material] or 700
+			local volume = part.Size.X * part.Size.Y * part.Size.Z
+			local mass = volume * (densityVal / 1000)
+			
+			part.CustomPhysicalProperties = PhysicalProperties.new(
+				densityVal / 1000, 0.3, 0.5, 1, 1
+			)
+			
+			totalWeightedPos += (part.Position * mass)
+			totalMass += mass
+		end
+	end
+	if totalMass == 0 then return Vector3.zero, Vector3.zero end
+	local worldCoM = totalWeightedPos / totalMass
+	local primary = model.PrimaryPart or model:FindFirstChild("HumanoidRootPart") or model:FindFirstChildWhichIsA("BasePart")
+	if primary then primary.CenterOfMass = worldCoM end
+	return worldCoM, primary and primary.CFrame:PointToObjectSpace(worldCoM) or Vector3.zero
+end
+
+function SubstrateFX.getInertiaTensor(model: Model): Vector3
+	local worldCoM = SubstrateFX.getCenterOfMass(model)
+	local Ix, Iy, Iz = 0, 0, 0
+	for _, part in model:GetDescendants() do
+		if part:IsA("BasePart") and not part.Massless then
+			local m = part:GetMass()
+			if m <= 0 then m = 0.05 end
+			local r = part.Position - worldCoM
+			Ix += m * (r.Y^2 + r.Z^2)
+			Iy += m * (r.X^2 + r.Z^2)
+			Iz += m * (r.X^2 + r.Y^2)
+		end
+	end
+	return Vector3.new(Ix, Iy, Iz)
+end
+
+function SubstrateFX.renderCoMIndicator(model: Model, parentFolder: Instance?)
+	local worldCoM = SubstrateFX.getCenterOfMass(model)
+	local primary = model.PrimaryPart or model:FindFirstChild("HumanoidRootPart")
+	if not primary then return end
+	local sphere = comIndicatorCache[model]
+	if not sphere then
+		sphere = Instance.new("Part")
+		sphere.Name = "SubstrateCoM_" .. model.Name
+		sphere.Shape = Enum.PartType.Ball
+		sphere.Size = Vector3.new(0.6, 0.6, 0.6)
+		sphere.Color = Color3.fromRGB(0, 229, 255)
+		sphere.Material = Enum.Material.Neon
+		sphere.CanCollide, sphere.Anchored = false, true
+		sphere.Parent = parentFolder or Workspace
+		comIndicatorCache[model] = sphere
+	end
+	sphere.Position = worldCoM
+end
+
+function SubstrateFX.clearCoMIndicator(model: Model)
+	if comIndicatorCache[model] then
+		comIndicatorCache[model]:Destroy()
+		comIndicatorCache[model] = nil
+	end
+end
+
+-- =========================================================================
+-- KINEMATICS, AERODYNAMICS & DYNAMICS
+-- =========================================================================
+
+function SubstrateFX.getVelocityMS(partOrModel: Instance): Vector3
+	local basePart: BasePart? = nil
+	if partOrModel:IsA("BasePart") then
+		basePart = partOrModel
+	elseif partOrModel:IsA("Model") then
+		basePart = partOrModel.PrimaryPart or partOrModel:FindFirstChild("HumanoidRootPart") or partOrModel:FindFirstChildWhichIsA("BasePart")
+	end
+	return basePart and (basePart.AssemblyLinearVelocity * SubstrateFX.STUDS_PER_METER) or Vector3.zero
+end
+
+function SubstrateFX.getMomentum(model: Model): Vector3
+	return SubstrateFX.getVelocityMS(model) * SubstrateFX.getWeightInKg(model)
+end
+
+function SubstrateFX.getKineticEnergy(model: Model): number
+	local speed = SubstrateFX.getVelocityMS(model).Magnitude
+	return 0.5 * SubstrateFX.getWeightInKg(model) * (speed ^ 2)
+end
+
+function SubstrateFX.getCrossSectionalArea(model: Model, moveDirection: Vector3): number
+	local _, size = model:GetBoundingBox()
+	local sizeMeters = size * SubstrateFX.STUDS_PER_METER
+	if moveDirection.Magnitude < 0.001 then return sizeMeters.X * sizeMeters.Y end
+	local dir = moveDirection.Unit
+	return (math.abs(dir.X) * (sizeMeters.Y * sizeMeters.Z)) + (math.abs(dir.Y) * (sizeMeters.X * sizeMeters.Z)) + (math.abs(dir.Z) * (sizeMeters.X * sizeMeters.Y))
+end
+
+function SubstrateFX.calculateAerodynamicDrag(model: Model, dragCoefficient: number?): Vector3
+	local cd = dragCoefficient or 1.05
+	local velocityMS = SubstrateFX.getVelocityMS(model)
+	local speed = velocityMS.Magnitude
+	if speed < 0.1 then return Vector3.zero end
+	local area = SubstrateFX.getCrossSectionalArea(model, velocityMS)
+	return -velocityMS.Unit * (0.5 * SubstrateFX.AIR_DENSITY_KG_M3 * (speed ^ 2) * cd * area)
+end
+
+function SubstrateFX.getAtmosphericDensityAtAltitude(altitudeStuds: number): number
+	local altitudeMeters = altitudeStuds * SubstrateFX.STUDS_PER_METER
+	return SubstrateFX.AIR_DENSITY_KG_M3 * math.exp(-altitudeMeters / SubstrateFX.ATMOSPHERE_SCALE_HEIGHT)
+end
+
+function SubstrateFX.calculateLiftAndMagnus(part: BasePart): (Vector3, Vector3)
+	local vel = part.AssemblyLinearVelocity * SubstrateFX.STUDS_PER_METER
+	local angVel = part.AssemblyAngularVelocity
+	local speed = vel.Magnitude
+	if speed < 0.5 then return Vector3.zero, Vector3.zero end
+	local density = SubstrateFX.getAtmosphericDensityAtAltitude(part.Position.Y)
+	local crossArea = (part.Size.X * part.Size.Z) * (SubstrateFX.STUDS_PER_METER ^ 2)
+	local angleOfAttack = math.rad(part.Orientation.X)
+	local liftMagnitude = 0.5 * density * (speed ^ 2) * crossArea * math.sin(2 * angleOfAttack)
+	local liftVector = part.CFrame.UpVector * liftMagnitude
+	local magnusVector = vel.Unit:Cross(angVel) * (0.5 * density * crossArea * part.Size.Y * SubstrateFX.STUDS_PER_METER)
+	return liftVector, magnusVector
+end
+
+function SubstrateFX.applyImpulse(targetModel: Model, directionVector: Vector3, forceMagnitudeNewtons: number)
+	local primary = targetModel.PrimaryPart or targetModel:FindFirstChild("HumanoidRootPart") or targetModel:FindFirstChildWhichIsA("BasePart")
+	if not primary then return end
+	local massKg = SubstrateFX.getWeightInKg(targetModel)
+	primary:ApplyImpulse(directionVector.Unit * ((forceMagnitudeNewtons / massKg) * primary:GetMass()))
+end
+
+function SubstrateFX.calculateCollisionImpulse(modelA: Model, modelB: Model, restitution: number?): (Vector3, Vector3)
+	local e = math.clamp(restitution or 0.5, 0, 1)
+	local mA, mB = SubstrateFX.getWeightInKg(modelA), SubstrateFX.getWeightInKg(modelB)
+	local vA, vB = SubstrateFX.getVelocityMS(modelA), SubstrateFX.getVelocityMS(modelB)
+	if (mA + mB) == 0 then return Vector3.zero, Vector3.zero end
+	return ((mA - e * mB) * vA + (1 + e) * mB * vB) / (mA + mB), ((mB - e * mA) * vB + (1 + e) * mA * vA) / (mA + mB)
+end
+
+function SubstrateFX.applyMovementForces(character: Model)
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	if not humanoid then return end
+	humanoid.UseJumpPower = false
+	local ratio = SubstrateFX.BASELINE_WEIGHT_KG / math.max(SubstrateFX.getWeightInKg(character), 1)
+	local scaleFactor = math.pow(ratio, 0.35)
+	humanoid.WalkSpeed = math.clamp(SubstrateFX.DEFAULT_WALKSPEED * scaleFactor, SubstrateFX.MIN_WALKSPEED, SubstrateFX.MAX_WALKSPEED)
+	humanoid.JumpHeight = math.clamp(SubstrateFX.DEFAULT_JUMP_HEIGHT * scaleFactor, SubstrateFX.MIN_JUMP_HEIGHT, SubstrateFX.MAX_JUMP_HEIGHT)
+end
+
+function SubstrateFX.bindFallDamage(character: Model, onDamageCallback: ((damage: number, impactEnergy: number) -> ())?)
+	local humanoid = character:WaitForChild("Humanoid") :: Humanoid
+	local rootPart = character:WaitForChild("HumanoidRootPart") :: BasePart
+	local maxFreefallVelocityMS = 0
+	humanoid.StateChanged:Connect(function(_, newState)
+		if newState == Enum.HumanoidStateType.Freefall then
+			maxFreefallVelocityMS = 0
+			task.spawn(function()
+				while humanoid:GetState() == Enum.HumanoidStateType.Freefall do
+					local currentVelMS = math.abs(rootPart.AssemblyLinearVelocity.Y) * SubstrateFX.STUDS_PER_METER
+					if currentVelMS > maxFreefallVelocityMS then maxFreefallVelocityMS = currentVelMS end
+					task.wait(0.05)
+				end
+			end)
+		elseif newState == Enum.HumanoidStateType.Landed then
+			if maxFreefallVelocityMS > 14.0 then
+				local massKg = SubstrateFX.getWeightInKg(character)
+				local excessEnergy = math.max(0, (0.5 * massKg * (maxFreefallVelocityMS ^ 2)) - (0.5 * massKg * (196.0)))
+				local damage = math.clamp(excessEnergy * 0.008, 5, 100)
+				if onDamageCallback then onDamageCallback(damage, excessEnergy) else humanoid:TakeDamage(damage) end
+			end
+			maxFreefallVelocityMS = 0
+		end
+	end)
+end
+
+function SubstrateFX.createScalePart(cframe: CFrame, parent: Instance?): (Part, SurfaceGui)
+	local scaleBase = Instance.new("Part")
+	scaleBase.Name, scaleBase.Size, scaleBase.CFrame, scaleBase.Anchored = "SubstrateFX_WeightScale", Vector3.new(6, 0.6, 6), cframe, true
+	scaleBase.Material, scaleBase.Color, scaleBase.TopSurface = Enum.Material.SmoothPlastic, Color3.fromRGB(25, 28, 35), Enum.SurfaceType.Smooth
+	scaleBase.Parent = parent or Workspace
+
+	local surfaceGui = Instance.new("SurfaceGui")
+	surfaceGui.Name, surfaceGui.Face, surfaceGui.SizingMode, surfaceGui.PixelsPerStud = "DisplayGui", Enum.NormalId.Top, Enum.SurfaceGuiSizingMode.PixelsPerStud, 50
+	surfaceGui.Parent = scaleBase
+
+	local readLabel = Instance.new("TextLabel")
+	readLabel.Name, readLabel.Size, readLabel.BackgroundTransparency = "Readout", UDim2.new(1, 0, 1, 0), 1
+	readLabel.FontFace, readLabel.TextSize, readLabel.TextColor3 = Font.fromEnum(Enum.Font.Code), 28, Color3.fromRGB(0, 229, 255)
+	readLabel.Text, readLabel.Parent = "SUBSTRATE-FX READY\\nSTEP ON SCALE", surfaceGui
+
+	task.spawn(function()
+		while scaleBase and scaleBase.Parent do
+			local detectedModels, totalKg = {}, 0
+			for _, p in workspace:GetPartsInPart(scaleBase) do
+				local model = p:FindFirstAncestorOfClass("Model")
+				if model and not detectedModels[model] then
+					detectedModels[model] = true
+					totalKg += SubstrateFX.getWeightInKg(model)
+				end
+			end
+			readLabel.Text = totalKg > 0 and string.format("DETECTED MASS:\\n%.2f KG\\n%.2f RMU", totalKg, totalKg / SubstrateFX.KG_PER_RMU) or "SUBSTRATE-FX READY\\nSTEP ON SCALE"
+			task.wait(0.1)
+		end
+	end)
+	return scaleBase, surfaceGui
+end
+
+-- =========================================================================
+-- HEAVY PRIORITIES CYCLE (HPC) & STRESS NODE SIMULATION
+-- =========================================================================
+
+function SubstrateFX.buildPartStressNode(part: BasePart): WSNode
+	local size = part.Size / 2
+	local joints = {}
+	for _, joint in ipairs(part:GetJoints()) do
+		if joint:IsA("Constraint") or joint:IsA("Weld") or joint:IsA("Motor6D") then
+			table.insert(joints, joint)
+		end
+	end
+	return {
+		Part = part,
+		Vertices = {
+			Vector3.new(-size.X, -size.Y, -size.Z), Vector3.new(size.X, -size.Y, -size.Z),
+			Vector3.new(-size.X, size.Y, -size.Z), Vector3.new(size.X, size.Y, -size.Z),
+			Vector3.new(-size.X, -size.Y, size.Z), Vector3.new(size.X, -size.Y, size.Z),
+			Vector3.new(-size.X, size.Y, size.Z), Vector3.new(size.X, size.Y, size.Z),
+		},
+		Normals = {
+			Vector3.new(1, 0, 0), Vector3.new(-1, 0, 0), Vector3.new(0, 1, 0),
+			Vector3.new(0, -1, 0), Vector3.new(0, 0, 1), Vector3.new(0, 0, -1)
+		},
+		StressFactor = 0,
+		DominantAxis = Vector3.zero,
+		CenterOfMassOffset = Vector3.zero,
+		MassKg = part:GetMass() * SubstrateFX.KG_PER_RMU,
+		AccruedFatigue = 0,
+		TemperatureCelsius = 20,
+		IsSubmerged = false,
+		BuoyancyForce = Vector3.zero,
+		ThermodynamicConductionRate = 0.05,
+		AerodynamicCenter = Vector3.zero,
+		StructuralHealth = materialYieldStrengths[part.Material] or 50,
+		JointConstraints = joints,
+	}
+end
+
+function SubstrateFX.computeWeightStress(node: WSNode): (number, Vector3, Vector3)
+	local part = node.Part
+	local cf = part.CFrame
+	local mass = part:GetMass()
+	local highestStress, targetVertex, dominantNormal = 0, node.Vertices[1], node.Normals[1]
+	local downVector = Vector3.new(0, -1, 0)
+
+	for _, norm in ipairs(node.Normals) do
+		local alignment = math.abs(cf:VectorToWorldSpace(norm):Dot(downVector))
+		local shear = (1 - alignment) * mass
+		if shear > highestStress then
+			highestStress = shear
+			dominantNormal = norm
+		end
+	end
+
+	local maxProj = -math.huge
+	for _, vert in ipairs(node.Vertices) do
+		local proj = vert:Dot(dominantNormal)
+		if proj > maxProj then
+			maxProj = proj
+			targetVertex = vert
+		end
+	end
+
+	return highestStress, dominantNormal, targetVertex * (highestStress / (mass + 0.001))
+end
+
+function SubstrateFX.calculateHydrodynamics(node: WSNode, fluidLevelY: number): Vector3
+	local part = node.Part
+	local partBottomY = part.Position.Y - (part.Size.Y / 2)
+	local partTopY = part.Position.Y + (part.Size.Y / 2)
+	if partTopY <= fluidLevelY then
+		node.IsSubmerged = true
+		local submergedVolume = (part.Size.X * part.Size.Y * part.Size.Z) * (SubstrateFX.STUDS_PER_METER ^ 3)
+		return Vector3.new(0, 1000 * submergedVolume * SubstrateFX.GRAVITY_ACCEL_MS2, 0)
+	elseif partBottomY < fluidLevelY then
+		node.IsSubmerged = true
+		local submRatio = (fluidLevelY - partBottomY) / part.Size.Y
+		local submergedVolume = (part.Size.X * part.Size.Y * part.Size.Z * submRatio) * (SubstrateFX.STUDS_PER_METER ^ 3)
+		return Vector3.new(0, 1000 * submergedVolume * SubstrateFX.GRAVITY_ACCEL_MS2, 0)
+	end
+	node.IsSubmerged = false
+	return Vector3.zero
+end
+
+function SubstrateFX.processThermalExchange(node: WSNode, ambientTemp: number, dt: number)
+	local tempDiff = ambientTemp - node.TemperatureCelsius
+	node.TemperatureCelsius += tempDiff * node.ThermodynamicConductionRate * dt
+	if node.TemperatureCelsius > 500 then
+		node.StructuralHealth -= (node.TemperatureCelsius - 500) * 0.1 * dt
+	end
+end
+
+function SubstrateFX.evaluateStructuralFracture(node: WSNode, controller: HPCController)
+	if not controller.EnableDestruction then return end
+	if node.AccruedFatigue >= node.StructuralHealth or node.StructuralHealth <= 0 then
+		for _, constraint in ipairs(node.JointConstraints) do
+			if constraint and constraint.Parent then constraint:Destroy() end
+		end
+		node.Part:BreakJoints()
+		node.Part.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0.3, 0.5, 1, 1)
+		if controller.OnPartFractured then
+			controller.OnPartFractured:Fire(node.Part, node.AccruedFatigue)
+		end
+	end
+end
+
+function SubstrateFX.createHPCController(model: Model): HPCController
+	local nodes: { [BasePart]: WSNode } = {}
+	for _, desc in ipairs(model:GetDescendants()) do
+		if desc:IsA("BasePart") and not desc.Anchored then
+			nodes[desc] = SubstrateFX.buildPartStressNode(desc)
+		end
+	end
+	return {
+		Model = model,
+		Active = false,
+		Nodes = nodes,
+		HeartbeatConn = nil,
+		WindVector = Vector3.zero,
+		GlobalTemperature = 20,
+		FluidLevelY = -math.huge,
+		EnableDestruction = true,
+		OnPartFractured = Instance.new("BindableEvent"),
+	}
+end
+
+function SubstrateFX.startHPC(controller: HPCController)
+	if controller.Active then return end
+	controller.Active = true
+	local accumulator = 0
+	controller.HeartbeatConn = RunService.Heartbeat:Connect(function(dt)
+		-- Safe Mode Throttling: Skip or reduce cycle frequency if Safe Mode is engaged
+		if SubstrateFX.SafeModeActive then
+			accumulator += (dt * 0.25) -- Slow down processing rate by 75% in Safe Mode
+		else
+			accumulator += dt
+		end
+
+		if accumulator < SubstrateFX.HPC_UPDATE_INTERVAL then return end
+		local stepDt = accumulator
+		accumulator = 0
+
+		for part, node in pairs(controller.Nodes) do
+			if not part:IsDescendantOf(Workspace) or part.Anchored then
+				controller.Nodes[part] = nil
+				continue
+			end
+
+			local stress, normalAxis, comOffset = SubstrateFX.computeWeightStress(node)
+			node.StressFactor = stress
+			node.DominantAxis = normalAxis
+			node.CenterOfMassOffset = comOffset
+
+			SubstrateFX.processThermalExchange(node, controller.GlobalTemperature, stepDt)
+
+			local buoyancy = SubstrateFX.calculateHydrodynamics(node, controller.FluidLevelY)
+			node.BuoyancyForce = buoyancy
+
+			if node.IsSubmerged then
+				local damping = -part.AssemblyLinearVelocity * 2.5 * part:GetMass() * stepDt
+				part:ApplyCentralImpulse(buoyancy * stepDt + damping)
+			end
+
+			if controller.WindVector.Magnitude > 0 then
+				local relativeWind = controller.WindVector - (part.AssemblyLinearVelocity * SubstrateFX.STUDS_PER_METER)
+				local windForce = 0.5 * SubstrateFX.AIR_DENSITY_KG_M3 * relativeWind.Magnitude * relativeWind
+				part:ApplyCentralImpulse(windForce * stepDt)
+			end
+
+			if stress > SubstrateFX.WS_STRESS_THRESHOLD then
+				local worldOffset = part.CFrame:VectorToWorldSpace(comOffset)
+				local gravitationalImpulse = Vector3.new(0, -Workspace.Gravity * (SubstrateFX.HPC_GRAVITY_MULTIPLIER - 1) * part:GetMass() * stepDt, 0)
+				local rotationalTorque = worldOffset:Cross(gravitationalImpulse)
+
+				node.AccruedFatigue += (stress * stepDt)
+				SubstrateFX.evaluateStructuralFracture(node, controller)
+
+				part:ApplyCentralImpulse(gravitationalImpulse)
+				part:ApplyAngularImpulse(rotationalTorque)
+			end
+		end
+	end)
+end
+
+function SubstrateFX.stopHPC(controller: HPCController)
+	controller.Active = false
+	if controller.HeartbeatConn then
+		controller.HeartbeatConn:Disconnect()
+		controller.HeartbeatConn = nil
+	end
+end
+
+function SubstrateFX.castStressRay(origin: Vector3, direction: Vector3, ignoreList: {Instance}?): (RaycastResult?, number)
+	local params = RaycastParams.new()
+	params.FilterType = Enum.RaycastFilterType.Exclude
+	params.FilterDescendantsInstances = ignoreList or {}
+	local result = Workspace:Raycast(origin, direction, params)
+	if result and result.Instance then
+		local yield = materialYieldStrengths[result.Instance.Material] or 50
+		return result, yield
+	end
+	return result, 0
+end
+
+return SubstrateFX`;
+
+    function highlightLua(code) {
+      const tokens = [];
+      let highlighted = code
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/(--[^\n]*)/g, match => {
+          tokens.push(`<span class="lua-comment">${match}</span>`);
+          return `___TOKEN_${tokens.length - 1}___`;
+        })
+        .replace(/("[^"]*"|'[^']*')/g, match => {
+          tokens.push(`<span class="lua-string">${match}</span>`);
+          return `___TOKEN_${tokens.length - 1}___`;
+        })
+        .replace(/\b(local|function|return|end|if|then|else|elseif|for|while|do|repeat|until|in|require|self|export|type)\b/g, '<span class="lua-keyword">$1</span>')
+        .replace(/\b(game|Workspace|ReplicatedStorage|print|warn|error|WaitForChild|GetService|Enum|Vector3|CFrame|PhysicalProperties|Instance|Task|math|string)\b/g, '<span class="lua-builtin">$1</span>')
+        .replace(/\b(\d+)\b/g, '<span class="lua-number">$1</span>');
+
+      tokens.forEach((token, index) => {
+        highlighted = highlighted.replace(`___TOKEN_${index}___`, token);
+      });
+      return highlighted;
+    }
+
+    document.getElementById("luaCode").innerHTML = highlightLua(rawCode);
+
+    function copyCode(btn) {
+      navigator.clipboard.writeText(rawCode).then(() => {
+        const textSpan = btn.querySelector('.copy-text');
+        textSpan.textContent = 'Copied!';
+        btn.style.backgroundColor = '#ffffff';
+        btn.style.color = '#000000';
+        setTimeout(() => {
+          textSpan.textContent = 'Copy Module';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
