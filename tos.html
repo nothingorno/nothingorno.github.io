@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — NothingOrNo Labs</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Montserrat, JetBrains Mono & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      color: #e3e2e6;
+      background-color: #070709;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Subtle Technical Grid Background Overlay */
+    .bg-grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Floating Background Rounded Tiles */
+    .bg-cubes-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .bg-cube {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(7, 7, 9, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 800;
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.3);
+      animation: floatCube 12s infinite ease-in-out;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      user-select: none;
+    }
+
+    .bg-cube:nth-child(1)  { top: 5%;   left: 4%;  animation-delay: 0s; }
+    .bg-cube:nth-child(2)  { top: 25%;  left: 12%; animation-delay: -2s; }
+    .bg-cube:nth-child(3)  { top: 50%;  left: 3%;  animation-delay: -4s; }
+    .bg-cube:nth-child(4)  { top: 75%;  left: 10%; animation-delay: -6s; }
+    .bg-cube:nth-child(5)  { top: 8%;   right: 5%; animation-delay: -1s; }
+    .bg-cube:nth-child(6)  { top: 30%;  right: 14%; animation-delay: -3s; }
+    .bg-cube:nth-child(7)  { top: 55%;  right: 6%; animation-delay: -5s; }
+    .bg-cube:nth-child(8)  { top: 80%;  right: 12%; animation-delay: -7s; }
+
+    @keyframes floatCube {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.04); }
+    }
+
+    /* Standard Topbar */
+    .navbar {
+      width: 100%;
+      max-width: 900px;
+      background: rgba(20, 20, 26, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 14px 28px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      position: relative;
+      z-index: 10;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #ffffff;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .btn-topbar-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-topbar-icon:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.3);
+    }
+
+    /* MAIN CONTAINER */
+    .container {
+      width: 100%;
+      max-width: 900px;
+      background: rgba(18, 18, 24, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      padding: 40px;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .header-section {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 24px;
+    }
+
+    .page-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.8px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    .meta-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .policy-content {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      line-height: 1.7;
+      color: #cbd5e1;
+      font-size: 0.98rem;
+    }
+
+    .section-block {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .list-custom {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .list-custom li {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .list-custom li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #3b82f6;
+      font-weight: bold;
+    }
+
+    .link-styled {
+      color: #60a5fa;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.15s ease;
+    }
+
+    .link-styled:hover {
+      color: #93c5fd;
+      text-decoration: underline;
+    }
+
+    .code-badge {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      width: 100%;
+      max-width: 900px;
+      margin-top: 32px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: #64748b;
+      font-weight: 500;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-discord {
+      background: rgba(88, 101, 242, 0.15);
+      border: 1px solid rgba(88, 101, 242, 0.4);
+      color: #8ea1e1;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-discord:hover {
+      background: #5865f2;
+      color: #ffffff;
+      border-color: #5865f2;
+      box-shadow: 0 0 16px rgba(88, 101, 242, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Wallpaper -->
+  <div class="bg-grid-overlay"></div>
+  <div class="bg-cubes-container">
+    <div class="bg-cube">Nothing</div>
+    <div class="bg-cube">OrNo</div>
+    <div class="bg-cube">Bot</div>
+    <div class="bg-cube">Fly.io</div>
+    <div class="bg-cube">GitHub</div>
+    <div class="bg-cube">Discord</div>
+    <div class="bg-cube">ToS</div>
+    <div class="bg-cube">Terms</div>
+  </div>
+
+  <!-- Topbar -->
+  <nav class="navbar">
+    <div class="brand-section">
+      <a href="index.html" class="brand-title">NothingOrNo</a>
+    </div>
+
+    <div>
+      <a href="index.html" class="btn-topbar-icon" title="Return Home">
+        <span class="material-symbols-outlined">home</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+    <div class="header-section">
+      <h1 class="page-title">
+        <span class="material-symbols-outlined" style="font-size: 36px; color: #3b82f6;">description</span>
+        Terms of Service
+      </h1>
+      <div class="meta-bar">
+        <span class="meta-pill">Effective Date: November 1, 2026</span>
+        <span class="meta-pill">App: Commit Bot / GitHub Changelog Bot</span>
+        <span class="meta-pill">Operator: NothingOrNo (nothingorno)</span>
+      </div>
+    </div>
+
+    <div class="policy-content">
+      
+      <!-- 1. Acceptance of Terms -->
+      <section class="section-block">
+        <h2 class="section-title">
+          <span class="material-symbols-outlined" style="font-size: 20px; color: #60a5fa;">check_circle</span>
+          1. Acceptance of Terms
+        </h2>
+        <p>By inviting our Discord bot to your server, using its commands, or accessing services provided on nothingorno.github.io, you agree to be bound by these Terms of Service. If you do not agree to these terms, you must discontinue use of the bot and remove it from your Discord servers.</p>
+      </section>
+
+      <!-- 2. Description of Service -->
+      <section class="section-block">
+        <h2 class="section-title">
+          <span class="material-symbols-outlined" style="font-size: 20px; color: #60a5fa;">dns</span>
+          2. Description of Service
+        </h2>
+        <p>The application provides automated tracking of public GitHub repositories (such as <span class="code-badge">nothingorno/nothingorno.github.io</span>), formatting commit statistics and changelogs, and posting them directly into designated Discord channels. It also provides interactive features via Discord commands (such as <span class="code-badge">/check</span>, <span class="code-badge">/status</span>, and <span class="code-badge">!ping</span>).</p>
+      </section>
+
+      <!-- 3. Acceptable Use Policy -->
+      <section class="section-block">
+        <h2 class="section-title">
+          <span class="material-symbols-outlined" style="font-size: 20px; color: #60a5fa;">verified_user</span>
+          3. Acceptable Use Policy
+        </h2>
+        <p>When interacting with our bot and services, you agree not to:</p>
+        <ul class="list-custom">
+          <li>Use the bot for any unlawful, malicious, or abusive activities.</li>
+          <li>Attempt to disrupt, overload, or exploit the hosting infrastructure (Fly.io) or GitHub API integrations.</li>
+          <li>Use the bot to spam Discord channels, harass users, or distribute unauthorized, harmful, or copyright-infringing material.</li>
+          <li>Reverse-engineer, decompile, or attempt to extract source code from our restricted backend systems where unauthorized.</li>
+        </ul>
+      </section>
+
+      <!-- 4. Availability and Service Changes -->
+      <section class="section-block">
+        <h2 class="section-title">
+          <span class="material-symbols-outlined" style="font-size: 20px; color: #60a5fa;">schedule</span>
+          4. Availability and Service Changes
+        </h2>
+        <ul class="list-custom">
+          <li><strong>No Guarantee of Uptime:</strong> The service is provided on an "as-is" and "as-available" basis. While hosted on reliable infrastructure, we do not guarantee uninterrupted availability or permanent uptime.</li>
+          <li><strong>Modifications:</strong> We reserve the right to modify, suspend, or discontinue the bot or any of its features at any time without prior notice.</li>
+        </ul>
+      </section>
+
+      <!-- 5. Third-Party Platforms -->
+      <section class="section-block">
+        <h2 class="section-title">
+          <span class="material-symbols-outlined" style="font-size: 20px; color: #60a5fa;">hub</span>
+          5. Third-Party Platforms
+        </h2>
+        <p>Our service integrates with third-party platforms, namely Discord and GitHub. Your use of those platforms is subject to their respective terms and conditions:</p>
+        <ul class="list-custom">
+          <li>Discord Terms of Service</li>
+          <li>GitHub Terms of Service</li>
+        </ul>
+        <p style="margin-top: 8px;">We are not responsible for any service outages, API changes, or policy updates enacted by Discord or GitHub that may impact the bot's functionality.</p>
+      </section>
+
+      <!-- 6. Limitation of Liability -->
+      <section class="section-block">
+        <h2 class="section-title">
+          <span class="material-symbols-outlined" style="font-size: 20px; color: #60a5fa;">security</span>
+          6. Limitation of Liability
+        </h2>
+        <p>To the maximum extent permitted by applicable law, the developer (nothingorno) shall not be held liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use the bot, including but not limited to loss of data, server downtime, or inaccurate changelog reporting.</p>
+      </section>
+
+      <!-- 7. Changes to These Terms -->
+      <section class="section-block">
+        <h2 class="section-title">
+          <span class="material-symbols-outlined" style="font-size: 20px; color: #60a5fa;">update</span>
+          7. Changes to These Terms
+        </h2>
+        <p>We may update or revise these Terms of Service at any time. Continued use of the bot or website after any modifications indicates your acceptance of the updated terms.</p>
+      </section>
+
+      <!-- 8. Contact -->
+      <section class="section-block">
+        <h2 class="section-title">
+          <span class="material-symbols-outlined" style="font-size: 20px; color: #60a5fa;">alternate_email</span>
+          8. Contact
+        </h2>
+        <p>If you have any questions regarding these Terms of Service, please reach out via GitHub:</p>
+        <ul class="list-custom">
+          <li><strong>GitHub Profile:</strong> <a href="https://github.com/nothingorno" target="_blank" class="link-styled">github.com/nothingorno</a></li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div>NothingOrNo Studio • Independent Asset Showcase</div>
+    <a href="https://discord.gg/FNsQymaUWv" target="_blank" class="btn-discord">
+      <span class="material-symbols-outlined" style="font-size: 16px;">chat</span> Join Discord Community
+    </a>
+  </footer>
+
+</body>
+</html>
