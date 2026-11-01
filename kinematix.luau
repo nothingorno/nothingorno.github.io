@@ -3,6 +3,9 @@ local Workspace = game:GetService("Workspace")
 
 local PhyXR = {}
 
+--Welcome in PhyXR or KinematiX!
+--Here I am...
+
 PhyXR.KG_PER_RMU = 21.952
 PhyXR.STUDS_PER_METER = 0.28
 PhyXR.METERS_PER_STUD = 1 / 0.28
