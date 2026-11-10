@@ -5,11 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NanoManager • NothingOrNo</title>
 
-  <!-- Montserrat, JetBrains Mono & Material Symbols -->
+  <!-- Web Icon / Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
+  <!-- Montserrat, JetBrains Mono & Phosphor Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   <style>
     * {
@@ -46,7 +50,7 @@
       pointer-events: none;
     }
 
-    /* Floating Background Tiles */
+    /* Floating Background Rounded Tiles */
     .bg-cubes-container {
       position: fixed;
       top: 0;
@@ -64,7 +68,7 @@
       height: 80px;
       background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(7, 7, 9, 0.95));
       border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 18px;
+      border-radius: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -76,33 +80,50 @@
       user-select: none;
     }
 
-    .bg-cube:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
-    .bg-cube:nth-child(2) { top: 60%; left: 8%; animation-delay: -3s; }
-    .bg-cube:nth-child(3) { top: 20%; right: 6%; animation-delay: -1.5s; }
-    .bg-cube:nth-child(4) { top: 75%; right: 10%; animation-delay: -4.5s; }
+    .bg-cube:nth-child(1)  { top: 5%;   left: 4%;  animation-delay: 0s; }
+    .bg-cube:nth-child(2)  { top: 25%;  left: 12%; animation-delay: -2s; }
+    .bg-cube:nth-child(3)  { top: 50%;  left: 3%;  animation-delay: -4s; }
+    .bg-cube:nth-child(4)  { top: 75%;  left: 10%; animation-delay: -6s; }
+    .bg-cube:nth-child(5)  { top: 8%;   right: 5%; animation-delay: -1s; }
+    .bg-cube:nth-child(6)  { top: 30%;  right: 14%; animation-delay: -3s; }
+    .bg-cube:nth-child(7)  { top: 55%;  right: 6%; animation-delay: -5s; }
+    .bg-cube:nth-child(8)  { top: 80%;  right: 12%; animation-delay: -7s; }
+    .bg-cube:nth-child(9)  { top: 15%;  left: 80%; animation-delay: -8s; font-size: 1.1rem; color: rgba(255, 255, 255, 0.45); }
+    .bg-cube:nth-child(10) { top: 68%;  left: 82%; animation-delay: -9s; }
+    .bg-cube:nth-child(11) { top: 40%;  left: 6%;  animation-delay: -2.5s; }
+    .bg-cube:nth-child(12) { top: 88%;  left: 45%; animation-delay: -4.5s; }
 
     @keyframes floatCube {
       0%, 100% { transform: translateY(0px) scale(1); }
       50% { transform: translateY(-20px) scale(1.04); }
     }
 
-    /* Topbar Navigation */
+    /* Liquid Glass Rounded Rectangle Topbar */
     .navbar {
       width: 100%;
-      max-width: 950px;
-      background: rgba(20, 20, 26, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 9999px;
-      padding: 12px 28px;
+      max-width: calc(100vw - 32px);
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 14px 28px;
+      margin-bottom: 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.4),
+        0 12px 40px rgba(0, 0, 0, 0.6);
       position: relative;
       z-index: 10;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
     .brand-title {
@@ -113,65 +134,148 @@
       letter-spacing: -0.5px;
     }
 
+    .btn-topbar-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15);
+      font-size: 20px;
+    }
+
+    .btn-topbar-icon:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.3);
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    .btn-nav {
-      display: inline-flex;
+    /* MAIN LAYOUT */
+    .main-layout {
+      display: flex; 
+      width: 100%;
+      max-width: calc(100vw - 32px);
+      gap: 32px;
+      position: relative;
+      z-index: 10;
+      align-items: flex-start;
+    }
+
+    .sidebar {
+      width: 300px;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.15),
+        0 16px 50px rgba(0, 0, 0, 0.6);
+      position: sticky;
+      top: 24px;
+    }
+
+    .sidebar-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+      display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
-      background-color: #1a1a22;
-      color: #e3e2e6;
-      padding: 9px 20px;
-      border-radius: 9999px;
+      gap: 8px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px 16px;
+      border-radius: 14px;
+      color: #e2e8f0;
+      font-size: 0.88rem;
       font-weight: 600;
-      font-size: 0.85rem;
       text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, 0.08);
       transition: all 0.2s ease;
     }
 
-    .btn-nav:hover {
-      background-color: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+    .sidebar-link i {
+      font-size: 18px;
     }
 
-    .container {
+    .sidebar-link:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      transform: translateX(4px);
+    }
+
+    .sidebar-link.active-nanomanager {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    }
+
+    .center-content {
+      flex: 1;
       width: 100%;
-      max-width: 950px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      position: relative;
-      z-index: 10;
+      gap: 24px;
     }
 
     .surface-card {
-      background: rgba(18, 18, 24, 0.85);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 28px;
-      padding: 40px;
-      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.4),
+        0 16px 50px rgba(0, 0, 0, 0.7);
+      width: 100%;
     }
 
     .hero-title {
-      font-size: 2.2rem;
+      font-size: 1.85rem;
       font-weight: 800;
       color: #ffffff;
-      margin-bottom: 12px;
-      letter-spacing: -0.8px;
+      letter-spacing: -0.6px;
+      margin-bottom: 8px;
     }
 
     .hero-desc {
       color: #94a3b8;
-      font-size: 1.02rem;
+      font-size: 0.95rem;
       line-height: 1.7;
       font-weight: 500;
     }
@@ -209,7 +313,7 @@
     }
 
     .download-rectangle {
-      background: rgba(26, 26, 34, 0.9);
+      background: rgba(26, 26, 34, 0.8);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 24px;
       padding: 32px;
@@ -292,7 +396,7 @@
       padding: 2px 6px;
       border-radius: 6px;
       font-size: 0.84rem;
-      color: #00ff66;
+      color: #38bdf8;
     }
 
     .card-tech-tag {
@@ -327,6 +431,8 @@
       text-decoration: none;
       transition: all 0.2s ease;
       white-space: nowrap;
+      cursor: pointer;
+      border: none;
     }
 
     .btn-download:hover {
@@ -354,7 +460,7 @@
     }
 
     .changelog-box summary:hover {
-      color: #00ff66;
+      color: #38bdf8;
     }
 
     .changelog-content {
@@ -378,15 +484,137 @@
     }
 
     .site-footer {
-      margin-top: 32px;
+      width: 100%;
+      max-width: 950px;
+      margin-top: 36px;
       text-align: center;
       font-size: 0.82rem;
       color: #64748b;
+      font-weight: 500;
       position: relative;
       z-index: 10;
     }
 
+    /* Custom Modal Prompt for Mobile .exe Downloads */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: rgba(20, 20, 28, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 28px;
+      width: 90%;
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      text-align: center;
+    }
+
+    .modal-icon {
+      font-size: 40px;
+      color: #fbbf24;
+      margin: 0 auto;
+    }
+
+    .modal-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .modal-desc {
+      font-size: 0.88rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .modal-btn-cancel {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+    }
+
+    .modal-btn-cancel:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .modal-btn-confirm {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .modal-btn-confirm:hover {
+      background: #cbd5e1;
+    }
+
+    /* Liquid Glass Mobile Pill Nav Bar */
+    .mobile-bottom-bar {
+      display: none;
+    }
+
     @media (max-width: 768px) {
+      body {
+        padding: 12px 10px;
+        padding-bottom: 96px !important;
+      }
+      .navbar {
+        padding: 12px 16px;
+        margin-bottom: 16px;
+        border-radius: 20px;
+      }
+      .main-layout {
+        flex-direction: column;
+        max-width: 100%;
+      }
+      .sidebar {
+        display: none !important;
+      }
+      .center-content {
+        width: 100%;
+      }
+      .surface-card {
+        padding: 20px 16px;
+        border-radius: 20px;
+      }
       .banner-main-row {
         flex-direction: column;
         align-items: flex-start;
@@ -394,6 +622,55 @@
       .banner-actions {
         width: 100%;
         align-items: stretch;
+      }
+      .btn-download {
+        width: 100%;
+      }
+      .mobile-bottom-bar {
+        display: flex;
+        position: fixed;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100vw - 32px);
+        max-width: 420px;
+        height: 62px;
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(32px) saturate(200%);
+        -webkit-backdrop-filter: blur(32px) saturate(200%);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 9999px;
+        box-shadow: 
+          inset 0 1px 1px rgba(255, 255, 255, 0.25),
+          0 12px 40px rgba(0, 0, 0, 0.85);
+        justify-content: space-around;
+        align-items: center;
+        z-index: 999;
+        padding: 0 8px;
+      }
+      .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        color: #94a3b8;
+        text-decoration: none;
+        font-size: 0.65rem;
+        font-weight: 700;
+        flex: 1;
+        height: 100%;
+        transition: color 0.15s ease;
+        border-radius: 9999px;
+      }
+      .mobile-nav-item i {
+        font-size: 22px;
+      }
+      .mobile-nav-item.active {
+        color: #ffffff;
+      }
+      .mobile-nav-item:hover {
+        color: #ffffff;
       }
     }
   </style>
@@ -409,126 +686,251 @@
     <div class="bg-cube">.exe</div>
   </div>
 
-  <!-- Topbar Navigation -->
+  <!-- Rounded Rectangle Liquid Glass Topbar -->
   <nav class="navbar">
-    <a href="index.html" class="brand-title">NothingOrNo</a>
+    <div class="brand-section">
+      <a href="index.html" class="brand-title">NothingOrNo</a>
+    </div>
     <div class="nav-links">
-      <a href="index.html" class="btn-nav">Home</a>
-      <a href="matrix.html" class="btn-nav" style="border-color: rgba(0, 255, 102, 0.3); color: #00ff66;">MatriX</a>
-      <a href="kinematix.html" class="btn-nav">KinematiX</a>
+      <a href="index.html" class="btn-topbar-icon" title="Home Hub">
+        <i class="ph ph-house"></i>
+      </a>
     </div>
   </nav>
 
-  <main class="container">
-    <section class="surface-card">
-      <h1 class="hero-title">NanoManager Downloads</h1>
-      <p class="hero-desc">Custom high-speed Windows task management software engineered in C++ for maximum resource efficiency.</p>
-    </section>
-
-    <section class="surface-card">
-      
-      <!-- Code Signing Disclaimer Banner -->
-      <div class="signing-notice">
-        <span class="material-symbols-outlined notice-icon">verified_user</span>
-        <div class="notice-text">
-          <strong>Note on Windows SmartScreen:</strong> Neither executable is digitally signed because code-signing certificates are excessively expensive for independent developers. Windows may display a standard <em>"Unknown Publisher"</em> warning upon launching—simply click <strong>More info → Run anyway</strong> to open.
-        </div>
+  <!-- MAIN LAYOUT -->
+  <main class="main-layout">
+    
+    <!-- Left Sidebar / Explorer (Hidden Automatically on Mobile) -->
+    <aside class="sidebar">
+      <div class="sidebar-title">
+        <i class="ph ph-folder-open" style="font-size: 20px;"></i>
+        All Projects
+      </div>
+      <div id="sidebarProductsList" style="display:flex; flex-direction:column; gap:12px;">
+        <a href="zeromodel.html" class="sidebar-link">
+          <i class="ph ph-cube"></i> ZeroModel Studio
+        </a>
+        <a href="launcher.html" class="sidebar-link">
+          <i class="ph ph-rocket-launch"></i> Launcher
+        </a>
+        <a href="nanomanager.html" class="sidebar-link active-nanomanager">
+          <i class="ph-fill ph-terminal-window"></i> NanoManager
+        </a>
+        <a href="substratefx.html" class="sidebar-link">
+          <i class="ph ph-sliders"></i> SubstrateFX Engine
+        </a>
+        <a href="matrix.html" class="sidebar-link">
+          <i class="ph ph-brackets-curly"></i> MatriX
+        </a>
       </div>
 
-      <!-- Horizontal Rectangle Download Banners -->
-      <div class="downloads-list">
+      <!-- Explorer Legal / Policy Section -->
+      <div style="margin-top: auto; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 14px; display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; letter-spacing: 0.5px; padding-left: 4px;">LEGAL & POLICIES</div>
+        <a href="privacy.html" class="sidebar-link" style="padding: 8px 12px; font-size: 0.8rem;">
+          <i class="ph ph-shield-check"></i> Privacy Policy
+        </a>
+        <a href="tos.html" class="sidebar-link" style="padding: 8px 12px; font-size: 0.8rem;">
+          <i class="ph ph-file-text"></i> Terms of Service
+        </a>
+      </div>
+    </aside>
+
+    <!-- Center Content -->
+    <div class="center-content">
+      <section class="surface-card">
+        <div>
+          <h1 class="hero-title">NanoManager Downloads</h1>
+          <p class="hero-desc">Custom high-speed Windows task management software engineered in C++ for maximum resource efficiency.</p>
+        </div>
+      </section>
+
+      <section class="surface-card">
         
-        <!-- NanoManager Legacy Rectangle Banner -->
-        <div class="download-rectangle">
-          <div class="banner-main-row">
-            <div class="banner-info">
-              <span class="badge-legacy">LEGACY</span>
-              <div class="banner-title">NanoManager (Legacy)</div>
-              
-              <!-- RICH TEXT DESCRIPTION -->
-              <div class="richtext-desc">
-                Coded natively in <b>C++</b>, the Legacy build stands as <b>one of the lightest task managers available</b> on Windows. It delivers zero background bloat, near-zero CPU usage, and instant process management routines. 
-                <br><br>
-                <i><b>Disclaimer:</b> This legacy version is <b>not created by me</b>, but served as the primary inspiration for building the new version. It rarely receives updates and is provided as-is for archive/lightweight performance purposes. It's made by froxy</i>
-              </div>
-
-              <div class="card-tech-tag">
-                <span class="material-symbols-outlined" style="font-size: 16px;">code</span> C++ (<code>nano_manager.exe</code>)
-              </div>
-            </div>
-
-            <div class="banner-actions">
-              <a href="downloads/nano_manager.exe" download="nano_manager.exe" class="btn-download">
-                <span class="material-symbols-outlined" style="font-size: 20px;">download</span>
-                Download Legacy (.exe)
-              </a>
-            </div>
+        <!-- Code Signing Disclaimer Banner -->
+        <div class="signing-notice">
+          <i class="ph ph-shield-check notice-icon"></i>
+          <div class="notice-text">
+            <strong>Note on Windows SmartScreen:</strong> Neither executable is digitally signed because code-signing certificates are excessively expensive for independent developers. Windows may display a standard <em>"Unknown Publisher"</em> warning upon launching—simply click <strong>More info → Run anyway</strong> to open.
           </div>
-
-          <!-- Legacy Changelog -->
-          <details class="changelog-box">
-            <summary>
-              <span class="material-symbols-outlined" style="font-size: 18px;">history</span>
-              View Changelog
-            </summary>
-            <div class="changelog-content">
-              <b>Legacy Archive</b>
-              <ul>
-                <li>Creation of NanoManager by froxy.</li>
-              </ul>
-            </div>
-          </details>
         </div>
 
-        <!-- NanoManager New Rectangle Banner -->
-        <div class="download-rectangle">
-          <div class="banner-main-row">
-            <div class="banner-info">
-              <span class="badge-new">LATEST RELEASE</span>
-              <div class="banner-title">NanoManager (New)</div>
-              
-              <!-- RICH TEXT DESCRIPTION -->
-              <div class="richtext-desc">
-                Written completely in <b>C++</b> from scratch (inspired by the Legacy edition), this newly released version introduces expanded process controls and enhanced system telemetry. <i>Note:</i> As it released recently, it <b>might contain minor bugs</b> while under active development. Soon featuring full UI rendering acceleration via the <code>NothingUI</code> framework!
+        <!-- Horizontal Rectangle Download Banners -->
+        <div class="downloads-list">
+          
+          <!-- NanoManager Legacy Rectangle Banner -->
+          <div class="download-rectangle">
+            <div class="banner-main-row">
+              <div class="banner-info">
+                <span class="badge-legacy">LEGACY</span>
+                <div class="banner-title">NanoManager (Legacy)</div>
+                
+                <div class="richtext-desc">
+                  Coded natively in <b>C++</b>, the Legacy build stands as <b>one of the lightest task managers available</b> on Windows. It delivers zero background bloat, near-zero CPU usage, and instant process management routines. 
+                  <br><br>
+                  <i><b>Disclaimer:</b> This legacy version is <b>not created by me</b>, but served as the primary inspiration for building the new version. It rarely receives updates and is provided as-is for archive/lightweight performance purposes. It's made by froxy</i>
+                </div>
+
+                <div class="card-tech-tag">
+                  <i class="ph ph-code" style="font-size: 16px;"></i> C++ (<code>nano_manager.exe</code>)
+                </div>
               </div>
 
-              <div class="card-tech-tag">
-                <span class="material-symbols-outlined" style="font-size: 16px;">code</span> C++ (<code>NanoManagerCpp.exe</code>)
+              <div class="banner-actions">
+                <button type="button" class="btn-download" onclick="handleDownload('downloads/nano_manager.exe', 'nano_manager.exe')">
+                  <i class="ph ph-download" style="font-size: 20px;"></i>
+                  Download Legacy (.exe)
+                </button>
               </div>
             </div>
 
-            <div class="banner-actions">
-              <a href="downloads/NanoManagerCpp.exe" download="NanoManagerCpp.exe" class="btn-download">
-                <span class="material-symbols-outlined" style="font-size: 20px;">download</span>
-                Download New (.exe)
-              </a>
-            </div>
+            <!-- Legacy Changelog -->
+            <details class="changelog-box">
+              <summary>
+                <i class="ph ph-clock-counter-clockwise" style="font-size: 18px;"></i>
+                View Changelog
+              </summary>
+              <div class="changelog-content">
+                <b>Legacy Archive</b>
+                <ul>
+                  <li>Creation of NanoManager by froxy.</li>
+                </ul>
+              </div>
+            </details>
           </div>
 
-          <!-- New Build Changelog -->
-          <details class="changelog-box" open>
-            <summary>
-              <span class="material-symbols-outlined" style="font-size: 18px;">history</span>
-              View Changelog
-            </summary>
-            <div class="changelog-content">
-              <b>v2.0.0-Beta (Current Version)</b>
-              <ul>
-                <li><b>Rewritten C++ Core:</b> Brand new architecture built for modular UI integration.</li>
-                <li><b>New UI</b> <i>(Soon will be replaced by NothingUI.)</i></li>
-                <li><b>NothingUI</b> lib is pending, expect until <i>v3.1.0</i> for a UI overhaul.</li>
-              </ul>
-            </div>
-          </details>
-        </div>
+          <!-- NanoManager New Rectangle Banner -->
+          <div class="download-rectangle">
+            <div class="banner-main-row">
+              <div class="banner-info">
+                <span class="badge-new">LATEST RELEASE</span>
+                <div class="banner-title">NanoManager (New)</div>
+                
+                <div class="richtext-desc">
+                  Written completely in <b>C++</b> from scratch (inspired by the Legacy edition), this newly released version introduces expanded process controls and enhanced system telemetry. <i>Note:</i> As it released recently, it <b>might contain minor bugs</b> while under active development. Soon featuring full UI rendering acceleration via the <code>NothingUI</code> framework!
+                </div>
 
-      </div>
-    </section>
+                <div class="card-tech-tag">
+                  <i class="ph ph-code" style="font-size: 16px;"></i> C++ (<code>NanoManagerCpp.exe</code>)
+                </div>
+              </div>
+
+              <div class="banner-actions">
+                <button type="button" class="btn-download" onclick="handleDownload('downloads/NanoManagerCpp.exe', 'NanoManagerCpp.exe')">
+                  <i class="ph ph-download" style="font-size: 20px;"></i>
+                  Download New (.exe)
+                </button>
+              </div>
+            </div>
+
+            <!-- New Build Changelog -->
+            <details class="changelog-box" open>
+              <summary>
+                <i class="ph ph-clock-counter-clockwise" style="font-size: 18px;"></i>
+                View Changelog
+              </summary>
+              <div class="changelog-content">
+                <b>v2.0.0-Beta (Current Version)</b>
+                <ul>
+                  <li><b>Rewritten C++ Core:</b> Brand new architecture built for modular UI integration.</li>
+                  <li><b>New UI</b> <i>(Soon will be replaced by NothingUI.)</i></li>
+                  <li><b>NothingUI</b> lib is pending, expect until <i>v3.1.0</i> for a UI overhaul.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+        </div>
+      </section>
+    </div>
   </main>
 
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-bar">
+    <a href="index.html" class="mobile-nav-item">
+      <i class="ph ph-squares-four"></i>
+      Dashboard
+    </a>
+    <a href="substratefx.html" class="mobile-nav-item">
+      <i class="ph ph-sliders"></i>
+      SubstrateFX
+    </a>
+    <a href="matrix.html" class="mobile-nav-item">
+      <i class="ph ph-brackets-curly"></i>
+      MatriX
+    </a>
+    <a href="zeromodel.html" class="mobile-nav-item">
+      <i class="ph ph-cube"></i>
+      ZeroModel
+    </a>
+  </nav>
+
+  <!-- Mobile .exe Warning Prompt Modal -->
+  <div class="modal-overlay" id="exeWarningModal">
+    <div class="modal-box">
+      <i class="ph ph-warning modal-icon"></i>
+      <div class="modal-title">Unsupported Device / File Format</div>
+      <div class="modal-desc">
+        Are you sure you want to download this Windows <code>.exe</code> executable? <b>Executables are not supported on mobile devices</b> and cannot be run directly here.
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button>
+        <button type="button" class="modal-btn modal-btn-confirm" id="confirmDownloadBtn">Download Anyway</button>
+      </div>
+    </div>
+  </div>
+
   <footer class="site-footer">
-    NothingOrNo Studio • Independent Software Showcase
+    NothingOrNo Studio • Software Showcase
   </footer>
 
+  <script>
+    let pendingDownloadUrl = '';
+    let pendingFilename = '';
+
+    function isMobileDevice() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    }
+
+    function handleDownload(url, filename) {
+      if (isMobileDevice()) {
+        pendingDownloadUrl = url;
+        pendingFilename = filename;
+        document.getElementById('exeWarningModal').classList.add('active');
+      } else {
+        triggerDirectDownload(url, filename);
+      }
+    }
+
+    function triggerDirectDownload(url, filename) {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function closeModal() {
+      document.getElementById('exeWarningModal').classList.remove('active');
+      pendingDownloadUrl = '';
+      pendingFilename = '';
+    }
+
+    document.getElementById('confirmDownloadBtn').addEventListener('click', () => {
+      if (pendingDownloadUrl) {
+        triggerDirectDownload(pendingDownloadUrl, pendingFilename);
+      }
+      closeModal();
+    });
+
+    // Close modal if clicking outside the modal box
+    document.getElementById('exeWarningModal').addEventListener('click', (e) => {
+      if (e.target.id === 'exeWarningModal') {
+        closeModal();
+      }
+    });
+  </script>
 </body>
 </html>
