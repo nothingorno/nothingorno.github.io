@@ -3,32 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>matrix.exe</title>
+  <title>MatriX</title>
 
-  <!-- JetBrains Mono -->
+  <!-- Web Icon / Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
+  <!-- Montserrat, JetBrains Mono & Phosphor Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   <style>
-    /* Windows XP Classic Cursors (Embedded SVG Data URIs) */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 16 20"><path d="M0,0 L0,16 L4,12 L7,18 L10,17 L7,11 L12,11 Z" fill="white" stroke="black" stroke-width="1.2" stroke-linejoin="round"/></svg>'), default !important;
-    }
-
-    a, button, input[type="text"], .btn-secondary, .btn-copy, .console_window {
-      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="22" viewBox="0 0 18 22"><path d="M6,1 L9,1 L9,8 L10,8 L10,3 L12,3 L12,8 L13,8 L13,5 L15,5 L15,9 L16,9 L16,7 L17,7 L17,14 C17,18 14,21 10,21 C6,21 4,19 3,16 L1,11 C0.5,10 1.5,9 2.5,10 L5,12 L5,1 Z" fill="white" stroke="black" stroke-width="1.2" stroke-linejoin="round"/></svg>'), pointer !important;
     }
 
     body {
-      font-family: 'JetBrains Mono', monospace !important;
+      font-family: 'Montserrat', sans-serif;
       min-height: 100vh;
       color: #e3e2e6;
-      background-color: #050507;
+      background-color: #070709;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -37,44 +35,128 @@
       position: relative;
     }
 
-    /* Matrix Rain Canvas Background */
-    #matrixCanvas {
+    /* Technical Grid Overlay */
+    .bg-grid-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 255, 102, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 255, 102, 0.03) 1px, transparent 1px);
       z-index: 0;
-      opacity: 0.18;
       pointer-events: none;
     }
 
-    /* Pill-Shaped Topbar */
+    /* Floating Background Rounded Tiles */
+    .bg-cubes-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .bg-cube {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(to bottom, rgba(0, 255, 102, 0.06), rgba(7, 7, 9, 0.95));
+      border: 1px solid rgba(0, 255, 102, 0.15);
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 800;
+      font-size: 0.72rem;
+      color: rgba(0, 255, 102, 0.35);
+      animation: floatCube 12s infinite ease-in-out;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      user-select: none;
+    }
+
+    .bg-cube:nth-child(1)  { top: 5%;   left: 4%;  animation-delay: 0s; }
+    .bg-cube:nth-child(2)  { top: 25%;  left: 12%; animation-delay: -2s; }
+    .bg-cube:nth-child(3)  { top: 50%;  left: 3%;  animation-delay: -4s; }
+    .bg-cube:nth-child(4)  { top: 75%;  left: 10%; animation-delay: -6s; }
+    .bg-cube:nth-child(5)  { top: 8%;   right: 5%; animation-delay: -1s; }
+    .bg-cube:nth-child(6)  { top: 30%;  right: 14%; animation-delay: -3s; }
+    .bg-cube:nth-child(7)  { top: 55%;  right: 6%; animation-delay: -5s; }
+    .bg-cube:nth-child(8)  { top: 80%;  right: 12%; animation-delay: -7s; }
+    .bg-cube:nth-child(9)  { top: 15%;  left: 80%; animation-delay: -8s; font-size: 1.1rem; color: rgba(0, 255, 102, 0.45); }
+    .bg-cube:nth-child(10) { top: 68%;  left: 82%; animation-delay: -9s; }
+    .bg-cube:nth-child(11) { top: 40%;  left: 6%;  animation-delay: -2.5s; }
+    .bg-cube:nth-child(12) { top: 88%;  left: 45%; animation-delay: -4.5s; }
+
+    @keyframes floatCube {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.04); }
+    }
+
+    /* Liquid Glass Rounded Rectangle Topbar */
     .navbar {
       width: 100%;
-      max-width: 950px;
-      background: rgba(20, 20, 24, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(0, 255, 102, 0.2);
-      border-radius: 9999px;
-      padding: 14px 32px;
+      max-width: calc(100vw - 32px);
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 14px 28px;
+      margin-bottom: 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 28px;
-      box-shadow: 0 10px 30px rgba(0, 255, 102, 0.05);
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.4),
+        0 12px 40px rgba(0, 0, 0, 0.6);
       position: relative;
       z-index: 10;
     }
 
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
     .brand-title {
       font-weight: 800;
-      font-size: 1.15rem;
-      color: #00ff66;
+      font-size: 1.2rem;
+      color: #ffffff;
       text-decoration: none;
       letter-spacing: -0.5px;
-      text-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+    }
+
+    .btn-topbar-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15);
+      font-size: 20px;
+    }
+
+    .btn-topbar-icon:hover {
+      background: #00ff66;
+      color: #000000;
+      border-color: #00ff66;
+      transform: translateY(-2px);
+      box-shadow: 0 0 18px rgba(0, 255, 102, 0.4);
     }
 
     .nav-links {
@@ -83,170 +165,170 @@
       gap: 12px;
     }
 
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      background-color: #141418;
-      color: #e3e2e6;
-      padding: 8px 18px;
-      border-radius: 9999px;
-      font-weight: 600;
-      font-size: 0.82rem;
-      text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.15s ease;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .btn-secondary:hover {
-      background-color: #00ff66;
-      color: #050507;
-      border-color: #00ff66;
-      box-shadow: 0 0 12px rgba(0, 255, 102, 0.4);
-    }
-
-    .container {
+    /* MAIN LAYOUT */
+    .main-layout {
+      display: flex; 
       width: 100%;
-      max-width: 950px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      max-width: calc(100vw - 32px);
+      gap: 32px;
       position: relative;
       z-index: 10;
+      align-items: flex-start;
     }
 
-    .surface-card {
-      background: rgba(18, 18, 22, 0.9);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      padding: 32px;
+    .sidebar {
+      width: 300px;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      gap: 16px;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.15),
+        0 16px 50px rgba(0, 0, 0, 0.6);
+      position: sticky;
+      top: 24px;
+    }
+
+    .sidebar-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px 16px;
+      border-radius: 14px;
+      color: #e2e8f0;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-link i {
+      font-size: 18px;
+    }
+
+    .sidebar-link:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      transform: translateX(4px);
+    }
+
+    .sidebar-link.active-matrix {
+      background: rgba(0, 255, 102, 0.12);
+      border-color: rgba(0, 255, 102, 0.4);
+      color: #00ff66;
+      box-shadow: inset 0 1px 1px rgba(0, 255, 102, 0.3);
+    }
+
+    .center-content {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Liquid Glass Surface Card */
+    .surface-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 28px;
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.4),
+        0 16px 50px rgba(0, 0, 0, 0.7);
+      width: 100%;
     }
 
     .engine-header {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
+    }
+
+    .engine-icon-wrapper {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: rgba(0, 255, 102, 0.1);
+      border: 1px solid rgba(0, 255, 102, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset 0 1px 1px rgba(0, 255, 102, 0.3);
     }
 
     .engine-icon {
-      font-size: 38px;
+      font-size: 30px;
       color: #00ff66;
-      text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
     }
 
     .engine-title {
       font-size: 1.85rem;
       font-weight: 800;
       color: #ffffff;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.6px;
     }
 
-    /* Description Text Box */
     .description_text {
-      background-color: #121215;
-      border: 1px dashed rgba(0, 255, 102, 0.3);
-      border-radius: 14px;
-      padding: 20px;
-      color: #a0a0aa;
-      font-size: 0.88rem;
+      background-color: rgba(20, 20, 28, 0.7);
+      border: 1px solid rgba(0, 255, 102, 0.15);
+      border-radius: 20px;
+      padding: 24px;
+      color: #94a3b8;
+      font-size: 0.95rem;
       line-height: 1.7;
+      font-weight: 500;
     }
 
     .description_text h3 {
       color: #00ff66;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 700;
       margin-bottom: 8px;
-    }
-
-    .crime-joke {
-      color: #52525b;
-      font-size: 0.78rem;
-      font-style: italic;
-      margin-top: 6px;
-    }
-
-    /* Windows Terminal Console Window */
-    .console_window {
-      background-color: #0c0c0c;
-      border: 1px solid #333333;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-    }
-
-    .console_header {
-      background-color: #1f1f1f;
-      padding: 8px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #333333;
-    }
-
-    .console_title {
-      font-size: 0.78rem;
-      color: #cccccc;
-    }
-
-    .console_body {
-      padding: 16px;
-      height: 160px;
-      overflow-y: auto;
-      font-size: 0.82rem;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .console_output {
-      color: #cccccc;
-    }
-
-    .console_output.success { color: #00ff66; }
-    .console_output.accent { color: #38bdf8; }
-
-    .console_input_row {
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-top: 4px;
-    }
-
-    .console_prompt {
-      color: #cccccc;
-      font-weight: 700;
-    }
-
-    .console_input {
-      background: transparent;
-      border: none;
-      outline: none;
-      color: #ffffff;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.82rem;
-      width: 100%;
-      caret-color: #ffffff;
     }
 
     /* Lua Code Textbox Wrapper */
     .code_textbox_wrapper {
-      background-color: #0a0a0c;
-      border-radius: 14px;
+      background-color: #0b0b0f;
+      border-radius: 20px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     .code_header {
-      background-color: #121216;
-      padding: 12px 20px;
+      background-color: #14141c;
+      padding: 14px 22px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -254,9 +336,10 @@
     }
 
     .code_label {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #00ff66;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #e2e8f0;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -266,222 +349,328 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background-color: #1a1a20;
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 6px 16px;
+      background-color: #00ff66;
+      color: #000000;
+      border: none;
+      padding: 8px 18px;
       border-radius: 9999px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      font-weight: 600;
-      transition: all 0.15s ease;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
 
     .btn-copy:hover {
-      background-color: #00ff66;
-      color: #050507;
-      box-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+      background-color: #33ff88;
+      box-shadow: 0 0 18px rgba(0, 255, 102, 0.4);
     }
 
-    /* Lua Code Syntax Colors */
     .code_textbox {
-      padding: 20px;
-      font-size: 0.85rem;
-      line-height: 1.6;
-      overflow-x: auto;
+      padding: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.86rem;
+      line-height: 1.65;
+      overflow: auto;
       color: #e3e2e6;
       white-space: pre;
-      max-height: 400px;
+      max-height: 520px;
+      user-select: text;
     }
 
-    .lua-keyword { color: #ff5577; font-weight: 700; }  
-    .lua-builtin { color: #38bdf8; }                   
-    .lua-string  { color: #00ff66; }                   
-    .lua-comment { color: #52525b; font-style: italic; } 
-    .lua-number  { color: #fbbf24; }                   
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070709;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00ff66;
+    }
+
+    /* Syntax Highlighting */
+    .lua-keyword { color: #f43f5e; font-weight: 700; }  
+    .lua-builtin { color: #38bdf8; }                 
+    .lua-string  { color: #4ade80; }                 
+    .lua-comment { color: #64748b; font-style: italic; } 
+    .lua-number  { color: #fbbf24; }                 
 
     .site-footer {
       width: 100%;
       max-width: 950px;
-      margin-top: 28px;
+      margin-top: 36px;
       text-align: center;
-      font-size: 0.8rem;
-      color: #52525b;
+      font-size: 0.82rem;
+      color: #64748b;
+      font-weight: 500;
       position: relative;
       z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-discord {
+      background: rgba(88, 101, 242, 0.15);
+      border: 1px solid rgba(88, 101, 242, 0.4);
+      color: #8ea1e1;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-discord:hover {
+      background: #5865f2;
+      color: #ffffff;
+      border-color: #5865f2;
+      box-shadow: 0 0 16px rgba(88, 101, 242, 0.4);
+    }
+
+    /* Liquid Glass Mobile Pill Nav Bar & Filled Active Icons */
+    .mobile-bottom-bar {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 12px 10px;
+        padding-bottom: 96px !important;
+      }
+      .navbar {
+        padding: 12px 16px;
+        margin-bottom: 16px;
+        border-radius: 20px;
+      }
+      .main-layout {
+        flex-direction: column;
+        max-width: 100%;
+      }
+      .sidebar {
+        display: none !important;
+      }
+      .center-content {
+        width: 100%;
+      }
+      .surface-card {
+        padding: 20px 16px;
+        border-radius: 20px;
+      }
+      .engine-title {
+        font-size: 1.4rem;
+      }
+      .mobile-bottom-bar {
+        display: flex;
+        position: fixed;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100vw - 32px);
+        max-width: 420px;
+        height: 62px;
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(32px) saturate(200%);
+        -webkit-backdrop-filter: blur(32px) saturate(200%);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 9999px;
+        box-shadow: 
+          inset 0 1px 1px rgba(255, 255, 255, 0.25),
+          0 12px 40px rgba(0, 0, 0, 0.85);
+        justify-content: space-around;
+        align-items: center;
+        z-index: 999;
+        padding: 0 8px;
+      }
+      .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        color: #94a3b8;
+        text-decoration: none;
+        font-size: 0.65rem;
+        font-weight: 700;
+        flex: 1;
+        height: 100%;
+        transition: color 0.15s ease;
+        border-radius: 9999px;
+      }
+      .mobile-nav-item i {
+        font-size: 22px;
+      }
+      .mobile-nav-item.active {
+        color: #00ff66;
+      }
+      .mobile-nav-item:hover {
+        color: #ffffff;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Matrix Binary Background Canvas -->
-  <canvas id="matrixCanvas"></canvas>
+  <!-- Technical Grid Background Overlay -->
+  <div class="bg-grid-overlay"></div>
 
-  <!-- Topbar -->
+  <!-- Floating Background Rounded Tiles Wallpaper -->
+  <div class="bg-cubes-container">
+    <div class="bg-cube">Nothing</div>
+    <div class="bg-cube">OrNo</div>
+    <div class="bg-cube">Studio</div>
+    <div class="bg-cube">Crew</div>
+    <div class="bg-cube">C++</div>
+    <div class="bg-cube">.dll</div>
+    <div class="bg-cube">Luau</div>
+    <div class="bg-cube">MatriX</div>
+    <div class="bg-cube">:3</div>
+    <div class="bg-cube">Sanitize</div>
+    <div class="bg-cube">Substrate</div>
+    <div class="bg-cube">ZeroModel</div>
+  </div>
+
+  <!-- Rounded Rectangle Liquid Glass Topbar -->
   <nav class="navbar">
-    <a href="index.html" class="brand-title">NothingOrNo.exe</a>
+    <div class="brand-section">
+      <a href="index.html" class="brand-title">NothingOrNo</a>
+    </div>
+
     <div class="nav-links">
-      <a href="kinematix.html" class="btn-secondary">KinematiX</a>
-      <a href="index.html" class="btn-secondary">
-        <span class="material-symbols-outlined" style="font-size: 16px;">terminal</span>
-        Home
+      <a href="index.html" class="btn-topbar-icon" title="Home Hub">
+        <i class="ph ph-house"></i>
       </a>
     </div>
   </nav>
 
-  <main class="container">
-    <section class="surface-card">
-      
-      <div class="engine-header">
-        <span class="material-symbols-outlined engine-icon">data_object</span>
-        <h1 class="engine-title">MatriX Pipeline</h1>
+  <!-- MAIN LAYOUT -->
+  <main class="main-layout">
+    
+    <!-- Left Sidebar / Explorer (Hidden Automatically on Mobile) -->
+    <aside class="sidebar">
+      <div class="sidebar-title">
+        <i class="ph ph-folder-open" style="font-size: 20px;"></i>
+        All Projects
+      </div>
+      <div id="sidebarProductsList" style="display:flex; flex-direction:column; gap:12px;">
+        <a href="zeromodel.html" class="sidebar-link">
+          <i class="ph ph-cube"></i> ZeroModel Studio
+        </a>
+        <a href="launcher.html" class="sidebar-link">
+          <i class="ph ph-rocket-launch"></i> Launcher
+        </a>
+        <a href="nanomanager.html" class="sidebar-link">
+          <i class="ph ph-terminal-window"></i> NanoManager
+        </a>
+        <a href="substratefx.html" class="sidebar-link">
+          <i class="ph ph-sliders"></i> SubstrateFX Engine
+        </a>
+        <a href="matrix.html" class="sidebar-link active-matrix">
+          <i class="ph-fill ph-brackets-curly" style="color: #00ff66;"></i> MatriX
+        </a>
       </div>
 
-      <!-- Description Box -->
-      <div class="description_text">
-        <h3>Data Laundering & Sanitization</h3>
-        <p>
-          MatriX takes incoming client data payloads, scrubs control characters, neutralizes NaN numbers, cycles state ticks, and hands your server scripts squeaky-clean variables. Test it live in the Windows terminal below!
-        </p>
-        <div class="crime-joke">(this is not a crime reference xd)</div>
+      <!-- Explorer Legal / Policy Section -->
+      <div style="margin-top: auto; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 14px; display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; letter-spacing: 0.5px; padding-left: 4px;">LEGAL & POLICIES</div>
+        <a href="privacy.html" class="sidebar-link" style="padding: 8px 12px; font-size: 0.8rem;">
+          <i class="ph ph-shield-check"></i> Privacy Policy
+        </a>
+        <a href="tos.html" class="sidebar-link" style="padding: 8px 12px; font-size: 0.8rem;">
+          <i class="ph ph-file-text"></i> Terms of Service
+        </a>
       </div>
+    </aside>
 
-      <!-- Windows Terminal Console Window -->
-      <div class="console_window" onclick="document.getElementById('consoleInput').focus()">
-        <div class="console_header">
-          <div class="console_title">Command Prompt - matrix_pipeline.exe</div>
-          <div style="font-size: 0.75rem; color: #888888;">_ &#x25A2; X</div>
-        </div>
-
-        <div class="console_body" id="consoleBody">
-          <div class="console_output accent">Microsoft Windows XP [Version 5.1.2600]</div>
-          <div class="console_output">(C) Copyright 1985-2001 Microsoft Corp.</div>
-          <div class="console_output" style="margin-top: 4px;">C:\RobloxStudio\Products\MatriX&gt; matrix_pipeline.exe --start</div>
-          <div class="console_output success">MatriX initialized successfully. Type 'help' for commands.</div>
-          
-          <div class="console_input_row">
-            <span class="console_prompt">&gt;</span>
-            <input type="text" id="consoleInput" class="console_input" autofocus autocomplete="off" spellcheck="false" onkeydown="handleConsoleInput(event)">
+    <!-- Center Content (Auto-Scales to 100% on Mobile) -->
+    <div class="center-content">
+      <section class="surface-card">
+        
+        <div class="engine-header">
+          <div class="engine-icon-wrapper">
+            <i class="ph-fill ph-brackets-curly engine-icon"></i>
+          </div>
+          <div>
+            <h1 class="engine-title">MatriX</h1>
+            <div style="font-size: 0.82rem; color: #00ff66; font-family: 'JetBrains Mono', monospace; font-weight: 700; margin-top: 2px;">
+              DATA LAUNDERING & SANITIZATION FRAMEWORK
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Code Textbox Container -->
-      <div class="code_textbox_wrapper">
-        <div class="code_header">
-          <span class="code_label">
-            <span class="material-symbols-outlined" style="font-size: 16px;">code</span>
-            MatriX.luau
-          </span>
-          <button class="btn-copy" onclick="copyCode(this)">
-            <span class="material-symbols-outlined" style="font-size: 16px;">content_copy</span>
-            <span class="copy-text">Copy Code</span>
-          </button>
+        <!-- Description Text Box -->
+        <div class="description_text">
+          <h3>
+            <i class="ph ph-sparkle" style="font-size: 20px; color: #00ff66;"></i>
+            Data Laundering & Sanitization
+          </h3>
+          <p>
+            MatriX takes incoming client data payloads, strips control characters, neutralizes NaN numbers, cycles state ticks, and hands your server scripts squeaky-clean variables.
+          </p>
         </div>
 
-        <div class="code_textbox" id="luaCode"></div>
-      </div>
+        <!-- Code Textbox Container -->
+        <div class="code_textbox_wrapper">
+          <div class="code_header">
+            <span class="code_label">
+              <i class="ph ph-code" style="font-size: 16px;"></i>
+              MatriX.luau
+            </span>
 
-    </section>
+            <button class="btn-copy" onclick="copyCode(this)">
+              <i class="ph ph-copy" style="font-size: 16px;"></i>
+              <span class="copy-text">Copy Code</span>
+            </button>
+          </div>
+
+          <div class="code_textbox" id="luaCode"></div>
+        </div>
+
+      </section>
+    </div>
   </main>
 
+  <!-- Floating Liquid Glass Mobile Pill Nav Bar (Phosphor Icons with Filled Active State) -->
+  <nav class="mobile-bottom-bar">
+    <a href="index.html" class="mobile-nav-item">
+      <i class="ph ph-squares-four"></i>
+      Dashboard
+    </a>
+    <a href="substratefx.html" class="mobile-nav-item">
+      <i class="ph ph-sliders"></i>
+      SubstrateFX
+    </a>
+    <a href="matrix.html" class="mobile-nav-item active">
+      <i class="ph-fill ph-brackets-curly"></i>
+      MatriX
+    </a>
+    <a href="zeromodel.html" class="mobile-nav-item">
+      <i class="ph ph-cube"></i>
+      ZeroModel
+    </a>
+  </nav>
+
   <footer class="site-footer">
-    01001110 01101111 01110100 01101000 01101001 01101110 01100111 01001111 01110010 01001110 01101111
+    <div>NothingOrNo Studio • Independent Asset Showcase</div>
+    <a href="https://discord.gg/FNsQymaUWv" target="_blank" class="btn-discord">
+      <i class="ph ph-discord-logo" style="font-size: 18px;"></i> Join Discord Community
+    </a>
   </footer>
 
   <script>
-    // Matrix Rain Effect
-    const canvas = document.getElementById('matrixCanvas');
-    const ctx = canvas.getContext('2d');
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const chars = '01';
-    const fontSize = 14;
-    let columns = Math.floor(canvas.width / fontSize);
-    let drops = Array(columns).fill(1);
-
-    function drawMatrix() {
-      ctx.fillStyle = 'rgba(5, 5, 7, 0.1)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = '#00ff66';
-      ctx.font = fontSize + 'px "JetBrains Mono"';
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = chars.charAt(Math.floor(Math.random() * chars.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-    }
-    setInterval(drawMatrix, 40);
-
-    // Interactive Console Logic
-    let stateVersion = 1;
-    function handleConsoleInput(event) {
-      if (event.key === 'Enter') {
-        const inputField = document.getElementById('consoleInput');
-        const cmd = inputField.value.trim();
-        if (!cmd) return;
-
-        const consoleBody = document.getElementById('consoleBody');
-        
-        const userDiv = document.createElement('div');
-        userDiv.innerHTML = `<span class="console_prompt">&gt;</span> <span style="color: #ffffff;">${escapeHtml(cmd)}</span>`;
-        consoleBody.insertBefore(userDiv, consoleBody.lastElementChild);
-
-        const respDiv = document.createElement('div');
-        respDiv.className = 'console_output';
-
-        const lowerCmd = cmd.toLowerCase();
-        if (lowerCmd === 'help') {
-          respDiv.className = 'console_output accent';
-          respDiv.innerHTML = "Commands: 'wash', 'cycle', 'status', 'clear'";
-        } else if (lowerCmd === 'wash') {
-          stateVersion++;
-          respDiv.className = 'console_output success';
-          respDiv.innerHTML = `[SUCCESS] Payload washed successfully! StateVersion bumped to v${stateVersion}.`;
-        } else if (lowerCmd === 'cycle') {
-          stateVersion++;
-          respDiv.className = 'console_output accent';
-          respDiv.innerHTML = `[CYCLE] State cycled. Version: v${stateVersion}`;
-        } else if (lowerCmd === 'status') {
-          respDiv.className = 'console_output success';
-          respDiv.innerHTML = `[STATUS] Pipeline healthy. Cache active. Version: v${stateVersion}`;
-        } else if (lowerCmd === 'clear') {
-          consoleBody.innerHTML = `
-            <div class="console_output accent">Microsoft Windows XP [Version 5.1.2600]</div>
-            <div class="console_input_row">
-              <span class="console_prompt">&gt;</span>
-              <input type="text" id="consoleInput" class="console_input" autofocus autocomplete="off" spellcheck="false" onkeydown="handleConsoleInput(event)">
-            </div>`;
-          document.getElementById('consoleInput').focus();
-          return;
-        } else {
-          respDiv.style.color = '#ff5577';
-          respDiv.innerHTML = `'${escapeHtml(cmd)}' is not recognized as an internal or external command.`;
-        }
-
-        consoleBody.insertBefore(respDiv, consoleBody.lastElementChild);
-        inputField.value = '';
-        consoleBody.scrollTop = consoleBody.scrollHeight;
-      }
-    }
-
-    function escapeHtml(str) {
-      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
-
-    // Raw Luau Code
     const rawCode = `local HttpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
 
@@ -490,92 +679,89 @@ MatriX.__index = MatriX
 
 type DataPayload = {
 	Timestamp: number,
-	StateVersion: number,
+	DataVersion: number,
 	RawValues: { [string]: any },
 	Sanitized: boolean,
 }
 
-function MatriX.new(initialData: { [string]: any }?)
+function MatriX.new(initialData: { [string]: any })
 	local self = setmetatable({}, MatriX)
 	self._cache = {}
 	self._cycleCount = 0
-	self._subscribers = {}
+	self._isWashing = false
 	
 	if initialData then
-		self:WashAndInject(initialData)
+		self:Ingest(initialData)
 	end
 	
 	return self
 end
 
+function MatriX:Ingest(dataMap: { [string]: any })
+	for key, val in pairs(dataMap) do
+		local cleanKey = self:SanitizeString(tostring(key))
+		local cleanVal = self:SanitizeValue(val)
+		self._cache[cleanKey] = cleanVal
+	end
+end
+
+function MatriX:SanitizeString(str: string): string
+	-- Strip control characters & non-printable ASCII
+	local clean = str:gsub("[%c]", "")
+	clean = clean:gsub("[^%w%s%_%-%p]", "")
+	return clean
+end
+
 function MatriX:SanitizeValue(val: any): any
 	local valType = typeof(val)
-	if valType == "string" then
-		return val:gsub("[%z\\1-\\31\\127]", "")
-	elseif valType == "number" then
-		if val ~= val then return 0 end
-		return math.clamp(val, -1e9, 1e9)
-	elseif valType == "boolean" or valType == "Vector3" or valType == "CFrame" or valType == "Color3" then
-		return val
-	elseif valType == "table" then
-		local cleaned = {}
-		for k, v in pairs(val) do
-			cleaned[tostring(k)] = self:SanitizeValue(v)
+	
+	if valType == "number" then
+		-- Neutralize NaN and Inf values
+		if val ~= val or val == math.huge or val == -math.huge then
+			return 0
 		end
-		return cleaned
+		return math.clamp(val, -1e9, 1e9)
+	elseif valType == "string" then
+		return self:SanitizeString(val)
+	elseif valType == "table" then
+		local cleanTable = {}
+		for k, v in pairs(val) do
+			cleanTable[self:SanitizeString(tostring(k))] = self:SanitizeValue(v)
+		end
+		return cleanTable
+	elseif valType == "boolean" then
+		return val
 	end
+	
 	return nil
 end
 
-function MatriX:WashAndInject(incomingData: { [string]: any })
+function MatriX:Launder(): DataPayload
+	self._isWashing = true
 	self._cycleCount += 1
-	local washedPayload: DataPayload = {
+	
+	local sanitizedMap = {}
+	for k, v in pairs(self._cache) do
+		sanitizedMap[k] = self:SanitizeValue(v)
+	end
+	
+	self._isWashing = false
+	
+	return {
 		Timestamp = os.time(),
-		StateVersion = self._cycleCount,
-		RawValues = {},
+		DataVersion = self._cycleCount,
+		RawValues = sanitizedMap,
 		Sanitized = true,
 	}
-
-	for key, value in pairs(incomingData) do
-		local cleanKey = tostring(key):gsub("[%z\\1-\\31\\127]", "")
-		washedPayload.RawValues[cleanKey] = self:SanitizeValue(value)
-	end
-
-	self._cache = washedPayload
-	self:Broadcast()
 end
 
-function MatriX:Cycle()
-	if self._cache and self._cache.RawValues then
-		self._cycleCount += 1
-		self._cache.StateVersion = self._cycleCount
-		self._cache.Timestamp = os.time()
-	end
-end
-
-function MatriX:Subscribe(callback: (payload: DataPayload) -> ())
-	table.insert(self._subscribers, callback)
-	if self._cache.RawValues then
-		task.spawn(callback, self._cache)
-	end
-end
-
-function MatriX:Broadcast()
-	for _, callback in ipairs(self._subscribers) do
-		task.spawn(callback, self._cache)
-	end
-end
-
-function MatriX:GetCleanValue(key: string): any
-	if self._cache.RawValues then
-		return self._cache.RawValues[key]
-	end
-	return nil
+function MatriX:ExportJSON(): string
+	local payload = self:Launder()
+	return HttpService:JSONEncode(payload)
 end
 
 return MatriX`;
 
-    // Safe Code Highlighter
     function highlightLua(code) {
       const tokens = [];
       let highlighted = code
@@ -591,7 +777,7 @@ return MatriX`;
           return `___TOKEN_${tokens.length - 1}___`;
         })
         .replace(/\b(local|function|return|end|if|then|else|elseif|for|while|do|repeat|until|in|require|self|export|type|setmetatable)\b/g, '<span class="lua-keyword">$1</span>')
-        .replace(/\b(game|HttpService|RunService|print|warn|error|typeof|tostring|pairs|ipairs|table|math|os|task|Vector3|CFrame|Color3)\b/g, '<span class="lua-builtin">$1</span>')
+        .replace(/\b(game|Workspace|HttpService|RunService|print|warn|error|WaitForChild|GetService|Enum|Vector3|CFrame|Instance|Task|math|string|table|os|typeof|tostring|pairs|ipairs)\b/g, '<span class="lua-builtin">$1</span>')
         .replace(/\b(\d+)\b/g, '<span class="lua-number">$1</span>');
 
       tokens.forEach((token, index) => {
@@ -602,21 +788,19 @@ return MatriX`;
 
     document.getElementById("luaCode").innerHTML = highlightLua(rawCode);
 
-    // Copy to clipboard function
     function copyCode(btn) {
       navigator.clipboard.writeText(rawCode).then(() => {
         const textSpan = btn.querySelector('.copy-text');
         textSpan.textContent = 'Copied!';
-        btn.style.backgroundColor = '#00ff66';
-        btn.style.color = '#050507';
+        btn.style.backgroundColor = '#ffffff';
+        btn.style.color = '#000000';
         setTimeout(() => {
           textSpan.textContent = 'Copy Code';
-          btn.style.backgroundColor = '';
-          btn.style.color = '';
+          btn.style.backgroundColor = '#00ff66';
+          btn.style.color = '#000000';
         }, 2000);
       });
     }
   </script>
-
 </body>
 </html>
